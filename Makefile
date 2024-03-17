@@ -6,19 +6,26 @@ CC:=gcc
 CXX:=g++
 LD:=g++
 CFLAGS:=-g -Wall -Wno-unused-result -I${INCLUDEDIR} -IC:\msys64\mingw64\include\SDL2
-CXXFLAGS:=${CFLAGS}
 OFLAGS:=-O2 -fno-omit-frame-pointer
-LDFLAGS:=-L C:\msys64\mingw64\lib -lmingw32 -lSDL2main -lSDL2_image -lSDL2 
+LFLAGS:=-L C:\msys64\mingw64\lib -lSDL2main -lSDL2_image -lSDL2 
 
-CXXSRCS:=agrbride.cpp
+CXXSRCS:=agrbride.cpp layer.cpp window.cpp
 OBJLIST:=${CXXSRCS:.cpp=.o}
 OBJS=$(foreach O,$(OBJLIST),$(BINDIR)/$(O))
 PROG:=agrbride.exe
 
 ifeq ($(build_mode),release)
-	CFLAGS += $(OFLAGS)
-	CXXFLAGS += $(OFLAGS)
+	CFLAGS+=$(OFLAGS)
 endif
+
+ifeq ($(console_mode),windows)
+	CFLAGS+=-DWIN32
+	LDFLAGS=-Wl,-subsystem,windows $(LFLAGS)
+else
+	LDFLAGS=-lmingw32 $(LFLAGS)
+endif
+
+CXXFLAGS:=${CFLAGS}
 
 .PHONY: all
 

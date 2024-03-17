@@ -7,10 +7,6 @@ and may not be redistributed without written permission.*/
 #include <stdio.h>
 #include <string>
 
-//Screen dimension constants
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
-
 //Starts up SDL and creates window
 bool init();
 
@@ -154,7 +150,11 @@ SDL_Surface* loadSurface( std::string path )
 	return optimizedSurface;
 }
 
+#if defined(WIN32)
+int WinMain( int argc, char* args[] )
+#else
 int main( int argc, char* args[] )
+#endif
 {
 	//Start up SDL and create window
 	char* path = (char*)"./images/00291-386992299.png";
@@ -197,6 +197,14 @@ int main( int argc, char* args[] )
 					if( e.type == SDL_QUIT )
 					{
 						quit = true;
+					}
+
+					else if( e.type == SDL_KEYDOWN )
+					{
+						if( e.key.keysym.sym == SDLK_ESCAPE )
+						{
+							quit = true;
+						}
 					}
 				}
 
