@@ -1,4 +1,21 @@
-#if !defined(__COMMON_H__)
-#define __COMMON_H__
+#pragma once
+
+#include <cstdio>
+
+#if defined(__DEBUG__) && !defined(__NOTRACE__)
+
+#define TRACE(...) fprintf(stderr, __VA_ARGS__)
+#define TRY(a) if(a) {} else { TRACE("%s:%d => Test " #a " failed.\n", __FILE__, __LINE__); goto try_exception_end; }
+#define TRY_RAISE(a, b) if(a) {} else { TRACE("%s:%d => Test " #a " failed.\n", __FILE__, __LINE__); goto b; }
+#define CATCH(a) goto try_exception_end; a:
+#define FINALLY try_exception_end:
+
+#else
+
+#define TRACE(...) 
+#define TRY(a) if(a) {} else { goto try_exception_end; }
+#define TRY_RAISE(a, b) if(a) {} else { goto b; }
+#define CATCH(a) goto try_exception_end; a:
+#define FINALLY try_exception_end:
 
 #endif

@@ -6,149 +6,20 @@ and may not be redistributed without written permission.*/
 #include <SDL_image.h>
 #include <stdio.h>
 #include <string>
+#include "common.h"
+#include "base.h"
+#include "button.h"
 
-//Starts up SDL and creates window
-bool init();
-
-//Loads media
-bool loadMedia();
-
-//Frees media and shuts down SDL
-void close();
-
-//Loads individual image
-SDL_Surface* loadSurface( std::string path );
-
-//The window we'll be rendering to
-SDL_Window* gWindow = NULL;
-	
-//The surface contained by the window
-SDL_Surface* gScreenSurface = NULL;
-
-//Current displayed PNG image
-SDL_Surface* gPNGSurface = NULL;
-
-bool init()
+class QuitButton: public Button
 {
-	//Initialization flag
-	bool success = true;
+	public:
+		QuitButton(Application* App): Button(App->getWindowSurface()), mApp{App} {}
+		virtual bool releasedHandler() { return true; }
+		virtual bool altReleasedHandler() { mApp->quit(); return true; }
 
-	//Initialize SDL
-	if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
-	{
-		printf( "SDL could not initialize! SDL Error: %s\n", SDL_GetError() );
-		success = false;
-	}
-	else
-	{
-	SDL_DisplayMode DM;
-	int modeResult = SDL_GetCurrentDisplayMode(0, &DM);
-	auto Width = DM.w;
-	auto Height = DM.h;
-
-	printf("Screen resolution: (%d, %d)/%d\n", Width, Height, modeResult);
-	if( modeResult != 0 )
-	{
-		printf("Cannot get display mode: %s\n", SDL_GetError());
-		return false;
-	}
-
-
-		//Create window
-		gWindow = SDL_CreateWindow( "그림 보기", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, Width, Height, SDL_WINDOW_SHOWN );
-		if( gWindow == NULL )
-		{
-			printf( "Window could not be created! SDL Error: %s\n", SDL_GetError() );
-			success = false;
-		}
-		else
-		{
-			// Set full screen
-			int result = SDL_SetWindowFullscreen(gWindow, SDL_WINDOW_FULLSCREEN);
-			if( result != 0 )
-			{
-				printf( "Cannot set fullscreen: %s\n", SDL_GetError() );
-				return false;
-			}
-
-			//Initialize PNG loading
-			int imgFlags = IMG_INIT_PNG;
-			if( !( IMG_Init( imgFlags ) & imgFlags ) )
-			{
-				printf( "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() );
-				success = false;
-			}
-			else
-			{
-				//Get window surface
-				gScreenSurface = SDL_GetWindowSurface( gWindow );
-			}
-		}
-	}
-
-	return success;
-}
-
-bool loadMedia(char* path)
-{
-	//Loading success flag
-	bool success = true;
-
-	//Load PNG surface
-	gPNGSurface = loadSurface( path );
-	if( gPNGSurface == NULL )
-	{
-		printf( "Failed to load PNG image!\n" );
-		success = false;
-	}
-
-	return success;
-}
-
-void close()
-{
-	//Free loaded image
-	SDL_FreeSurface( gPNGSurface );
-	gPNGSurface = NULL;
-
-	//Destroy window
-	SDL_DestroyWindow( gWindow );
-	gWindow = NULL;
-
-	//Quit SDL subsystems
-	IMG_Quit();
-	SDL_Quit();
-}
-
-SDL_Surface* loadSurface( std::string path )
-{
-	//The final optimized image
-	SDL_Surface* optimizedSurface = NULL;
-
-	//Load image at specified path
-	SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
-	if( loadedSurface == NULL )
-	{
-		printf( "Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError() );
-	}
-	else
-	{
-		//Convert surface to screen format
-		printf( "그림 크기: (%d, %d)\n", loadedSurface->w, loadedSurface->h);
-		SDL_SetWindowSize(gWindow, loadedSurface->w, loadedSurface->h);
-		gScreenSurface = SDL_GetWindowSurface( gWindow );
-		optimizedSurface = SDL_ConvertSurface( loadedSurface, gScreenSurface->format, 0 );
-		if( optimizedSurface == NULL )
-		{
-			printf( "Unable to optimize image %s! SDL Error: %s\n", path.c_str(), SDL_GetError() );
-		}
-
-		//Get rid of old loaded surface
-		SDL_FreeSurface( loadedSurface );
-	}
-
-	return optimizedSurface;
-}
+	private:
+		Application* mApp;
+};
 
 #if defined(WIN32)
 int WinMain( int argc, char* args[] )
@@ -157,7 +28,16 @@ int main( int argc, char* args[] )
 #endif
 {
 	//Start up SDL and create window
+	bool quit = false;
 	char* path = (char*)"./images/00291-386992299.png";
+	SDL_Event event;
+	Window gameWindow("신이 다스리는 농원");
+	Layer UI;
+	Layer World;
+	Application app(&gameWindow);
+	QuitButton exampleButton(&app);
+
+	UI.subscribe(&exampleButton);
 
 	if( argc == 2 )
 	{
@@ -168,57 +48,31 @@ int main( int argc, char* args[] )
 		printf("Using default path: %s\n", path);
 	}
 
-	if( !init() )
+	while( !quit )
 	{
-		printf( "Failed to initialize!\n" );
-	}
-	else
-	{
-		//Load media
-		if( !loadMedia(path) )
+		while( SDL_PollEvent(&event) != 0 )
 		{
-			printf( "Failed to load media!\n" );
-		}
-		else
-		{	
-			//Main loop flag
-			bool quit = false;
-
-			//Event handler
-			SDL_Event e;
-
-			//While application is running
-			while( !quit )
+			if( (event.type == SDL_QUIT) || ( (event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_ESCAPE) ) )
 			{
-				//Handle events on queue
-				while( SDL_PollEvent( &e ) != 0 )
-				{
-					//User requests quit
-					if( e.type == SDL_QUIT )
-					{
-						quit = true;
-					}
-
-					else if( e.type == SDL_KEYDOWN )
-					{
-						if( e.key.keysym.sym == SDLK_ESCAPE )
-						{
-							quit = true;
-						}
-					}
-				}
-
-				//Apply the PNG image
-				SDL_BlitSurface( gPNGSurface, NULL, gScreenSurface, NULL );
-			
-				//Update the surface
-				SDL_UpdateWindowSurface( gWindow );
+				quit = true;
 			}
+			else
+			{
+				if( UI.handleEvent(&event) )
+				{
+					gameWindow.renderFrame();
+					continue;
+				}
+				else if( World.handleEvent(&event) )
+				{
+					gameWindow.renderFrame();
+					continue;
+				}
+			}
+
+			gameWindow.renderFrame();
 		}
 	}
-
-	//Free resources and close SDL
-	close();
 
 	return 0;
 }
