@@ -9,16 +9,51 @@ and may not be redistributed without written permission.*/
 #include "common.h"
 #include "base.h"
 #include "button.h"
+#include "text.h"
+#include "keyhandler.h"
+#include "image.h"
+#include "vnadvance.h"
 
 class QuitButton: public Button
 {
 	public:
-		QuitButton(Application* App): Button(App->getWindowSurface()), mApp{App} {}
-		virtual bool releasedHandler() { return true; }
-		virtual bool altReleasedHandler() { mApp->quit(); return true; }
+		QuitButton(Application* App, SDL_Rect rect): Button(App->getWindowSurface(), rect), mApp{App} {}
+		virtual bool releasedHandler() { mApp->quit(); return true; }
+		virtual bool altReleasedHandler() { return true; }
 
 	private:
 		Application* mApp;
+};
+
+class ImageMoveHandler: public Image, public KeyHandler
+{
+	public:
+		ImageMoveHandler(Window* window): Image(window) {}
+		virtual bool keyPressed(const int keyCode, const bool pressed)
+		{
+			TRACE("Key code [%d]: %s\n", keyCode, pressed? "PRESSED":"RELEASED");
+			if(!pressed)
+			{
+				switch( keyCode )
+				{
+					case SDLK_UP:
+						mYPos -= 10;
+						break;
+					case SDLK_DOWN:
+						mYPos += 10;
+						break;
+					case SDLK_LEFT:
+						mXPos -= 10;
+						break;
+					case SDLK_RIGHT:
+						mXPos += 10;
+						break;
+				}
+			}
+
+			display();
+			return false;
+		}
 };
 
 #if defined(WIN32)
@@ -32,12 +67,24 @@ int main( int argc, char* args[] )
 	char* path = (char*)"./images/00291-386992299.png";
 	SDL_Event event;
 	Window gameWindow("신이 다스리는 농원");
-	Layer UI;
+	vnAdvanceLayer UI(&gameWindow);
 	Layer World;
 	Application app(&gameWindow);
-	QuitButton exampleButton(&app);
+	// QuitButton exampleButton(&app);
+	// Text exampleText(&gameWindow, "Hello, SDL World! -> 하늘에서 우주선이 내려옵니다.");
+	ImageMoveHandler exampleImage(&gameWindow);
 
-	UI.subscribe(&exampleButton);
+	void appendExampleDialogues(vnAdvanceLayer&);
+	
+	exampleImage.loadImage("./images/manda.png");
+	// exampleText.moveTo(960, 960, .5, .5);
+
+	// UI.subscribe(&exampleButton);
+	UI.subscribe(&exampleImage);
+	UI.addDisplayable(&exampleImage);
+
+	appendExampleDialogues(UI);
+	UI.begin();
 
 	if( argc == 2 )
 	{
@@ -52,6 +99,8 @@ int main( int argc, char* args[] )
 	{
 		while( SDL_PollEvent(&event) != 0 )
 		{
+			gameWindow.beginRender();
+
 			if( (event.type == SDL_QUIT) || ( (event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_ESCAPE) ) )
 			{
 				quit = true;
@@ -60,17 +109,17 @@ int main( int argc, char* args[] )
 			{
 				if( UI.handleEvent(&event) )
 				{
-					gameWindow.renderFrame();
+					gameWindow.finishRender();
 					continue;
 				}
 				else if( World.handleEvent(&event) )
 				{
-					gameWindow.renderFrame();
+					gameWindow.finishRender();
 					continue;
 				}
 			}
 
-			gameWindow.renderFrame();
+			gameWindow.finishRender();
 		}
 	}
 

@@ -1,33 +1,27 @@
 #include "common.h"
 #include "button.h"
 
-Button::Button(SDL_Surface* surface):
-    Displayable(surface), isHovered(false), isClicked(false), isAltClicked(false)
+Button::Button(SDL_Surface* surface, SDL_Rect rect):
+    Displayable(surface), mRect(rect)
 {
-    display();
 }
 
 bool Button::isMouseInBound(const int x, const int y)
 {
-    TRACE("Bound checker: (%d, %d - %d, %d) {%d, %d}\n", Rect.x, Rect.y, Rect.w, Rect.h, x, y );
-    if(x < Rect.x ) return false;
-    if(x > Rect.x + Rect.w ) return false;
-    if(y < Rect.y ) return false;
-    if(y > Rect.y + Rect.h ) return false;
+    TRACE("Bound checker: (%d, %d - %d, %d) {%d, %d}\n",mRect.x,mRect.y,mRect.w,mRect.h, x, y );
+    if(x <mRect.x ) return false;
+    if(x >mRect.x +mRect.w ) return false;
+    if(y <mRect.y ) return false;
+    if(y >mRect.y +mRect.h ) return false;
 
     return true;
-}
-
-void Button::display()
-{
-    auto [r, g, b, a] { isClicked? ClickedColor: isAltClicked? AltClickedColor: isHovered? HoverColor : BGColor };
-    TRACE("Button color code: %d %d %d %d\n", r, g, b, a);
-    SDL_FillRect(mSDLWindowSurface, &Rect, SDL_MapRGB(mSDLWindowSurface->format, r, g, b));
 }
 
 bool Button::handleEvent(const SDL_Event* event)
 {
     bool ret = false;
+
+    if( !getSensitive() ) return false;
 
     switch( event->type )
     {
@@ -35,19 +29,19 @@ bool Button::handleEvent(const SDL_Event* event)
             switch( event->button.button )
             {
                 case SDL_BUTTON_LEFT:
-                    if( isHovered )
+                    if( getHovered() )
                     {
                         TRACE("Left button down! updating...\n");
-                        isClicked = true;
+                        setClicked(true);
                         display();
                         ret = this->clickedHandler();
                     }
                     break;
                 case SDL_BUTTON_RIGHT:
-                    if( isHovered )
+                    if( getHovered() )
                     {
                         TRACE("Right button down! updating...\n");
-                        isAltClicked = true;
+                        setAltClicked();
                         display();
                         ret = this->altClickedHandler();
                     }
@@ -59,19 +53,19 @@ bool Button::handleEvent(const SDL_Event* event)
             switch( event->button.button )
             {
                 case SDL_BUTTON_LEFT:
-                    if( isHovered )
+                    if( getHovered() )
                     {
                         TRACE("Left button up! updating...\n");
-                        isClicked = false;
+                        setClicked(false);
                         display();
                         ret = this->releasedHandler();
                     }
                     break;
                 case SDL_BUTTON_RIGHT:
-                    if( isHovered )
+                    if( getHovered() )
                     {
                         TRACE("Right button up! updating...\n");
-                        isAltClicked = false;
+                        setAltClicked(false);
                         display();
                         ret = this->altReleasedHandler();
                     }
@@ -81,17 +75,17 @@ bool Button::handleEvent(const SDL_Event* event)
 
         case SDL_MOUSEMOTION:
             bool mouseHovered = isMouseInBound(event->motion.x, event->motion.y);
-            if( (isHovered == true) && (mouseHovered == false) )
+            if( getHovered() && (mouseHovered == false) )
             {
-                isHovered = false;
-                isClicked = false;
-                isAltClicked = false;
+                setHovered(false);
+                setClicked(false);
+                setAltClicked(false);
                 display();
                 ret = this->unhoveredHandler();
             }
-            else if( (isHovered == false) && (mouseHovered == true) )
+            else if( !getHovered() && (mouseHovered == true) )
             {
-                isHovered = true;
+                setHovered();
                 display();
                 ret = this->hoveredHandler();
             }

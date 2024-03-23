@@ -7,9 +7,12 @@ CXX:=g++
 LD:=g++
 CFLAGS:=-g -Wall -Wno-unused-result -I${INCLUDEDIR} -IC:\msys64\mingw64\include\SDL2
 OFLAGS:=-O2 -fno-omit-frame-pointer
-LFLAGS:=-L C:\msys64\mingw64\lib -lSDL2main -lSDL2_image -lSDL2 
+LFLAGS:=-L C:\msys64\mingw64\lib -lSDL2main -lSDL2_image -lSDL2_ttf -lSDL2 
 
-CXXSRCS:=agrbride.cpp layer.cpp window.cpp button.cpp
+PRIMITIVESRCS:=displayable.cpp layer.cpp window.cpp font.cpp button.cpp text.cpp image.cpp
+VNSRCS:=vnadvance.cpp exampledialogues.cpp
+CXXSRCS:=agrbride.cpp ${PRIMITIVESRCS} ${VNSRCS}
+
 OBJLIST:=${CXXSRCS:.cpp=.o}
 OBJS=$(foreach O,$(OBJLIST),$(BINDIR)/$(O))
 PROG:=agrbride.exe
