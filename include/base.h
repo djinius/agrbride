@@ -4,7 +4,29 @@
 #include <vector>
 #include <algorithm>
 #include <SDL.h>
+#include <SDL_image.h>
 #include <SDL_ttf.h>
+
+class Application
+{
+    public:
+        Application() {}
+        ~Application() {}
+
+        int initialize(const int = IMG_INIT_JPG | IMG_INIT_PNG);
+        void finalize();
+
+        // SDL_Renderer* getRenderer() { return mWindow->getMainRenderer(); }
+        void quit() { SDL_Event QuitEvent { SDL_QUIT }; SDL_PushEvent(&QuitEvent); }
+
+    public:
+        static int initializeStatic(const int = IMG_INIT_JPG | IMG_INIT_PNG);
+        static void destroyStatic();
+        static Application& getApplication() {return gApplication;}
+
+    private:
+        static Application gApplication;
+};
 
 class Window
 {
@@ -13,14 +35,12 @@ class Window
         ~Window();
         void beginRender();
         void finishRender();
-        SDL_Surface* getSurface() { return mSDLWindowSurface; }
         SDL_Renderer* getRenderer() { return mSDLRenderer; }
 
     private:
         int init(const std::string&);
         SDL_Window* mSDLWindow { nullptr };
         SDL_Renderer* mSDLRenderer { nullptr };
-        SDL_Surface* mSDLWindowSurface { nullptr };
 };
 
 class EventReceiver
@@ -128,20 +148,4 @@ class Font
         bool mIsLoaded;
 
         static Font* mDefaultFont;
-};
-
-class Application
-{
-    public:
-        Application() {}
-        ~Application() {}
-
-        int initialize(const int = IMG_INIT_JPG | IMG_INIT_PNG);
-        void finalize();
-
-        // SDL_Renderer* getRenderer() { return mWindow->getMainRenderer(); }
-        void quit() { SDL_Event QuitEvent { SDL_QUIT }; SDL_PushEvent(&QuitEvent); }
-
-    private:
-        // Window* mMainWindow {nullptr};
 };

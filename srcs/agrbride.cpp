@@ -14,6 +14,7 @@ and may not be redistributed without written permission.*/
 #include "image.h"
 #include "vnadvance.h"
 
+#if 0
 class QuitButton: public Button
 {
 	public:
@@ -24,6 +25,7 @@ class QuitButton: public Button
 	private:
 		Application* mApp;
 };
+#endif
 
 class ImageMoveHandler: public Image, public KeyHandler
 {
@@ -61,19 +63,21 @@ int WinMain( int argc, char* args[] )
 int main( int argc, char* args[] )
 #endif
 {
+	Application::initializeStatic();
+
 	//Start up SDL and create window
 	bool quit = false;
 	SDL_Event event;
 	Window gameWindow("신이 다스리는 농원");
 	vnAdvanceLayer UI(&gameWindow);
-	Application app(&gameWindow);
+	// Application app(&gameWindow);
 	// QuitButton exampleButton(&app);
 	// Text exampleText(&gameWindow, "Hello, SDL World! -> 하늘에서 우주선이 내려옵니다.");
 	ImageMoveHandler exampleImage(&gameWindow);
 
 	void appendExampleDialogues(vnAdvanceLayer&);
 	
-	exampleImage.loadImage("./images/manda_outdoors.png");
+	exampleImage.loadImage("./images/backgrounds/field.png");
 	// exampleText.moveTo(960, 960, .5, .5);
 
 	// UI.subscribe(&exampleButton);

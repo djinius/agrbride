@@ -19,8 +19,6 @@ int Window::init(const string& windowName)
     TRY( (mSDLWindow = SDL_CreateWindow(windowName.c_str(), 0, 0, 1920, 1080, SDL_WINDOW_FULLSCREEN)) != NULL, EINIT );
     TRY( (mSDLRenderer = SDL_CreateRenderer(mSDLWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC)) != NULL, EINIT );
 
-    TRY( Font::initializeStatic() == 0, EINIT );
-
     CATCH(EINIT)
     {
         TRACE("Cannot create window: %s\n", SDL_GetError());

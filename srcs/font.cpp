@@ -40,10 +40,11 @@ int Font::initializeStatic(void)
         ret = -1;
     }
 
+    FINALLY;
     return ret;
 }
 
 void Font::destroyStatic(void)
 {
-    TTF_Quit();
+    delete Font::mDefaultFont;
 }
