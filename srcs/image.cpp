@@ -22,24 +22,16 @@ int Image::loadImage(const string& path)
 {
     SDL_Surface* iSurface = nullptr;
     TRY( (iSurface = IMG_Load(path.c_str())) != nullptr );
-    TRY( (mOptimizedSurface = convertSurface(iSurface)) != nullptr );
-    SDL_SetColorKey(mOptimizedSurface, SDL_TRUE, SDL_MapRGBA(mOptimizedSurface->format, 0, 0, 0, 0));
+    setSize(iSurface->w, iSurface->h);
+    setColorKey(iSurface, SDL_TRUE, SDL_MapRGBA(iSurface->format, 0, 0, 0, 0));
+    TRY( createTexture(iSurface) != nullptr );
 
-    SDL_FreeSurface(iSurface);
+    freeSurface(iSurface);
 
     return 0;
 
     FINALLY;
-    if( iSurface != nullptr ) SDL_FreeSurface(iSurface);
+    freeSurface(iSurface);
+    destroyTexture();
     return -1;
-}
-
-void Image::display()
-{
-    SDL_Rect dstRect;
-    TRY( mOptimizedSurface != nullptr );
-    dstRect = calcXYPos(mOptimizedSurface);
-    blitSurface(mOptimizedSurface, NULL, &dstRect);
-
-    FINALLY;
 }

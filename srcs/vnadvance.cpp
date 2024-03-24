@@ -1,10 +1,11 @@
 #include "vnadvance.h"
+#include "common.h"
 
 vnAdvanceLayer::vnAdvanceLayer(Window* window):
     mNameText(window, "", SDL_Color{255, 255, 0}), mDialogueText(window, "")
 {
-    addDisplayable(&mNameText);
-    addDisplayable(&mDialogueText);
+    addUpperDisplayable(&mNameText);
+    addUpperDisplayable(&mDialogueText);
     mNameText.moveTo(960, 900, .5, .5);
     mDialogueText.moveTo(960, 960, .5, .5);
 }
@@ -12,12 +13,22 @@ vnAdvanceLayer::vnAdvanceLayer(Window* window):
 bool vnAdvanceLayer::handleEvent(const SDL_Event* event)
 {
     bool ret = Layer::handleEvent(event);
+
+    for (const auto displayable : mUpperDisplayables)
+    {
+        TRACE( "Upper display %p\n", displayable );
+        displayable->display();
+    }
+
     if(!ret)
     {
         switch(event->type)
         {
             case SDL_MOUSEBUTTONDOWN:
                 advance();
+                ret = true;
+                break;
+            default:
                 break;
         }
     }
@@ -33,6 +44,14 @@ void vnAdvanceLayer::appendDialogues(vnDialogue* dialogues, int size)
     {
         mDialogues.push_back(&dialogues[i]);
     }
+}
+
+void vnAdvanceLayer::purgeDialogues()
+{
+    mDialogues.clear();
+    mCurrentDialogue = mDialogues.begin();
+    mNameText.update("");
+    mDialogueText.update("");
 }
 
 void vnAdvanceLayer::begin()

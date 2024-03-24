@@ -68,21 +68,31 @@ class EventReceiver
 class Displayable
 {
     public:
-        Displayable(SDL_Surface* surface = nullptr, SDL_Renderer* renderer = nullptr):
-            mSDLWindowSurface(surface), mSDLRenderer(renderer),
-            mXPos(0), mYPos(0), mXAnchor(0.), mYAnchor(0.)            
+        Displayable(SDL_Renderer* renderer):
+            mSDLRenderer(renderer),
+            mW(0), mH(0), mXPos(0), mYPos(0), mXAnchor(0.), mYAnchor(0.)
             {}
-        Displayable(Window* window): Displayable(window->getSurface(), window->getRenderer()) {}
-        virtual void display() = 0;
+        Displayable(Window* window): Displayable(window->getRenderer()) {}
+        virtual ~Displayable() { destroyTexture(); }
+        virtual void display();
         void moveTo(const int, const int, const double, const double);
 
     protected:
-        int blitSurface(SDL_Surface* srcSurface, const SDL_Rect* srcRect, SDL_Rect* dstRect) { return SDL_BlitSurface(srcSurface, srcRect, mSDLWindowSurface, dstRect); }
-        SDL_Surface* convertSurface(SDL_Surface* srcSurface) { return SDL_ConvertSurface(srcSurface, mSDLWindowSurface->format, 0); }
-        SDL_Surface* mSDLWindowSurface {nullptr};
+        /* SDL displayable functions */
+        SDL_Texture* createTexture(SDL_Surface* surface) { return (mTexture = SDL_CreateTextureFromSurface(mSDLRenderer, surface)); }
+        void destroyTexture(void) { if( mTexture != nullptr) SDL_DestroyTexture(mTexture); mTexture = nullptr; }
+        
+        void setColorKey(SDL_Surface* surface, int flags, unsigned int key) { SDL_SetColorKey(surface, flags, key); }
+        void freeSurface(SDL_Surface* surface) { if(surface != nullptr) SDL_FreeSurface(surface); }
+
+    protected:
+        SDL_Texture* mTexture {nullptr};
         SDL_Renderer* mSDLRenderer { nullptr };
 
-        SDL_Rect        calcXYPos(SDL_Surface*);
+        void            setSize(SDL_Surface* surface) {setSize(surface->w, surface->h);}
+        void            setSize(const int w, const int h) {mW = w; mH = h;}
+        SDL_Rect        calcXYPos();
+        int             mW, mH;
         int             mXPos, mYPos;
         double          mXAnchor, mYAnchor;
 };

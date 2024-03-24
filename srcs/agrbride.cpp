@@ -17,7 +17,7 @@ and may not be redistributed without written permission.*/
 class QuitButton: public Button
 {
 	public:
-		QuitButton(Application* App, SDL_Rect rect): Button(App->getWindowSurface(), rect), mApp{App} {}
+		QuitButton(Application* App, SDL_Rect rect): Button(App->getRenderer(), rect), mApp{App} {}
 		virtual bool releasedHandler() { mApp->quit(); return true; }
 		virtual bool altReleasedHandler() { return true; }
 
@@ -51,7 +51,6 @@ class ImageMoveHandler: public Image, public KeyHandler
 				}
 			}
 
-			display();
 			return false;
 		}
 };
@@ -76,7 +75,7 @@ int main( int argc, char* args[] )
 
 	void appendExampleDialogues(vnAdvanceLayer&);
 	
-	exampleImage.loadImage("./images/manda.png");
+	exampleImage.loadImage("./images/manda_outdoors.png");
 	// exampleText.moveTo(960, 960, .5, .5);
 
 	// UI.subscribe(&exampleButton);

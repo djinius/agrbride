@@ -48,7 +48,7 @@ ${PROG}: ${OBJS}
 	${LD} ${OBJS} -o $@ ${LDFLAGS}
 
 test: ${PROG}
-	gdb ${PROG}
+	gdb ${PROG} -x run.cmd
 
 clean:
 	rm -Rf ${OBJS} ${PROG}

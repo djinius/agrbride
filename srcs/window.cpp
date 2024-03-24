@@ -17,19 +17,9 @@ int Window::init(const string& windowName)
     TRY( Font::initializeStatic() == 0 );
     TRY( SDL_GetCurrentDisplayMode(0, &DM) >= 0 );
 
-	// width = DM.w;
-	// height = DM.h;
-
-    TRY( (mSDLWindow = SDL_CreateWindow(windowName.c_str(), 0, 0, 1920, 1080, SDL_WINDOW_SHOWN)) != NULL );
+    TRY( (mSDLWindow = SDL_CreateWindow(windowName.c_str(), 0, 0, DM.w, DM.h, SDL_WINDOW_SHOWN)) != NULL );
     TRY( (mSDLRenderer = SDL_CreateRenderer(mSDLWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC)) != NULL );
     TRY( (mSDLWindowSurface = SDL_GetWindowSurface(mSDLWindow)) != NULL );
-
-    SDL_FillRect(mSDLWindowSurface, nullptr, SDL_MapRGB(mSDLWindowSurface->format, 40, 40, 40));
-    /*
-    SDL_SetRenderDrawColor(mSDLRenderer, 40, 40, 40, 0);
-    SDL_RenderFillRect(mSDLRenderer, NULL);
-    SDL_RenderFlush(mSDLRenderer);
-    */
 
     return 0;
 
@@ -41,24 +31,17 @@ int Window::init(const string& windowName)
 
 void Window::beginRender()
 {
-    SDL_FillRect(mSDLWindowSurface, nullptr, SDL_MapRGB(mSDLWindowSurface->format, 40, 40, 40));
+    SDL_RenderClear(mSDLRenderer);
 }
 
 void Window::finishRender()
 {
     TRACE("Rendering frame again: %p\n", this);
-    SDL_UpdateWindowSurface(mSDLWindow);
-    /*
-    SDL_RenderClear(mSDLRenderer);
-    SDL_SetRenderDrawColor(mSDLRenderer, 40, 40, 40, 0);
-    SDL_RenderFillRect(mSDLRenderer, NULL);
-    SDL_RenderFlush(mSDLRenderer);
-    */
+   SDL_RenderPresent(mSDLRenderer);
 }
 
 Window::~Window()
 {
-	// IMG_Quit();
     SDL_DestroyRenderer(mSDLRenderer);
     SDL_DestroyWindow(mSDLWindow);
 	SDL_Quit();

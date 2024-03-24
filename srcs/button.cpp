@@ -1,8 +1,8 @@
 #include "common.h"
 #include "button.h"
 
-Button::Button(SDL_Surface* surface, SDL_Rect rect):
-    Displayable(surface), mRect(rect)
+Button::Button(SDL_Renderer* renderer, SDL_Rect rect):
+    Displayable(renderer), mRect(rect)
 {
 }
 

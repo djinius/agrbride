@@ -5,7 +5,7 @@
 class Button: public EventReceiver, public Displayable
 {
     public:
-        Button(SDL_Surface*, SDL_Rect);
+        Button(SDL_Renderer*, SDL_Rect);
         virtual ~Button() {}
         virtual bool handleEvent(const SDL_Event*);
         virtual void display() = 0;

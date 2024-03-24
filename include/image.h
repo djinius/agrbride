@@ -6,14 +6,14 @@
 class Image: public Displayable
 {
     public:
-        Image(SDL_Surface* surface = nullptr, SDL_Renderer* renderer = nullptr):
-            Displayable(surface, renderer), mOptimizedSurface(nullptr)
+        Image(SDL_Renderer* renderer):
+            Displayable(renderer)
             {}
-        Image(Window* window): Image(window->getSurface(), window->getRenderer()) {}
-        ~Image() { if(mOptimizedSurface != nullptr) SDL_FreeSurface(mOptimizedSurface); }
+        Image(Window* window): Image(window->getRenderer()) {}
+        virtual ~Image() {}
 
         int loadImage(const std::string& path);
-        virtual void display();
+        // virtual void display();
 
     public:
         int initializeStatic(const int = IMG_INIT_JPG | IMG_INIT_PNG);
@@ -21,5 +21,4 @@ class Image: public Displayable
 
     private:
         std::string     mPath;
-        SDL_Surface*    mOptimizedSurface;
 };
