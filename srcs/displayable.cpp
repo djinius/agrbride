@@ -26,8 +26,9 @@ SDL_Rect Displayable::calcXYPos()
 void Displayable::display()
 {
     SDL_Rect dstRect = calcXYPos();
-    TRY( mTexture != nullptr );
+    TRY( mTexture != nullptr, ENOTEXTURE );
     SDL_RenderCopy(mSDLRenderer, mTexture, NULL, &dstRect);
 
+    CATCH(ENOTEXTURE);
     FINALLY;
 }

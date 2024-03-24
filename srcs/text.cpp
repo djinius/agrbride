@@ -14,22 +14,21 @@ Text::Text(Window*          window,
 void Text::update(const std::string& str)
 {
     auto [r, g, b, a] = mBGColor;
-    SDL_Surface* textSurface;
+    SDL_Surface* textSurface = nullptr;
     mString = str;
 
-    TRY_RAISE( mString.length() > 0, EZEROLENGTH );
-    TRY_RAISE( (textSurface  = TTF_RenderUTF8_LCD(*mFont, str.c_str(), mFGColor, mBGColor)) != nullptr, ERENDERFAILED );
+    TRY( mString.length() > 0, EZEROLENGTH );
+    TRY( (textSurface  = TTF_RenderUTF8_LCD(*mFont, str.c_str(), mFGColor, mBGColor)) != nullptr, ERENDERFAILED );
     if( a == 0 )
     {
         setColorKey(textSurface, SDL_TRUE, SDL_MapRGBA(textSurface->format, r, g, b, a));
     }
 
-    TRY( createTexture(textSurface) != nullptr );
+    TRY( createTexture(textSurface) != nullptr, ETEXTURE );
     setSize(textSurface);
 
     CATCH(EZEROLENGTH)
     {
-        textSurface = nullptr;
         TRACE("Cannot render zero-length string.\n");
         destroyTexture();
         setSize(0, 0);
@@ -38,6 +37,12 @@ void Text::update(const std::string& str)
     CATCH(ERENDERFAILED)
     {
         TRACE("Cannot render UTF8 text(%s): %s\n", mString.c_str(), SDL_GetError());
+        setSize(0, 0);
+    }
+
+    CATCH(ETEXTURE)
+    {
+        TRACE("Cannot create texture: %s\n", SDL_GetError());
         setSize(0, 0);
     }
 

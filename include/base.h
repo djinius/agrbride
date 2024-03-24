@@ -84,6 +84,7 @@ class Displayable
         
         void setColorKey(SDL_Surface* surface, int flags, unsigned int key) { SDL_SetColorKey(surface, flags, key); }
         void freeSurface(SDL_Surface* surface) { if(surface != nullptr) SDL_FreeSurface(surface); }
+        const char* getError() { return SDL_GetError(); }
 
     protected:
         SDL_Texture* mTexture {nullptr};
@@ -132,11 +133,15 @@ class Font
 class Application
 {
     public:
-        Application(Window* Window) : mWindow { Window } {}
-        SDL_Surface* getWindowSurface() { return mWindow->getSurface(); }
-        SDL_Renderer* getRenderer() { return mWindow->getRenderer(); }
+        Application() {}
+        ~Application() {}
+
+        int initialize(const int = IMG_INIT_JPG | IMG_INIT_PNG);
+        void finalize();
+
+        // SDL_Renderer* getRenderer() { return mWindow->getMainRenderer(); }
         void quit() { SDL_Event QuitEvent { SDL_QUIT }; SDL_PushEvent(&QuitEvent); }
 
     private:
-        Window* mWindow;
+        // Window* mMainWindow {nullptr};
 };

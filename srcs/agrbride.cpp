@@ -63,11 +63,9 @@ int main( int argc, char* args[] )
 {
 	//Start up SDL and create window
 	bool quit = false;
-	char* path = (char*)"./images/00291-386992299.png";
 	SDL_Event event;
 	Window gameWindow("신이 다스리는 농원");
 	vnAdvanceLayer UI(&gameWindow);
-	Layer World;
 	Application app(&gameWindow);
 	// QuitButton exampleButton(&app);
 	// Text exampleText(&gameWindow, "Hello, SDL World! -> 하늘에서 우주선이 내려옵니다.");
@@ -85,15 +83,6 @@ int main( int argc, char* args[] )
 	appendExampleDialogues(UI);
 	UI.begin();
 
-	if( argc == 2 )
-	{
-		path = args[1];
-	}
-	else
-	{
-		printf("Using default path: %s\n", path);
-	}
-
 	while( !quit )
 	{
 		while( SDL_PollEvent(&event) != 0 )
@@ -106,16 +95,7 @@ int main( int argc, char* args[] )
 			}
 			else
 			{
-				if( UI.handleEvent(&event) )
-				{
-					gameWindow.finishRender();
-					continue;
-				}
-				else if( World.handleEvent(&event) )
-				{
-					gameWindow.finishRender();
-					continue;
-				}
+				UI.handleEvent(&event);
 			}
 
 			gameWindow.finishRender();

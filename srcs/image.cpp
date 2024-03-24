@@ -3,35 +3,32 @@
 
 using namespace std;
 
-int Image::initializeStatic(const int imgFlags)
-{
-    TRY( (IMG_Init(imgFlags) & imgFlags) == imgFlags );
-    return 0;
-
-    FINALLY;
-    TRACE("Cannot initialize SDL2 image: %s\n", SDL_GetError());
-    return -1;
-}
-
-void Image::destroyStatic()
-{
-    IMG_Quit();
-}
-
 int Image::loadImage(const string& path)
 {
     SDL_Surface* iSurface = nullptr;
-    TRY( (iSurface = IMG_Load(path.c_str())) != nullptr );
+    int ret = 0;
+
+    TRY( (iSurface = IMG_Load(path.c_str())) != nullptr, ELOAD );
     setSize(iSurface->w, iSurface->h);
     setColorKey(iSurface, SDL_TRUE, SDL_MapRGBA(iSurface->format, 0, 0, 0, 0));
-    TRY( createTexture(iSurface) != nullptr );
+    TRY( createTexture(iSurface) != nullptr, ETEXTURE );
 
-    freeSurface(iSurface);
+    CATCH(ELOAD)
+    {
+        TRACE("Loading %s failed: %s\n", path.c_str(), getError());
+        destroyTexture();
+        ret = -1;
+    }
 
-    return 0;
+    CATCH(ETEXTURE)
+    {
+        TRACE("Loading %s failed: %s\n", path.c_str(), getError());
+        destroyTexture();
+        ret = -1;
+    }
 
     FINALLY;
     freeSurface(iSurface);
-    destroyTexture();
-    return -1;
+    
+    return ret;
 }

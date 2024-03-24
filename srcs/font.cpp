@@ -8,7 +8,7 @@ Font* Font::mDefaultFont = nullptr;
 
 Font::Font(const string& fontPath, const int fontSize)
 {
-    TRY_RAISE( (mFont = TTF_OpenFont(fontPath.c_str(), fontSize)) != NULL, EOPENFONT );
+    TRY( (mFont = TTF_OpenFont(fontPath.c_str(), fontSize)) != NULL, EOPENFONT );
     TRACE("Font '%s' loaded successfully.\n", fontPath.c_str());
     mIsLoaded = true;
 
@@ -30,16 +30,17 @@ Font::~Font()
 
 int Font::initializeStatic(void)
 {
-    int resultCode;
-    resultCode = TTF_Init();
-    TRY( resultCode >= 0 );
+    int ret = 0;
     Font::mDefaultFont = new Font("./fonts/d2coding_ligature.ttf", 32);
-    assert( Font::mDefaultFont->isLoaded() == true );
+    TRY( Font::mDefaultFont->isLoaded() == true, ELOADFAILED );
 
-    return 0;
+    CATCH(ELOADFAILED)
+    {
+        TRACE("Cannot load default font: %s", SDL_GetError());
+        ret = -1;
+    }
 
-    FINALLY;
-    return resultCode;
+    return ret;
 }
 
 void Font::destroyStatic(void)

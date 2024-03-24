@@ -11,22 +11,24 @@ Window::Window(const string& windowName)
 
 int Window::init(const string& windowName)
 {
+    int ret = 0;
     SDL_DisplayMode DM;
 
-	TRY( SDL_Init( SDL_INIT_VIDEO ) >= 0 );
-    TRY( Font::initializeStatic() == 0 );
-    TRY( SDL_GetCurrentDisplayMode(0, &DM) >= 0 );
+    TRY( SDL_GetCurrentDisplayMode(0, &DM) >= 0, EINIT );
 
-    TRY( (mSDLWindow = SDL_CreateWindow(windowName.c_str(), 0, 0, DM.w, DM.h, SDL_WINDOW_SHOWN)) != NULL );
-    TRY( (mSDLRenderer = SDL_CreateRenderer(mSDLWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC)) != NULL );
-    TRY( (mSDLWindowSurface = SDL_GetWindowSurface(mSDLWindow)) != NULL );
+    TRY( (mSDLWindow = SDL_CreateWindow(windowName.c_str(), 0, 0, 1920, 1080, SDL_WINDOW_FULLSCREEN)) != NULL, EINIT );
+    TRY( (mSDLRenderer = SDL_CreateRenderer(mSDLWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC)) != NULL, EINIT );
 
-    return 0;
+    TRY( Font::initializeStatic() == 0, EINIT );
+
+    CATCH(EINIT)
+    {
+        TRACE("Cannot create window: %s\n", SDL_GetError());
+    }
 
     FINALLY;
-    TRACE( "Could not initialize window! SDL Error: %s\n", SDL_GetError() );
 
-    return -1;
+    return ret;
 }
 
 void Window::beginRender()
@@ -37,7 +39,7 @@ void Window::beginRender()
 void Window::finishRender()
 {
     TRACE("Rendering frame again: %p\n", this);
-   SDL_RenderPresent(mSDLRenderer);
+    SDL_RenderPresent(mSDLRenderer);
 }
 
 Window::~Window()

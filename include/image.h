@@ -15,10 +15,6 @@ class Image: public Displayable
         int loadImage(const std::string& path);
         // virtual void display();
 
-    public:
-        int initializeStatic(const int = IMG_INIT_JPG | IMG_INIT_PNG);
-        void destroyStatic();
-
     private:
         std::string     mPath;
 };
