@@ -1,0 +1,1 @@
+define 나 = Character('브리트라', color="#FFFFFF")
