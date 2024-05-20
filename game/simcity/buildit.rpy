@@ -73,14 +73,14 @@ screen buildit():
         background None
 
         has hbox
-        add "rosalind_councelor"
-        add "mali_councelor"
-        add "cera_councelor"
-        add "chara_councelor"
-        add "coggi_councelor"
-        add "erga_councelor"
-        add "lucy_councelor"
-        add "manda_councelor"
+        add "rosalind_counselor"
+        add "mali_counselor"
+        add "cera_counselor"
+        add "chara_counselor"
+        add "coggi_counselor"
+        add "erga_counselor"
+        add "lucy_counselor"
+        add "manda_counselor"
 
     key "game_menu" action [SetVariable("gNextLabel", "gameMenu"), Return()]
 
