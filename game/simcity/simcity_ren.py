@@ -62,12 +62,39 @@ def setLocation(x, y, p):
     global xLoc
     global yLoc
     global gShowPopupMenu
+    global gTargetTree
 
     xLoc = x
     yLoc = y
     gShowPopupMenu = p
+    gTargetTree = None
+
+def setBuilding(x, y, p):
+    global xLoc
+    global yLoc
+    global gShowPopupMenu
+    global gTargetTree
+
+    xLoc = x
+    yLoc = y
+    gShowPopupMenu = False
+    gTargetTree = p
 
 def addBuilding(x, y, b):
     global gBuildings
-    gBuildings[y][x] = b
+
+    if b == "apple":
+        gBuildings[y][x] = AppleTree(x, y)
+    elif b == "grape":
+        gBuildings[y][x] = GrapeTree(x, y)
+    elif b == "tea":
+        gBuildings[y][x] = TeaTree(x, y)
+    elif b == "rice":
+        gBuildings[y][x] = RiceTree(x, y)
+    elif b == "sharon":
+        gBuildings[y][x] = SharonTree(x, y)
+    elif b == "nympha":
+        gBuildings[y][x] = NymphaTree(x, y)
+    else:
+        pass
     renpy.restart_interaction()

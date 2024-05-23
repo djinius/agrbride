@@ -1,6 +1,7 @@
 default gEdgeScroll = False
 default gBuildings = None
 default gShowPopupMenu = False
+default gTargetTree = None
 default xLoc = None
 default yLoc = None
 default gInitialXAlign = .0
@@ -9,6 +10,8 @@ default gNextLabel = None
 
 screen buildit():
     add CityMapFrame()
+
+    key "game_menu" action NullAction()
 
     viewport id "vp" as citymap:
         if gEdgeScroll:
@@ -26,22 +29,24 @@ screen buildit():
                 for x, b in enumerate(row):
                     if b is not None:
                         imagebutton:
-                            auto "images/simcity/buildings/" + b + "_tile_%s_bg.png"
+                            if isinstance(b, Building):
+                                idle b.getIdleSprite()
                             pos calcXYPos(x, y)
                             action NullAction()
+                            alternate Function(setBuilding, x=x, y=y, p=b)
                     else:
                         imagebutton:
-                            idle Solid("#0000")
-                            hover Solid("#F008")
-                            selected_idle Solid("#8F08")
-                            selected_hover Solid("#FF08")
-                            xysize (128, 128)
+                            idle "images/simcity/buildings/empty.png"
                             pos calcXYPos(x, y)
                             selected xLoc==x and yLoc==y
                             action Function(setLocation, x=x, y=y, p=True)
+                            alternate Function(setLocation, x=x, y=y, p=True)
         
-            if (xLoc is not None) and (yLoc is not None) and gShowPopupMenu:
-                use builditPopup(xLoc, yLoc)
+            if (xLoc is not None) and (yLoc is not None):
+                if gShowPopupMenu:
+                    use builditPopup(xLoc, yLoc)
+                elif gTargetTree is not None:
+                    use buildingPopup(xLoc, yLoc, gTargetTree)
 
     frame:
         xysize (300, 170) align (.0, 1.)
@@ -50,18 +55,8 @@ screen buildit():
 
         for y, row in enumerate(gBuildings):
             for x, b in enumerate(row):
-                if b == "apple":
-                    add Solid("#F88") xysize (10, 10) pos (x*10+30, y*10) anchor (.0, .0)
-                elif b == "grape":
-                    add Solid("#409") xysize (10, 10) pos (x*10+30, y*10) anchor (.0, .0)
-                elif b == "tea":
-                    add Solid("#0F0") xysize (10, 10) pos (x*10+30, y*10) anchor (.0, .0)
-                elif b == "rice":
-                    add Solid("#840") xysize (10, 10) pos (x*10+30, y*10) anchor (.0, .0)
-                elif b == "sharon":
-                    add Solid("#FF0") xysize (10, 10) pos (x*10+30, y*10) anchor (.0, .0)
-                elif b == "nympha":
-                    add Solid("#FFF") xysize (10, 10) pos (x*10+30, y*10) anchor (.0, .0)
+                if b is not None:
+                    add Solid(b.getMinimapColor()) xysize (10, 10) pos (x*10+30, y*10) anchor (.0, .0)
 
         add Frame("images/simcity/minimap_border.png", 5, 5):
             xysize (150, 85)
@@ -73,16 +68,14 @@ screen buildit():
         background None
 
         has hbox
-        add "rosalind_counselor"
-        add "mali_counselor"
-        add "cera_counselor"
-        add "chara_counselor"
-        add "coggi_counselor"
-        add "erga_counselor"
-        add "lucy_counselor"
-        add "manda_counselor"
-
-    key "game_menu" action [SetVariable("gNextLabel", "gameMenu"), Return()]
+        add "rosalind_advisor"
+        add "mali_advisor"
+        add "cera_advisor"
+        add "chara_advisor"
+        add "coggi_advisor"
+        add "erga_advisor"
+        add "lucy_advisor"
+        add "manda_advisor"
 
 screen builditPopup(xloc, yloc):
     frame:
@@ -121,3 +114,25 @@ screen builditPopup(xloc, yloc):
             action Function(setLocation, x=None, y=None, p=False)
             text_size 25
 
+screen buildingPopup(xloc, yloc, b):
+    frame:
+        pos calcXYPos(xloc, yloc) offset (64, 64)
+
+        if xloc >= (25):
+            xanchor 1.
+        else:
+            xanchor 0.
+
+        if yloc >= (14):
+            yanchor 1.
+        else:
+            yanchor 0.
+
+        has vbox
+        textbutton "업그레이드":
+            sensitive b.isUpgradeEnabled()
+            action [Function(b.upgrade), Function(setLocation, x=None, y=None, p=False)]
+            text_size 25
+        textbutton "닫기":
+            action Function(setLocation, x=None, y=None, p=False)
+            text_size 25
