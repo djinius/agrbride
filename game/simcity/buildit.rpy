@@ -1,5 +1,6 @@
 default gEdgeScroll = False
-default gBuildings = None
+default gCityMap = None
+default gBuildings = []
 default gShowPopupMenu = False
 default gTargetTree = None
 default xLoc = None
@@ -25,7 +26,7 @@ screen buildit():
             xysize (3840, 2176)
             background "simcity/map.png"
 
-            for y, row in enumerate(gBuildings):
+            for y, row in enumerate(gCityMap):
                 for x, b in enumerate(row):
                     if b is not None:
                         imagebutton:
@@ -53,7 +54,7 @@ screen buildit():
         padding (0, 0)
         background Solid("#000")
 
-        for y, row in enumerate(gBuildings):
+        for y, row in enumerate(gCityMap):
             for x, b in enumerate(row):
                 if b is not None:
                     add Solid(b.getMinimapColor()) xysize (10, 10) pos (x*10+30, y*10) anchor (.0, .0)
@@ -68,6 +69,7 @@ screen buildit():
         background None
 
         has hbox
+        textbutton "닫기" action Return()
         add "rosalind_advisor"
         add "mali_advisor"
         add "cera_advisor"
@@ -110,6 +112,9 @@ screen builditPopup(xloc, yloc):
         textbutton "각시수련":
             action [Function(addBuilding, x=xloc, y=yloc, b="nympha"), Function(setLocation, x=None, y=None, p=False)]
             text_size 25
+        textbutton "벌집":
+            action [Function(addBuilding, x=xloc, y=yloc, b="hive"), Function(setLocation, x=None, y=None, p=False)]
+            text_size 25
         textbutton "닫기":
             action Function(setLocation, x=None, y=None, p=False)
             text_size 25
@@ -129,9 +134,17 @@ screen buildingPopup(xloc, yloc, b):
             yanchor 0.
 
         has vbox
-        textbutton "업그레이드":
-            sensitive b.isUpgradeEnabled()
-            action [Function(b.upgrade), Function(setLocation, x=None, y=None, p=False)]
+
+        $ cm = b.getContextMenu()
+        for i in cm:
+            textbutton i:
+                sensitive cm[i][1]()
+                action [Function(cm[i][0]), Function(setLocation, x=None, y=None, p=False)]
+                text_size 25
+
+        null height(5)
+        textbutton "이동":
+            action Function(setLocation, x=None, y=None, p=False)
             text_size 25
         textbutton "닫기":
             action Function(setLocation, x=None, y=None, p=False)

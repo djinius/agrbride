@@ -42,15 +42,15 @@ class CityMapFrame(renpy.Displayable):
 
 
 def initBuildings():
-    global gBuildings
+    global gCityMap
 
-    gBuildings = []
+    gCityMap = []
 
     for y in range(0, 16):
         row = []
         for x in range(0, 27):
             row.append(None)
-        gBuildings.append(row)
+        gCityMap.append(row)
 
         print(y)
 
@@ -81,20 +81,22 @@ def setBuilding(x, y, p):
     gTargetTree = p
 
 def addBuilding(x, y, b):
-    global gBuildings
+    global gCityMap
 
     if b == "apple":
-        gBuildings[y][x] = AppleTree(x, y)
+        gBuildings.append(AppleTree(x, y))
     elif b == "grape":
-        gBuildings[y][x] = GrapeTree(x, y)
+        gBuildings.append(GrapeTree(x, y))
     elif b == "tea":
-        gBuildings[y][x] = TeaTree(x, y)
+        gBuildings.append(TeaTree(x, y))
     elif b == "rice":
-        gBuildings[y][x] = RiceTree(x, y)
+        gBuildings.append(RiceTree(x, y))
     elif b == "sharon":
-        gBuildings[y][x] = SharonTree(x, y)
+        gBuildings.append(SharonTree(x, y))
     elif b == "nympha":
-        gBuildings[y][x] = NymphaTree(x, y)
+        gBuildings.append(NymphaTree(x, y))
+    elif b == "hive":
+        gBuildings.append(Hive(x, y))
     else:
         pass
     renpy.restart_interaction()
