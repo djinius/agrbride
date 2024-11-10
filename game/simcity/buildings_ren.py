@@ -2,26 +2,29 @@
 init -1 python:
 """
 
-# 싹 -> 묘목 -> 떨기나무 -> 고목
+# 재코딩
 
 class Building:
-    def __init__(self, name, x, y, maxlevel, minimapColor, levelNames):
+    def __init__(self, name, localName, x, y, minimapColor, levelSprites, managements, detailScreen):
         global gCityMap
 
         self.x = x
         self.y = y
         self.name = name
+        self.localName = localName
         self.level = 0
-        self.maxlevel = maxlevel
         self.minimapColor = minimapColor
-        self.levelNames = levelNames
+        self.levelSprites = levelSprites
+        self.maxlevel = len(levelSprites) - 1
+        self.managements = managements
+        self.detailScreen = detailScreen
 
         gCityMap[y][x] = self
 
     def getIdleSprite(self):
-        return "images/simcity/buildings/" + self.name + "_level" + str(self.level) + ".png"
+        return self.levelSprites[self.level]
 
-    def isUpgradeEnabled(self):
+    def isUpgradeAvailable(self):
         return self.level < self.maxlevel
 
     def upgrade(self):
@@ -43,6 +46,26 @@ class Building:
     def alwaysFalse(self):
         return False
 
+    # 진행바 리턴
+    # 리턴 자료: 딕셔너리{"상태바 이름", "현재 수치", "최대 수치"}
+    def getProgressBars(self):
+        return {}
+
+    def getContextName(self):
+        return "buildingPopup"
+
+    def getDetailScreen(self):
+        return self.detailScreen
+
+    # 관리인원
+    def getManagements(self):
+        return self.managements[self.level]
+
+    # 이동
+    def moveTo(self, dx, dy):
+        self.x = dx
+        self.y = dy
+
     # 철거
     def dismantle(self):
         global gCityMap
@@ -54,121 +77,81 @@ class Building:
 # 유실수
 # 컨텍스트 메뉴: 물주기, 거름주기, 벌레잡기, 가지치기, 수확, 등급 상향, 벌목
 # 등급: 싹 -> 묘목 -> 큰키나무 -> 아름드리 -> 고목
+# 물주기, 거름주기, 가지치기를 적당히 했을 때 생명력 증가, 과하면 생명력 감소
+# 벌레잡기를 꾸준히 하면 생명력 증가
+# 생명력 일정수준 증가시 수확 가능
+# 수확시 생명력 대폭 감소
 class FruitTree(Building):
-    def __init__(self, name, x, y, maxlevel, minimapcolor):
-        super(FruitTree, self).__init__(name, x, y, maxlevel, minimapcolor, ["싹", "묘목", "큰키나무", "아름드리", "고목"])
-        self.waterFilled = 0
-        self.fertilized = 0
-        self.vermins = 0
-        self.shaggy = 0
-        self.sublevel = 1
-        self.harvestAmount = 0
-
-    def getIdleSprite(self):
-        if self.level == 3:
-            return "images/simcity/buildings/" + self.name + "_level" + str(self.level) + "_" + str(self.sublevel) + ".png"
-        else:
-            return super(FruitTree, self).getIdleSprite()
-
-    def water(self):
-        self.waterFilled += 10
-
-    def fertilize(self):
-        self.fertilized += 10
-
-    def catchBug(self):
-        self.vermins = max(self.vermins - 10, 0)
-
-    def prune(self):
-        self.shaggy = max(self.shaggy - 10, 0)
+    def __init__(self, name, localName, x, y, minimapcolor, levelSprites, populations, managements, detailScreen = None):
+        super(FruitTree, self).__init__(name, localName, x, y, minimapcolor, levelSprites, managements, detailScreen)
+        self.populations = populations
+        self.managements = managements
 
     def getContextMenu(self):
         contextMenu = {}
+        if self.isUpgradeAvailable():
+            contextMenu["등급 향상"] = (self.upgrade, self.alwaysTrue)
 
-        if self.level in [0, 1, 2, 3]:
-            contextMenu["물주기"] = (self.water, self.alwaysTrue)
-            contextMenu["거름주기"] = (self.fertilize, self.alwaysTrue)
-            contextMenu["벌레잡기"] = (self.catchBug, self.alwaysTrue)
-            contextMenu["가지치기"] = (self.prune, self.alwaysTrue)
-
-        if self.level == 4:
-            contextMenu["수확"] = (self.harvest, self.isHarvestAvailable)
-
-        contextMenu["벌목"] = (self.dismantle, self.alwaysTrue)
         return contextMenu
 
-    def isHarvestAvailable(self):
-        return False
+    def getPopulation(self):
+        return self.populations[self.level] * self.getPopulationFactor()
+
+    def getPopulationFactor(self):
+        return 1.0
 
 
+# 3레벨일 때에는 물주기, 비료주기, 벌레잡기, 가지치기 시 별도의 수확량 바를 증가시킴
+# 동시에 서브레벨 증가
 class AppleTree(FruitTree):
     def __init__(self, x, y):
-        super(AppleTree, self).__init__("apple", x, y, 4, "#F88")
+        super(AppleTree, self).__init__("apple", "사과나무", x, y, "#F88", ["appleTree0", "appleTree1", "appleTree2", "appleTree3"], [100, 300, 600, 1000], [25, 75, 150, 250])
+        self.population = []
 
 class GrapeTree(FruitTree):
     def __init__(self, x, y):
-        super(GrapeTree, self).__init__("grape", x, y, 4, "#409")
+        super(GrapeTree, self).__init__("grape", "포도나무", x, y, "#409", ["grapeTree0", "grapeTree1", "grapeTree2", "grapeTree3"], [200, 500, 1000, 2000])
+
+class PeachTree(FruitTree):
+    def __init__(self, x, y):
+        super(PeachTree, self).__init__("peach", "포도나무", x, y, "#409", ["peachTree0", "peachTree1", "peachTree2", "peachTree3"], [200, 500, 1000, 2000])
 
 class TeaTree(FruitTree):
     def __init__(self, x, y):
-        super(TeaTree, self).__init__("tea", x, y, 4, "#0F0")
-
-    def getContextMenu(self):
-        contextMenu = {}
-
-        if self.level in [0, 1, 2, 3]:
-            contextMenu["물주기"] = (self.water, self.alwaysTrue)
-            contextMenu["벌레잡기"] = (self.catchBug, self.alwaysTrue)
-            contextMenu["가지치기"] = (self.prune, self.alwaysTrue)
-
-        if self.level == 4:
-            contextMenu["수확"] = (self.harvest, self.isHarvestAvailable)
-
-        contextMenu["벌목"] = (self.dismantle, self.alwaysTrue)
-        return contextMenu
-
-class RiceTree(FruitTree):
-    def __init__(self, x, y):
-        super(RiceTree, self).__init__("rice", x, y, 4, "#840")
+        super(TeaTree, self).__init__("tea", "차나무", x, y, "#0F0")
 
 class SharonTree(Building):
     def __init__(self, x, y):
-        super(SharonTree, self).__init__("sharon", x, y, 3, "#FF0", ["싹", "묘목", "떨기나무"])
+        super(SharonTree, self).__init__("sharon", "무궁화", x, y, "#FF0", ["roseOfSharonTree"])
         self.waterFilled = 0
         self.fertilized = 0
         self.shaggy = 0
 
     def getContextMenu(self):
         contextMenu = {}
-
-        contextMenu["물주기"] = (self.water, self.alwaysTrue)
-        contextMenu["거름주기"] = (self.fertilize, self.alwaysTrue)
-        contextMenu["가지치기"] = (self.prune, self.alwaysTrue)
-        contextMenu["벌목"] = (self.dismantle, self.alwaysTrue)
-
         return contextMenu
 
-class NymphaTree(Building):
-    def __init__(self, x, y):
-        super(NymphaTree, self).__init__("nympha", x, y, 3, "#FFF", ["싹", "연못", "호수"])
+def getTotalPopulation():
+    global gCityMap
 
-    def getContextMenu(self):
-        contextMenu = {}
+    ret = 0
 
-        contextMenu["순치기"] = (self.prune, self.alwaysTrue)
-        contextMenu["뽑기"] = (self.dismantle, self.alwaysTrue)
+    for lines in gCityMap:
+        for b in lines:
+            if isinstance(b, FruitTree):
+                ret += b.getPopulation()
 
-        return contextMenu
+    return ret
 
-# 증축
-class Hive(Building):
-    def __init__(self, x, y):
-        super(Hive, self).__init__("hive", x, y, 3, "#FFF", ["숙사", "군락", "마천루"])
+def getTotalManagements():
+    global gCityMap
 
-    def getContextMenu(self):
-        contextMenu = {}
+    ret = 0
 
-        contextMenu["철거"] = (self.dismantle, self.alwaysTrue)
+    for lines in gCityMap:
+        for b in lines:
+            if isinstance(b, Building):
+                ret += b.getManagements()
 
-        return contextMenu
+    return ret
 

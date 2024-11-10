@@ -11,7 +11,7 @@
 ##
 ## 문자열을 _()로 둘러 쌓으면 씌우면 번역의 대상으로 표시됩니다.
 
-define config.name = _("신이 가꾸는 농원")
+define config.name = _("별천지 집사")
 
 
 ## 위에 주어진 제목이 주 메뉴 화면에 표시되는지 결정합니다. 제목을 숨기려면 이것
@@ -212,3 +212,5 @@ define config.fade_music = .5
 default preferences.gl_powersave = True
 default preferences.gl_framerate = 60
 
+# 말할 때마다 소리 재생
+define config.say_arguments_callback = say_arguments_callback

@@ -10,6 +10,9 @@ image coggi_advisor:
 image erga_advisor:
     "images/simcity/advisors/erga_chibi.png"
 
+image formi_advisor:
+    "images/simcity/advisors/formi_chibi.png"
+
 image lucy_advisor:
     "images/simcity/advisors/lucy_chibi.png"
 

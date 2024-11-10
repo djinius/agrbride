@@ -48,41 +48,37 @@ def initBuildings():
 
     for y in range(0, 16):
         row = []
-        for x in range(0, 27):
+        for x in range(0, 20):
             row.append(None)
         gCityMap.append(row)
 
-        print(y)
-
-
 def calcXYPos(x, y):
-    return (384 + x * 128, y * 128)
+    xp = x * 200 + 320
+    yp = y * 328 + 320
+
+    return (xp, yp)
 
 def setLocation(x, y, p):
     global xLoc
     global yLoc
     global gShowPopupMenu
     global gTargetTree
+    global gShowDetails
 
     xLoc = x
     yLoc = y
     gShowPopupMenu = p
     gTargetTree = None
+    gShowDetails = None
 
 def setBuilding(x, y, p):
-    global xLoc
-    global yLoc
     global gShowPopupMenu
     global gTargetTree
 
-    xLoc = x
-    yLoc = y
     gShowPopupMenu = False
     gTargetTree = p
 
 def addBuilding(x, y, b):
-    global gCityMap
-
     if b == "apple":
         gBuildings.append(AppleTree(x, y))
     elif b == "grape":
@@ -91,10 +87,16 @@ def addBuilding(x, y, b):
         gBuildings.append(TeaTree(x, y))
     elif b == "rice":
         gBuildings.append(RiceTree(x, y))
-    elif b == "sharon":
-        gBuildings.append(SharonTree(x, y))
+    elif b == "meat":
+        gBuildings.append(MeatTree(x, y))
     elif b == "nympha":
         gBuildings.append(NymphaTree(x, y))
+    elif b == "sharon":
+        gBuildings.append(SharonTree(x, y))
+    elif b == "shed":
+        gBuildings.append(Shed(x, y))
+    elif b == "anthill":
+        gBuildings.append(AntHill(x, y))
     elif b == "hive":
         gBuildings.append(Hive(x, y))
     else:
