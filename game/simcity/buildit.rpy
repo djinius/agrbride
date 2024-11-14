@@ -9,6 +9,9 @@ default yLoc = None
 default gInitialXAlign = .0
 default gInitialYAlign = 1.
 
+default cutscenes = [RosalindBedScene()]
+default nextCutScene = None
+
 ###############################################################################
 #
 # 파라미터
@@ -18,7 +21,6 @@ default gInitialYAlign = 1.
 # 하수 처리량
 # 
 ###############################################################################
-
 
 screen buildit():
     add CityMapFrame()
@@ -81,7 +83,23 @@ screen buildit():
         align (.0, .0)
         text "인구: %d" % getTotalPopulation()
         text "관리: %d" % getTotalManagements()
-        text "유휴인력: %d%%" % ((getTotalPopulation() - getTotalManagements()) * 100 // getTotalPopulation())
+        text "유휴인력: %d" % getAvailablePopulation()
+
+        $ next = availableCutScenes(cutscenes)
+
+        vbox:
+            align (.0, .25)
+
+            for s in next:
+                button:
+                    xysize (100, 30)
+                    action [SetVariable("nextCutScene", s), Return()]
+
+                    has frame
+                    xysize (1., 1.)
+                    padding (0, 0)
+                    add "gui/buildit/bubble.png"
+                    text s.getTitle() size 25 yalign .5
 
     frame:
         align (1., 1.)

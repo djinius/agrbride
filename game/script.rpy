@@ -28,4 +28,7 @@ label start:
 label buildContinue:
     call screen buildit
 
+    if nextCutScene is not None:
+        call playCutScene(nextCutScene)
+
     return

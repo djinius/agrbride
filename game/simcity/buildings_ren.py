@@ -155,3 +155,6 @@ def getTotalManagements():
 
     return ret
 
+def getAvailablePopulation():
+    return getTotalPopulation() - getTotalManagements()
+

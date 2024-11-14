@@ -112,7 +112,7 @@ define gui.name_ypos = 0
 
 ## 캐릭터들의 이름을 수평으로 정렬합니다. 이것은 0.0으로 좌측 정렬, 0.5로 중앙,
 ## 그리고 1.0으로 우측 정렬될 수 있습니다.
-define gui.name_xalign = 0.0
+define gui.name_xalign = 0.5
 
 ## 캐릭터들의 이름이 들어 있는 박스의 너비, 높이, 그리고 테두리입니다. 혹은 그것
 ## 을 None으로 자동 설정할 수 있습니다.
@@ -130,15 +130,17 @@ define gui.namebox_tile = False
 
 ## 텍스트박스에서 대사의 위치입니다. These can be a whole number of pixels
 ## relative to the left or top side of the textbox, or 0.5 to center.
-define gui.dialogue_xpos = 402
-define gui.dialogue_ypos = 75
+# define gui.dialogue_xpos = 402
+# define gui.dialogue_ypos = 75
+define gui.dialogue_xpos = .5
+define gui.dialogue_ypos = 200
 
 ## 픽셀값에서 대사의 최대 너비입니다.
-define gui.dialogue_width = 1116
+define gui.dialogue_width = 1.
 
 ## 대사 글자의 수평 정렬입니다. 이것은 0.0으로 좌측 정렬, 0.5로 중앙, 그리고 1.0
 ## 으로 우측 정렬이 될 수 있습니다.
-define gui.dialogue_text_xalign = 0.0
+define gui.dialogue_text_xalign = 0.5
 
 
 ## 버튼들 #########################################################################

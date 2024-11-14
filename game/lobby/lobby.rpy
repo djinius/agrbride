@@ -34,12 +34,7 @@ label lobby:
         
         # 버스정류장
         "마실":
-            scene town_mainstreet
-            show 카라 몬무스:
-                xalign .5 yalign .0
-            with dissolve
-
-            카라 몬무스 "오늘은 뭐하고 놀까?"
+            call rosalind_bedscene
 
     jump lobby
     return

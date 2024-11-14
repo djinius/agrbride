@@ -16,11 +16,12 @@ init -1 python:
 ################################################################################
 
 class CutScene:
-    def __init__(self, labelName, screenName):
+    def __init__(self, title, labelName, screenName):
         self.finished = False
         self.verified = False
+        self.title = title
         self.labelName = labelName
-        self.screenName screenName
+        self.screenName = screenName
 
     # 순수가상함수
     def isAvailable(self):
@@ -29,6 +30,9 @@ class CutScene:
 
     def isFinished(self):
         return self.finished
+
+    def getTitle(self):
+        return self.title
 
     def getLabelName(self):
         return self.labelName
@@ -44,3 +48,14 @@ class CutScene:
 
     def verify(self):
         self.verified = False
+
+class RosalindBedScene(CutScene):
+    def __init__(self):
+        super(RosalindBedScene, self).__init__("첫날밤", "rosalind_bedscene", None)
+
+    def isAvailable(self):
+        return getAvailablePopulation() >= 1000
+
+
+def availableCutScenes(scenes):
+    return [x for x in scenes if (x.isAvailable() and (not x.isFinished()))]
