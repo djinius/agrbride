@@ -96,17 +96,11 @@ style frame:
 screen say(who, what):
     style_prefix "say"
 
-    window:
-        id "window"
-
+    vbox:
+        align (.5, 1.)
         if who is not None:
-
-            window:
-                id "namebox"
-                style "namebox"
-                text who id "who"
-
-        text what id "what"
+            text who id "who" xalign .5
+        text what id "what" xalign .5
 
 
     ## 사이드 이미지가 있는 경우 글자 위에 표시합니다. 휴대폰 환경에서는 보이지
@@ -135,17 +129,10 @@ style window:
     yalign gui.textbox_yalign
     ysize gui.textbox_height
 
-    background None # Image("gui/textbox.png", xalign=0.5, yalign=1.0)
+    background Image("gui/textbox.png", xalign=0.5, yalign=1.0)
 
 style namebox:
-    xpos gui.name_xpos
-    xanchor gui.name_xalign
-    xsize gui.namebox_width
-    ypos gui.name_ypos
-    ysize gui.namebox_height
-
     background Frame("gui/namebox.png", gui.namebox_borders, tile=gui.namebox_tile, xalign=gui.name_xalign)
-    padding gui.namebox_borders.padding
 
 style say_label:
     properties gui.text_properties("name", accent=True)
@@ -153,12 +140,6 @@ style say_label:
     yalign 0.5
 
 style say_dialogue:
-    properties gui.text_properties("dialogue")
-
-    xpos gui.dialogue_xpos
-    xsize gui.dialogue_width
-    ypos gui.dialogue_ypos
-
     adjust_spacing False
 
 ## Input 스크린 ###################################################################

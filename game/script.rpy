@@ -3,25 +3,12 @@
 # 여기에서부터 게임이 시작합니다.
 label start:
 
+    $ initBuildings()
+
     scene black
 
-    show well:
-        align (.2, .5)
-
-    show appleTree3:
-        align (.4, .5)
-
-    show grapeTree3:
-        align (.6, .5)
-
-    show peachTree3:
-        align (.8, .5)
-
-    카라 "아싸"
-    말리 "콩팥"
-    로잘린드 "하하하하"
-
-    $ initBuildings()
+    # $ helloworld = renpy.input(screen='koreaninput', prompt='뭐든지 입력하세요')
+    # 카라 "[helloworld]"
 
     call lobby
 
@@ -30,5 +17,6 @@ label buildContinue:
 
     if nextCutScene is not None:
         call playCutScene(nextCutScene)
+        jump buildContinue
 
     return

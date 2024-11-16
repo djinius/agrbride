@@ -9,7 +9,8 @@ default yLoc = None
 default gInitialXAlign = .0
 default gInitialYAlign = 1.
 
-default cutscenes = [RosalindBedScene()]
+default gWellUnlocked = False
+
 default nextCutScene = None
 
 ###############################################################################
@@ -22,8 +23,9 @@ default nextCutScene = None
 # 
 ###############################################################################
 
-screen buildit():
-    add CityMapFrame()
+screen buildit(isManageEnabled = True):
+    # add CityMapFrame()
+    style_prefix "buildit"
 
     key "game_menu" action NullAction()
 
@@ -47,6 +49,7 @@ screen buildit():
                             pos calcXYPos(x, y) anchor (.5, .5)
                             action SetVariable("gShowDetails", b)
                             alternate Function(setBuilding, x=x, y=y, p=b)
+                            sensitive isManageEnabled
 
                     else:
                         imagebutton:
@@ -55,35 +58,23 @@ screen buildit():
                             selected xLoc==x and yLoc==y
                             action [SetVariable("gTargetTree", None), SetVariable("gShowDetails", None), Function(setLocation, x=x, y=y, p=True)]
                             alternate Function(setLocation, x=x, y=y, p=True)
+                            sensitive isManageEnabled
         
-            if (xLoc is not None) and (yLoc is not None):
+            if (xLoc is not None) and (yLoc is not None) and isManageEnabled:
                 if gShowPopupMenu:
                     use builditPopup(xLoc, yLoc)
-            elif gTargetTree is not None:
+            elif (gTargetTree is not None) and isManageEnabled:
                 use buildingPopup(gTargetTree)
-            elif gShowDetails is not None and gShowDetails.getDetailScreen() is not None:
+            elif (gShowDetails is not None) and (gShowDetails.getDetailScreen() is not None) and isManageEnabled:
                 use expression gShowDetails.getDetailScreen() pass (b=gShowDetails)
-
-
-    frame:
-        xysize (300, 170) align (.0, 1.)
-        padding (0, 0)
-        background Solid("#000")
-
-        for y, row in enumerate(gCityMap):
-            for x, b in enumerate(row):
-                if b is not None:
-                    add Solid(b.getMinimapColor()) xysize (5, 5) pos (x*5+30, y*5) anchor (.0, .0)
-
-        add Frame("images/simcity/minimap_border.png", 5, 5):
-            xysize (150, 85)
-            align (gInitialXAlign, gInitialYAlign)
 
     vbox:
         align (.0, .0)
-        text "인구: %d" % getTotalPopulation()
-        text "관리: %d" % getTotalManagements()
-        text "유휴인력: %d" % getAvailablePopulation()
+
+        hbox:
+            text "인구: %d" % getTotalPopulation()
+            text "관리: %d" % getTotalManagements()
+            text "유휴인력: %d" % getAvailablePopulation()
 
         $ next = availableCutScenes(cutscenes)
 
@@ -92,14 +83,17 @@ screen buildit():
 
             for s in next:
                 button:
-                    xysize (100, 30)
+                    xysize (150, 50)
                     action [SetVariable("nextCutScene", s), Return()]
 
                     has frame
+                    background None
                     xysize (1., 1.)
                     padding (0, 0)
+
+                    has hbox
                     add "gui/buildit/bubble.png"
-                    text s.getTitle() size 25 yalign .5
+                    text s.getTitle() size 25 yalign .5 idle_color "#FFF" hover_color "#FF0"
 
     frame:
         align (1., 1.)
@@ -107,7 +101,9 @@ screen buildit():
         background None
 
         has hbox
-        textbutton "닫기" action Return()
+        textbutton "관리 종료" action Return()
+
+    
 
 screen builditPopup(xloc, yloc):
     frame:
@@ -127,6 +123,11 @@ screen builditPopup(xloc, yloc):
         textbutton "사과나무":
             action [Function(addBuilding, x=xloc, y=yloc, b="apple"), Function(setLocation, x=None, y=None, p=False)]
             text_size 25
+
+        if gWellUnlocked:
+            textbutton "우물":
+                action [Function(addBuilding, x=xloc, y=yloc, b="well"), Function(setLocation, x=None, y=None, p=False)]
+                text_size 25
 
 screen buildingPopup(b):
     frame:
@@ -172,3 +173,9 @@ screen fruitTreeDetails(b):
             textbutton "닫기":
                 action SetVariable("gShowDetails", None)
                 text_size 25
+
+style buildit_hbox:
+    spacing 10
+
+style buildit_text:
+    size 25

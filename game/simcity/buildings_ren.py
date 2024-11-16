@@ -5,7 +5,7 @@ init -1 python:
 # 재코딩
 
 class Building:
-    def __init__(self, name, localName, x, y, minimapColor, levelSprites, managements, detailScreen):
+    def __init__(self, name, localName, x, y, minimapColor, levelSprites, managements, detailScreen = None):
         global gCityMap
 
         self.x = x
@@ -19,7 +19,7 @@ class Building:
         self.managements = managements
         self.detailScreen = detailScreen
 
-        gCityMap[y][x] = self
+        placeBuilding(x, y, self)
 
     def getIdleSprite(self):
         return self.levelSprites[self.level]
@@ -63,16 +63,15 @@ class Building:
 
     # 이동
     def moveTo(self, dx, dy):
+        placeBuilding(self.x, self.y, None)
         self.x = dx
         self.y = dy
+        placeBuilding(self.x, self.y, self)
 
     # 철거
     def dismantle(self):
-        global gCityMap
-        global gBuildings
-
-        gCityMap[self.y][self.x] = None
-        gBuildings.remove(self)
+        placeBuilding(self.x, self.y, None)
+        removeBuilding(self)
 
 # 유실수
 # 컨텍스트 메뉴: 물주기, 거름주기, 벌레잡기, 가지치기, 수확, 등급 상향, 벌목
@@ -82,10 +81,11 @@ class Building:
 # 생명력 일정수준 증가시 수확 가능
 # 수확시 생명력 대폭 감소
 class FruitTree(Building):
-    def __init__(self, name, localName, x, y, minimapcolor, levelSprites, populations, managements, detailScreen = None):
+    def __init__(self, name, localName, x, y, minimapcolor, levelSprites, populations, managements, woods, detailScreen = None):
         super(FruitTree, self).__init__(name, localName, x, y, minimapcolor, levelSprites, managements, detailScreen)
         self.populations = populations
         self.managements = managements
+        self.woods = woods
 
     def getContextMenu(self):
         contextMenu = {}
@@ -100,32 +100,50 @@ class FruitTree(Building):
     def getPopulationFactor(self):
         return 1.0
 
+    def getWoodProduction(self):
+        return self.woods[self.level]
+
 
 # 3레벨일 때에는 물주기, 비료주기, 벌레잡기, 가지치기 시 별도의 수확량 바를 증가시킴
 # 동시에 서브레벨 증가
 class AppleTree(FruitTree):
     def __init__(self, x, y):
-        super(AppleTree, self).__init__("apple", "사과나무", x, y, "#F88", ["appleTree0", "appleTree1", "appleTree2", "appleTree3"], [100, 300, 600, 1000], [25, 75, 150, 250])
+        super(AppleTree, self).__init__("apple", "사과나무", x, y, "#F88",
+                                        ["appleTree0", "appleTree1", "appleTree2", "appleTree3"],
+                                        [100, 300, 600, 1000], [25, 75, 150, 250],
+                                        [5, 10, 15, 20]
+                                        )
         self.population = []
 
 class GrapeTree(FruitTree):
     def __init__(self, x, y):
-        super(GrapeTree, self).__init__("grape", "포도나무", x, y, "#409", ["grapeTree0", "grapeTree1", "grapeTree2", "grapeTree3"], [200, 500, 1000, 2000])
+        super(GrapeTree, self).__init__("grape", "포도나무", x, y, "#409",
+                                        ["grapeTree0", "grapeTree1", "grapeTree2", "grapeTree3"],
+                                        [200, 500, 1000, 2000], [30, 75, 150, 300],
+                                        [5, 10, 15, 20])
 
 class PeachTree(FruitTree):
     def __init__(self, x, y):
-        super(PeachTree, self).__init__("peach", "포도나무", x, y, "#409", ["peachTree0", "peachTree1", "peachTree2", "peachTree3"], [200, 500, 1000, 2000])
+        super(PeachTree, self).__init__("peach", "포도나무", x, y, "#409",
+                                        ["peachTree0", "peachTree1", "peachTree2", "peachTree3"],
+                                        [500, 1000, 2000, 3500], [50, 100, 200, 350],
+                                        [5, 10, 15, 20])
 
 class TeaTree(FruitTree):
     def __init__(self, x, y):
-        super(TeaTree, self).__init__("tea", "차나무", x, y, "#0F0")
+        super(TeaTree, self).__init__("tea", "차나무", x, y, "#0F0", ["teaTree"], )
 
 class SharonTree(Building):
     def __init__(self, x, y):
         super(SharonTree, self).__init__("sharon", "무궁화", x, y, "#FF0", ["roseOfSharonTree"])
-        self.waterFilled = 0
-        self.fertilized = 0
-        self.shaggy = 0
+
+    def getContextMenu(self):
+        contextMenu = {}
+        return contextMenu
+
+class Well(Building):
+    def __init__(self, x, y):
+        super(Well, self).__init__("well", "우물", x, y, "#44F", ["well"], [5])
 
     def getContextMenu(self):
         contextMenu = {}
@@ -158,3 +176,12 @@ def getTotalManagements():
 def getAvailablePopulation():
     return getTotalPopulation() - getTotalManagements()
 
+def getTotalSupplyDepots():
+    ret = 0
+
+    for lines in gCityMap:
+        for b in lines:
+            if isinstance(b, FruitTree):
+                ret += 1
+
+    return ret

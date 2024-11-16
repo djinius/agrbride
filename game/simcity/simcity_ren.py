@@ -79,26 +79,30 @@ def setBuilding(x, y, p):
     gTargetTree = p
 
 def addBuilding(x, y, b):
+    global gBuildings
+
     if b == "apple":
-        gBuildings.append(AppleTree(x, y))
+        newTree = AppleTree(x, y)
     elif b == "grape":
-        gBuildings.append(GrapeTree(x, y))
-    elif b == "tea":
-        gBuildings.append(TeaTree(x, y))
-    elif b == "rice":
-        gBuildings.append(RiceTree(x, y))
-    elif b == "meat":
-        gBuildings.append(MeatTree(x, y))
-    elif b == "nympha":
-        gBuildings.append(NymphaTree(x, y))
-    elif b == "sharon":
-        gBuildings.append(SharonTree(x, y))
-    elif b == "shed":
-        gBuildings.append(Shed(x, y))
-    elif b == "anthill":
-        gBuildings.append(AntHill(x, y))
-    elif b == "hive":
-        gBuildings.append(Hive(x, y))
+        newTree = GrapeTree(x, y)
+    elif b == "well":
+        newTree = Well(x, y)
     else:
         pass
+
     renpy.restart_interaction()
+
+def placeBuilding(x, y, b):
+    global gCityMap
+    gCityMap[y][x] = b
+
+def appendBuilding(b):
+    global gBuildings
+    gBuildings.append(b)
+
+def removeBuilding(b):
+    global gBuildings
+    global gCityMap
+
+    placeBuilding(b.x, b.y, None)
+    gBuildings.remove(b)

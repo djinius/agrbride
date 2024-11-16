@@ -1,5 +1,8 @@
 label rosalind_bedscene:
 
+    scene black
+    pause 1.
+    
     scene rosalind_bath:
         align (.5, .25)
     with dissolve

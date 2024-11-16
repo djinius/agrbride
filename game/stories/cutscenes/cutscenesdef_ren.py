@@ -38,7 +38,9 @@ class CutScene:
         return self.labelName
 
     def finish(self):
+        global cutscenes
         self.finished = True
+        cutscenes.remove(self)
 
     def isVerified(self):
         return self.verified
@@ -55,6 +57,28 @@ class RosalindBedScene(CutScene):
 
     def isAvailable(self):
         return getAvailablePopulation() >= 1000
+
+
+class SunnaWellScene(CutScene):
+    def __init__(self):
+        super(SunnaWellScene, self).__init__("우물", "sunnaWellScene", None)
+
+    def isAvailable(self):
+        return getTotalSupplyDepots() >= 2
+
+    def finish(self):
+        global gWellUnlocked
+
+        super(SunnaWellScene, self).finish()
+        gWellUnlocked = True
+
+
+class MaliSharonScene(CutScene):
+    def __init__(self):
+        super(MaliSharonScene, self).__init__("무궁화", "maliSharonScene", None)
+
+    def isAvailable(self):
+        return getTotalSupplyDepots() >= 5
 
 
 def availableCutScenes(scenes):
