@@ -34,8 +34,8 @@ class CityMapFrame(renpy.Displayable):
             self.isDragging = False
 
         elif ev.type == pygame.MOUSEMOTION:
-            gInitialXAlign = ms.scope["citymap"].xadjustment.get_value() / 1920.
-            gInitialYAlign = ms.scope["citymap"].yadjustment.get_value() / 1088.
+            gInitialXAlign = (ms.scope["citymap"].xadjustment.get_value() - 1920) / 6000.
+            gInitialYAlign = ms.scope["citymap"].yadjustment.get_value() / (6000. - 1080)
             renpy.restart_interaction()
 
         return None
@@ -72,9 +72,13 @@ def setLocation(x, y, p):
     gShowDetails = None
 
 def setBuilding(x, y, p):
+    global xLoc
+    global yLoc
     global gShowPopupMenu
     global gTargetTree
 
+    xLoc = None
+    yLoc = None
     gShowPopupMenu = False
     gTargetTree = p
 
@@ -106,3 +110,29 @@ def removeBuilding(b):
 
     placeBuilding(b.x, b.y, None)
     gBuildings.remove(b)
+
+def getTotalWaterSupply():
+    global gBuildings
+
+    ret = 50
+
+    for b in gBuildings:
+        if isinstance(b, Well):
+            ret += 100
+
+    return ret
+
+def getTotalWaterDemand():
+    global gBuildings
+
+    ret = 0
+    pop = getTotalPopulation()
+
+    for b in gBuildings:
+        ret += b.getWaterDemand()
+
+    ret += getTotalPopulation() // 50
+    return ret
+
+def getAvailableWater():
+    return getTotalWaterSupply() - getTotalWaterDemand()

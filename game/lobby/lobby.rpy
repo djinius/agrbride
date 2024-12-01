@@ -12,7 +12,10 @@ screen lobbyMenu(items):
 
 
 label lobby:
-    scene menubg with dissolve
+    scene menubg:
+        align (.5, .25)
+    with dissolve
+
     로잘린드 "어서 오세요, 주인님. 오늘은 무얼 도와드릴까요?"
 
     menu:

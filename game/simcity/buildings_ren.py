@@ -5,7 +5,7 @@ init -1 python:
 # 재코딩
 
 class Building:
-    def __init__(self, name, localName, x, y, minimapColor, levelSprites, managements, detailScreen = None):
+    def __init__(self, name, localName, x, y, minimapColor, levelSprites, managements, waterDemand = None, detailScreen = None):
         global gCityMap
 
         self.x = x
@@ -15,17 +15,32 @@ class Building:
         self.level = 0
         self.minimapColor = minimapColor
         self.levelSprites = levelSprites
-        self.maxlevel = len(levelSprites) - 1
+
+        if levelSprites:
+            self.maxlevel = len(levelSprites) - 1
+        else:
+            self.maxlevel = 0
+
         self.managements = managements
+        if waterDemand is not None:
+            self.waterDemand = waterDemand
+        else:
+            self.waterDemand = [0]
+
         self.detailScreen = detailScreen
 
-        placeBuilding(x, y, self)
+        if x != -1 and y != -1:
+            placeBuilding(x, y, self)
+        appendBuilding(self)
 
     def getIdleSprite(self):
         return self.levelSprites[self.level]
 
     def isUpgradeAvailable(self):
-        return self.level < self.maxlevel
+        if getAvailableWater() >= self.getWaterDemand():
+            return self.level < self.maxlevel
+        else:
+            return False
 
     def upgrade(self):
         if self.level < self.maxlevel:
@@ -73,6 +88,9 @@ class Building:
         placeBuilding(self.x, self.y, None)
         removeBuilding(self)
 
+    def getWaterDemand(self):
+        return self.waterDemand[self.level]
+
 # 유실수
 # 컨텍스트 메뉴: 물주기, 거름주기, 벌레잡기, 가지치기, 수확, 등급 상향, 벌목
 # 등급: 싹 -> 묘목 -> 큰키나무 -> 아름드리 -> 고목
@@ -81,16 +99,15 @@ class Building:
 # 생명력 일정수준 증가시 수확 가능
 # 수확시 생명력 대폭 감소
 class FruitTree(Building):
-    def __init__(self, name, localName, x, y, minimapcolor, levelSprites, populations, managements, woods, detailScreen = None):
-        super(FruitTree, self).__init__(name, localName, x, y, minimapcolor, levelSprites, managements, detailScreen)
+    def __init__(self, name, localName, x, y, minimapcolor, levelSprites, populations, managements, woods, waterDemand = None, detailScreen = None):
+        super(FruitTree, self).__init__(name, localName, x, y, minimapcolor, levelSprites, managements, waterDemand, detailScreen)
         self.populations = populations
         self.managements = managements
         self.woods = woods
 
     def getContextMenu(self):
         contextMenu = {}
-        if self.isUpgradeAvailable():
-            contextMenu["등급 향상"] = (self.upgrade, self.alwaysTrue)
+        contextMenu["등급 향상"] = (self.upgrade, self.isUpgradeAvailable)
 
         return contextMenu
 
@@ -103,31 +120,45 @@ class FruitTree(Building):
     def getWoodProduction(self):
         return self.woods[self.level]
 
-
-# 3레벨일 때에는 물주기, 비료주기, 벌레잡기, 가지치기 시 별도의 수확량 바를 증가시킴
-# 동시에 서브레벨 증가
 class AppleTree(FruitTree):
     def __init__(self, x, y):
         super(AppleTree, self).__init__("apple", "사과나무", x, y, "#F88",
                                         ["appleTree0", "appleTree1", "appleTree2", "appleTree3"],
                                         [100, 300, 600, 1000], [25, 75, 150, 250],
-                                        [5, 10, 15, 20]
+                                        [5, 10, 15, 20], [5, 10, 15, 20]
                                         )
         self.population = []
+
+    def isUpgradeAvailable(self):
+        global gFactory
+
+        ret = False
+        if super(AppleTree, self).isUpgradeAvailable():
+            if gFactory.isWoodConsumable(500):
+                ret = True
+
+        return ret
+
+    def upgrade(self):
+        global gFactory
+
+        if super(AppleTree, self).isUpgradeAvailable():
+            gFactory.consumeWoods(500)
+            super(AppleTree, self).upgrade()
 
 class GrapeTree(FruitTree):
     def __init__(self, x, y):
         super(GrapeTree, self).__init__("grape", "포도나무", x, y, "#409",
                                         ["grapeTree0", "grapeTree1", "grapeTree2", "grapeTree3"],
                                         [200, 500, 1000, 2000], [30, 75, 150, 300],
-                                        [5, 10, 15, 20])
+                                        [7, 14, 21, 30], [10, 20, 30, 40])
 
 class PeachTree(FruitTree):
     def __init__(self, x, y):
         super(PeachTree, self).__init__("peach", "포도나무", x, y, "#409",
                                         ["peachTree0", "peachTree1", "peachTree2", "peachTree3"],
                                         [500, 1000, 2000, 3500], [50, 100, 200, 350],
-                                        [5, 10, 15, 20])
+                                        [10, 25, 50, 75], [15, 25, 40, 55])
 
 class TeaTree(FruitTree):
     def __init__(self, x, y):
@@ -143,7 +174,11 @@ class SharonTree(Building):
 
 class Well(Building):
     def __init__(self, x, y):
-        super(Well, self).__init__("well", "우물", x, y, "#44F", ["well"], [5])
+        super(Well, self).__init__("well", "우물", x, y, "#44F", ["well", "well", "well"], [5, 10, 20])
+
+        self.waterSupply = [100, 200, 500]
+        self.levelNames = ["우물", "수동 양수기", "전기 양수기"]
+        self.electricDemand = [0, 0, 20]
 
     def getContextMenu(self):
         contextMenu = {}

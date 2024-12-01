@@ -9,9 +9,11 @@ default yLoc = None
 default gInitialXAlign = .0
 default gInitialYAlign = 1.
 
+default gPopupUnlocked = False
 default gWellUnlocked = False
-
 default nextCutScene = None
+
+default gFactory = Factory()
 
 ###############################################################################
 #
@@ -24,10 +26,11 @@ default nextCutScene = None
 ###############################################################################
 
 screen buildit(isManageEnabled = True):
-    # add CityMapFrame()
+    add CityMapFrame()
     style_prefix "buildit"
 
-    key "game_menu" action NullAction()
+    if isManageEnabled:
+        key "game_menu" action NullAction()
 
     viewport id "vp" as citymap:
         if gEdgeScroll:
@@ -58,7 +61,7 @@ screen buildit(isManageEnabled = True):
                             selected xLoc==x and yLoc==y
                             action [SetVariable("gTargetTree", None), SetVariable("gShowDetails", None), Function(setLocation, x=x, y=y, p=True)]
                             alternate Function(setLocation, x=x, y=y, p=True)
-                            sensitive isManageEnabled
+                            sensitive gPopupUnlocked and isManageEnabled
         
             if (xLoc is not None) and (yLoc is not None) and isManageEnabled:
                 if gShowPopupMenu:
@@ -71,10 +74,17 @@ screen buildit(isManageEnabled = True):
     vbox:
         align (.0, .0)
 
-        hbox:
+        frame:
+            background Solid("#000")
+            ysize 35
+
+            has hbox
             text "인구: %d" % getTotalPopulation()
             text "관리: %d" % getTotalManagements()
-            text "유휴인력: %d" % getAvailablePopulation()
+            text "대기인력: %d" % getAvailablePopulation()
+            text "물 공급: %d" % getTotalWaterSupply()
+            text "물 수요: %d" % getTotalWaterDemand()
+            text "목재: %d" % gFactory.getWoodStock()
 
         $ next = availableCutScenes(cutscenes)
 
@@ -95,14 +105,26 @@ screen buildit(isManageEnabled = True):
                     add "gui/buildit/bubble.png"
                     text s.getTitle() size 25 yalign .5 idle_color "#FFF" hover_color "#FF0"
 
-    frame:
-        align (1., 1.)
-        padding (0, 0)
-        background None
+                    imagebutton:
+                        xalign 1.
+                        idle "gui/buildit/gift.png"
+                        action Function(s.finish)
 
-        has hbox
-        textbutton "관리 종료" action Return()
+    if isManageEnabled:
+        frame:
+            align (1., 1.)
+            padding (0, 0)
+            background None
 
+            has hbox
+
+            if gFactory.isUnlocked():
+                textbutton "공방" action NullAction()
+
+            textbutton "관리 종료" action Return()
+
+    if gFactory.isUnlocked():
+        timer 1. repeat True action Function(gFactory.recalcStocks)
     
 
 screen builditPopup(xloc, yloc):
@@ -122,6 +144,7 @@ screen builditPopup(xloc, yloc):
         has vbox
         textbutton "사과나무":
             action [Function(addBuilding, x=xloc, y=yloc, b="apple"), Function(setLocation, x=None, y=None, p=False)]
+            sensitive getAvailableWater() > 7
             text_size 25
 
         if gWellUnlocked:

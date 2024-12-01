@@ -94,6 +94,10 @@ style frame:
 ## https://www.renpy.org/doc/html/screen_special.html#say
 
 screen say(who, what):
+
+    on "show" action SetVariable("afm", what)
+    on "hide" action SetVariable("afm", None)
+
     style_prefix "say"
 
     vbox:
@@ -735,6 +739,9 @@ screen preferences():
                 box_wrap True
 
                 vbox:
+
+                    textbutton _("자동 진행") action Preference("auto-forward", "toggle")
+                    textbutton _("클릭 후에도 자동 진행") action Preference("auto-forward after click", "toggle")
 
                     label _("텍스트 속도")
 
@@ -1576,3 +1583,13 @@ style slider_vbox:
 style slider_slider:
     variant "small"
     xsize 900
+
+default afm = None
+
+screen ctc:
+    if preferences.afm_enable and afm is not None:
+        $ print(afm, len(afm), 1.0 * (renpy.config.afm_bonus + len(afm) / renpy.config.afm_characters) * renpy.game.preferences.afm_time)
+        bar:
+            align (1., 1.)
+            xysize (50, 15)
+            value AnimatedValue(old_value=0, value=1, delay=(1.0 * (renpy.config.afm_bonus + len(afm) / renpy.config.afm_characters) * renpy.game.preferences.afm_time) / 100.)

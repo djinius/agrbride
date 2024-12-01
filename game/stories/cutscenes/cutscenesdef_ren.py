@@ -9,7 +9,7 @@ init -1 python:
 # 2.1. isAvailable(): 컷신 재생 가능
 # 2.2. isFinished(): 컷신 재생 끝냄
 # 2.3. getLableName(): 컷신 레이블 리턴
-# 2.4. finish(): 재생 끝났음 마킹
+# 2.4. finish(): 재생 끝났음 마킹 => 컷신을 보지 않고 보상만 얻을 때 활용
 # 2.5. isVerified(): 툴팁 확인 완료
 # 2.6. getScreenName(): 툴팁 스크린명 - 사용 가능할 때 도시 관리 화면에 띄움
 # 2.7. verify(): 툴팁 확인함 마킹
@@ -40,6 +40,7 @@ class CutScene:
     def finish(self):
         global cutscenes
         self.finished = True
+        renpy.mark_label_seen(self.getLabelName())
         cutscenes.remove(self)
 
     def isVerified(self):
@@ -51,35 +52,101 @@ class CutScene:
     def verify(self):
         self.verified = False
 
-class RosalindBedScene(CutScene):
+class RosalindAppleTreeScene(CutScene):
     def __init__(self):
-        super(RosalindBedScene, self).__init__("첫날밤", "rosalind_bedscene", None)
+        super(RosalindAppleTreeScene, self).__init__("시작", "rosalindAppleTreeScene", None)
 
     def isAvailable(self):
-        return getAvailablePopulation() >= 1000
+        return True
 
+    def finish(self):
+        global gPopupUnlocked
+        super(RosalindAppleTreeScene, self).finish()
+        gPopupUnlocked = True
 
-class SunnaWellScene(CutScene):
+class RosalindOneAppleTreeScene(CutScene):
     def __init__(self):
-        super(SunnaWellScene, self).__init__("우물", "sunnaWellScene", None)
+        super(RosalindOneAppleTreeScene, self).__init__("시작", "rosalindOneAppleTreeScene", None)
+
+    def isAvailable(self):
+        return getTotalSupplyDepots() >= 1
+
+    def finish(self):
+        global gPopupUnlocked
+        super(RosalindOneAppleTreeScene, self).finish()
+        gPopupUnlocked = True
+
+class RosalindFactoryScene(CutScene):
+    def __init__(self):
+        super(RosalindFactoryScene, self).__init__("공방", "rosalindFactoryScene", None)
 
     def isAvailable(self):
         return getTotalSupplyDepots() >= 2
 
     def finish(self):
+        global gFactory
+
+        super(RosalindFactoryScene, self).finish()
+        gFactory.unlock()
+
+class RosalindWellScene(CutScene):
+    def __init__(self):
+        super(RosalindWellScene, self).__init__("우물", "rosalindWellScene", None)
+
+    def isAvailable(self):
+        return getTotalSupplyDepots() >= 4
+
+    def finish(self):
         global gWellUnlocked
 
-        super(SunnaWellScene, self).finish()
+        super(RosalindWellScene, self).finish()
         gWellUnlocked = True
 
+class RosalindDateScene(CutScene):
+    def __init__(self):
+        super(RosalindDateScene, self).__init__("나들이", "rosalindDateScene", None)
+
+    def isAvailable(self):
+        return getAvailablePopulation() >= 1000
+
+class RosalindUpgradeScene(CutScene):
+    def __init__(self):
+        super(RosalindUpgradeScene, self).__init__("등급 향상", "rosalindUpgradeScene", None)
+
+    def isAvailable(self):
+        global gFactory
+        return gFactory.isWoodConsumable(500)
+
+    def finish(self):
+        global gWellUnlocked
+
+        super(RosalindUpgradeScene, self).finish()
+        gWellUnlocked = True
+
+class RosalindFactoryUpgradeScene(CutScene):
+    def __init__(self):
+        super(RosalindFactoryUpgradeScene, self).__init__("공방", "rosalindUpgradeFactoryScene", None)
+
+    def isAvailable(self):
+        global gFactory
+        return (getTotalSupplyDepots() >= 5) and (getAvailablePopulation() > 2500) and (gFactory.isWoodConsumable(1000))
+
+    def finish(self):
+        global gFactory
+
+        super(RosalindFactoryUpgradeScene, self).finish()
+        gFactory.unlockUpgrade()
 
 class MaliSharonScene(CutScene):
     def __init__(self):
         super(MaliSharonScene, self).__init__("무궁화", "maliSharonScene", None)
 
     def isAvailable(self):
-        return getTotalSupplyDepots() >= 5
+        return getTotalSupplyDepots() >= 7
 
 
 def availableCutScenes(scenes):
     return [x for x in scenes if (x.isAvailable() and (not x.isFinished()))]
+
+
+# 3507516605
