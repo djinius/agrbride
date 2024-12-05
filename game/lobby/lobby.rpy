@@ -16,25 +16,15 @@ label lobby:
         align (.5, .25)
     with dissolve
 
-    로잘린드 "어서 오세요, 주인님. 오늘은 무얼 도와드릴까요?"
+    로잘린드 몬무스 "어서 오세요, 주인님. 오늘은 무얼 도와드릴까요?"
+
+    $ rosalindName = "로잘린드"
 
     menu:
-        # 로잘린드
-        "공부":
-            pass
-
         # 말리, 세라, 보미, 카라
         "과수원 관리":
             call buildContinue
 
-        # 만다
-        "단련":
-            pass
-
-        # 루시, 꼭지
-        "홍보":
-            pass
-        
         # 버스정류장
         "마실":
             call rosalind_bedscene

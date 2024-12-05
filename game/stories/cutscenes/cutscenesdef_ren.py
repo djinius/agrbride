@@ -37,11 +37,13 @@ class CutScene:
     def getLabelName(self):
         return self.labelName
 
-    def finish(self):
+    def begin(self):
         global cutscenes
+        cutscenes.remove(self)
+
+    def finish(self):
         self.finished = True
         renpy.mark_label_seen(self.getLabelName())
-        cutscenes.remove(self)
 
     def isVerified(self):
         return self.verified
@@ -94,7 +96,7 @@ class RosalindWellScene(CutScene):
         super(RosalindWellScene, self).__init__("우물", "rosalindWellScene", None)
 
     def isAvailable(self):
-        return getTotalSupplyDepots() >= 4
+        return (getTotalSupplyDepots() >= 4) or (getTotalWaterSupply() - getTotalWaterDemand() <= 10)
 
     def finish(self):
         global gWellUnlocked
@@ -118,14 +120,11 @@ class RosalindUpgradeScene(CutScene):
         return gFactory.isWoodConsumable(500)
 
     def finish(self):
-        global gWellUnlocked
-
         super(RosalindUpgradeScene, self).finish()
-        gWellUnlocked = True
 
 class RosalindFactoryUpgradeScene(CutScene):
     def __init__(self):
-        super(RosalindFactoryUpgradeScene, self).__init__("공방", "rosalindUpgradeFactoryScene", None)
+        super(RosalindFactoryUpgradeScene, self).__init__("공방", "rosalindFactoryUpgradeScene", None)
 
     def isAvailable(self):
         global gFactory

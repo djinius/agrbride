@@ -1,5 +1,7 @@
 label rosalind_bedscene:
 
+    $ gHScene = True
+
     scene black
     pause 1.
     
@@ -38,5 +40,7 @@ label rosalind_bedscene:
     로잘린드 "주무시는 모습이 귀엽더군요."
 
     scene black with dissolve
+
+    $ gHScene = False
 
     return

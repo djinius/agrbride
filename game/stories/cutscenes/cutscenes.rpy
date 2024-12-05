@@ -5,7 +5,8 @@ default cutscenes = [
     RosalindWellScene(),
     RosalindUpgradeScene(),
     MaliSharonScene(),
-    RosalindDateScene()
+    RosalindDateScene(),
+    RosalindFactoryUpgradeScene(),
     ]
 
 label playCutScene(cutSceneObject):
@@ -15,6 +16,8 @@ label playCutScene(cutSceneObject):
     $ gTargetTree = None
     $ xLoc = None
     $ yLoc = None
+
+    $ cutSceneObject.begin()
 
     show screen buildit(isManageEnabled = False)
 
@@ -45,7 +48,7 @@ label rosalindOneAppleTreeScene:
 
 label rosalindFactoryScene:
 
-    로잘린드 "공방을 설치할 때가 되었습니다."
+    로잘린드 "이제부터 공방을 사용할 수 있습니다."
     로잘린드 "목재를 수확해서 영지에서 사용할 각종 기물을 만드는 곳입니다."
     로잘린드 "말리 님의 줄기 중 오래 되거나 웃자란 가지들을 베어내 활용합니다."
     로잘린드 "목재 일부를 활용해서 식량수의 등급을 올릴 수도 있습니다."
@@ -54,7 +57,7 @@ label rosalindFactoryScene:
 
 label rosalindWellScene:
 
-    로잘린드 몬무스 "영지에 나무가 계속 늘어나고 있군요. 아주 좋습니다."
+    로잘린드 몬무스 "영지에 나무와 인구가 계속 늘어나고 있군요. 아주 좋습니다."
     로잘린드 "그만큼 물도 많이 필요해집니다."
     로잘린드 "우물을 파서 수자원을 확보해 보십시오. 버드나무도 우물 옆에 함께 심어서 깨끗한 물을 얻어야 합니다."
     로잘린드 "영민들도 물을 소비하기 때문에, 식량수에서 필요로 하는 양보다 더 많은 수자원을 넉넉히 준비해 두어야 합니다."

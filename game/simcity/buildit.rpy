@@ -7,10 +7,11 @@ default gTargetTree = None
 default xLoc = None
 default yLoc = None
 default gInitialXAlign = .0
-default gInitialYAlign = 1.
+default gInitialYAlign = .0
 
 default gPopupUnlocked = False
 default gWellUnlocked = False
+default gStatiumUnlocked = False
 default nextCutScene = None
 
 default gFactory = Factory()
@@ -28,6 +29,8 @@ default gFactory = Factory()
 screen buildit(isManageEnabled = True):
     add CityMapFrame()
     style_prefix "buildit"
+
+    default factoryPopup = False
 
     if isManageEnabled:
         key "game_menu" action NullAction()
@@ -75,7 +78,7 @@ screen buildit(isManageEnabled = True):
         align (.0, .0)
 
         frame:
-            background Solid("#000")
+            background Solid("#FFF")
             ysize 35
 
             has hbox
@@ -88,27 +91,30 @@ screen buildit(isManageEnabled = True):
 
         $ next = availableCutScenes(cutscenes)
 
-        vbox:
-            align (.0, .25)
+        if next:
+            timer .1 action [SetVariable("nextCutScene", next[0]), Return()]
 
-            for s in next:
-                button:
-                    xysize (150, 50)
-                    action [SetVariable("nextCutScene", s), Return()]
+#        vbox:
+#            align (.0, .25)
 
-                    has frame
-                    background None
-                    xysize (1., 1.)
-                    padding (0, 0)
+#            for s in next:
+#                button:
+#                    xysize (150, 50)
+#                    action [SetVariable("nextCutScene", s), Return()]
 
-                    has hbox
-                    add "gui/buildit/bubble.png"
-                    text s.getTitle() size 25 yalign .5 idle_color "#FFF" hover_color "#FF0"
+#                    has frame
+#                    background None
+#                    xysize (1., 1.)
+#                    padding (0, 0)
 
-                    imagebutton:
-                        xalign 1.
-                        idle "gui/buildit/gift.png"
-                        action Function(s.finish)
+#                    has hbox
+#                    add "gui/buildit/bubble.png"
+#                    text s.getTitle() size 25 yalign .5 idle_color "#FFF" hover_color "#FF0"
+
+#                    imagebutton:
+#                        xalign 1.
+#                        idle "gui/buildit/gift.png"
+#                        action Function(s.finish)
 
     if isManageEnabled:
         frame:
@@ -119,12 +125,18 @@ screen buildit(isManageEnabled = True):
             has hbox
 
             if gFactory.isUnlocked():
-                textbutton "공방" action NullAction()
+                vbox:
+                    if factoryPopup:
+                        text "공방"
+                        text "%d등급" % gFactory.level
+                        textbutton "등급 향상" action Function(gFactory.upgrade) sensitive gFactory.isUpgradeAvailable()
+
+                    textbutton "공방" action ToggleLocalVariable("factoryPopup")
 
             textbutton "관리 종료" action Return()
 
-    if gFactory.isUnlocked():
-        timer 1. repeat True action Function(gFactory.recalcStocks)
+        if gFactory.isUnlocked():
+            timer 1. repeat True action Function(gFactory.recalcStocks)
     
 
 screen builditPopup(xloc, yloc):

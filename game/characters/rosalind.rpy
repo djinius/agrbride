@@ -1,5 +1,7 @@
-define 로잘린드 = Character('로잘린드', color="#ddd8d3", image="로잘린드")
+default rosalindName = "???"
 
-image 로잘린드 몬무스 = "images/ai/characters/standings/rosalind.png"
+define 로잘린드 = Character('rosalindName', dynamic=True, color="#4d4843", image="로잘린드")
 
-image side 로잘린드 몬무스 = Transform("images/ai/characters/standings/rosalind.png", zoom=.5)
+image 로잘린드 몬무스 = "images/characters/rosalind/monmusu.png"
+
+image side 로잘린드 몬무스 = Transform(Crop((600, 0, 1900, 2100), "images/characters/rosalind/monmusu.png"), zoom=.4)
