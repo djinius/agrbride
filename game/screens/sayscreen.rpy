@@ -88,6 +88,7 @@ style namebox:
     padding (50, 5, 50, 5)
     background Frame("gui/namebox.png", gui.namebox_borders, tile=gui.namebox_tile, xalign=gui.name_xalign)
     pos (gui.name_xpos, gui.name_ypos) anchor (gui.name_xanchor, gui.name_yanchor) offset (gui.name_xoffset, gui.name_yoffset)
+    xminimum 202 yminimum 52
     text_align gui.name_xalign
 
 style say_label:

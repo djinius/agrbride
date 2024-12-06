@@ -74,7 +74,7 @@ define gui.interface_text_font = "KCC-Hanbit.ttf"
 define gui.text_size = 33
 
 ## 캐릭터 이름의 글자 크기입니다.
-define gui.name_text_size = 45
+define gui.name_text_size = 40
 
 ## 게임의 유저 인터페이스에서 글자의 크기입니다.
 define gui.interface_text_size = 33
@@ -130,8 +130,8 @@ define gui.name_xalign = 0.5
 
 ## 캐릭터들의 이름이 들어 있는 박스의 너비, 높이, 그리고 테두리입니다. 혹은 그것
 ## 을 None으로 자동 설정할 수 있습니다.
-define gui.namebox_width = None
-define gui.namebox_height = None
+define gui.namebox_width = 202
+define gui.namebox_height = 52
 
 ## 캐릭터의 이름이 들어 있는 박스의 테두리를 좌측, 상단, 우측, 하단의 순서로 정
 ## 합니다.

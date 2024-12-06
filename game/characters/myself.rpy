@@ -1,4 +1,4 @@
-define 독백 = Character(None, color="#FFFFFF")
-define 나 = Character('승태', color="#FFFFFF")
+default myName = '나'
 
-image 나 = "images/ai/characters/standings/ourhero.png"
+define 독백 = Character(None, color="#FFFFFF")
+define 주인공 = Character('myName', dynamic=True, color="#FFFFFF")

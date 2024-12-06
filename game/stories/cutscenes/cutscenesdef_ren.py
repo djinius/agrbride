@@ -143,6 +143,11 @@ class MaliSharonScene(CutScene):
     def isAvailable(self):
         return getTotalSupplyDepots() >= 7
 
+    def finish(self):
+        global gSharonUnlocked
+
+        super(MaliSharonScene, self).finish()
+        gSharonUnlocked = True
 
 def availableCutScenes(scenes):
     return [x for x in scenes if (x.isAvailable() and (not x.isFinished()))]

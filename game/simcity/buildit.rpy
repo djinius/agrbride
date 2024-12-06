@@ -12,6 +12,7 @@ default gInitialYAlign = .0
 default gPopupUnlocked = False
 default gWellUnlocked = False
 default gStatiumUnlocked = False
+default gSharonUnlocked = False
 default nextCutScene = None
 
 default gFactory = Factory()

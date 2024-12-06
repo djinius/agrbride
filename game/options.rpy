@@ -214,3 +214,6 @@ default preferences.gl_framerate = 60
 
 # 말할 때마다 소리 재생
 define config.say_arguments_callback = say_arguments_callback
+
+# 사이드 이미지 표기
+define config.side_image_only_not_showing = True
