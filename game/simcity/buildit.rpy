@@ -95,28 +95,6 @@ screen buildit(isManageEnabled = True):
         if next:
             timer .1 action [SetVariable("nextCutScene", next[0]), Return()]
 
-#        vbox:
-#            align (.0, .25)
-
-#            for s in next:
-#                button:
-#                    xysize (150, 50)
-#                    action [SetVariable("nextCutScene", s), Return()]
-
-#                    has frame
-#                    background None
-#                    xysize (1., 1.)
-#                    padding (0, 0)
-
-#                    has hbox
-#                    add "gui/buildit/bubble.png"
-#                    text s.getTitle() size 25 yalign .5 idle_color "#FFF" hover_color "#FF0"
-
-#                    imagebutton:
-#                        xalign 1.
-#                        idle "gui/buildit/gift.png"
-#                        action Function(s.finish)
-
     if isManageEnabled:
         frame:
             align (1., 1.)
@@ -163,6 +141,11 @@ screen builditPopup(xloc, yloc):
         if gWellUnlocked:
             textbutton "우물":
                 action [Function(addBuilding, x=xloc, y=yloc, b="well"), Function(setLocation, x=None, y=None, p=False)]
+                text_size 25
+
+        if gSharonUnlocked:
+            textbutton "무궁화":
+                action [Function(addBuilding, x=xloc, y=yloc, b="sharon"), Function(setLocation, x=None, y=None, p=False)]
                 text_size 25
 
 screen buildingPopup(b):

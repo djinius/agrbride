@@ -166,7 +166,9 @@ class TeaTree(FruitTree):
 
 class SharonTree(Building):
     def __init__(self, x, y):
-        super(SharonTree, self).__init__("sharon", "무궁화", x, y, "#FF0", ["roseOfSharonTree"])
+        super(SharonTree, self).__init__("sharon", "무궁화", x, y, "#FF0",
+                                         ["roseOfSharonTree"],
+                                         [125], [30])
 
     def getContextMenu(self):
         contextMenu = {}

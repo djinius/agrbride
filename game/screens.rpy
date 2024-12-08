@@ -236,9 +236,9 @@ screen main_menu():
     tag menu
 
     # add gui.main_menu_background
-    add "로잘린드 몬무스":
+    add "로잘린드 정면 한복":
         pos (.5, 0) anchor (.5, .0)
-        zoom .5
+        zoom .75
 
     ## 이 빈 프레임은 기본 메뉴를 어둡게 만듭니다.
     #frame:

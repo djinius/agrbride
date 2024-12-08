@@ -8,13 +8,17 @@ init -1 python:
 
 ################################################################################
 # 생산품 클래스
-# 목재 - 영지 등급 0
+# 0등급 - 목재
+# 1등급 - 뜨개바늘, 옷감
+# 2등급 - 벽돌
 
 class Factory(Building):
     maxWoodStock = [  1000,   2500,   5000,  10000,  15000,
                      20000,  30000,  50000,  75000, 100000]
     upgradeWoodStock = [  1000,   2000,   4000,   8000,  12000,
                          16000,  24000,  40000,  60000,  80000]
+
+    products = [["뜨개바늘", "옷감"], ["벽돌"]]
 
     def __init__(self): #, name, localName, x, y, minimapColor, levelSprites, managements, detailScreen = None):
         super(Factory, self).__init__("Factory",    # name
@@ -30,6 +34,7 @@ class Factory(Building):
         self.unlocked = False
         self.upgradeUnlocked = False
         self.waterDemand = [0] * 10
+        self.productionQueue = []
 
     def unlock(self):
         self.unlocked = True

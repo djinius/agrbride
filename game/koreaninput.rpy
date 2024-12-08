@@ -3,6 +3,7 @@ init python:
         def __init__(self,screen_name,input_id):
             self.screen_name=screen_name
             self.input_id=input_id
+
         def __call__(self):
             if renpy.get_widget(self.screen_name,self.input_id):
                 return str(renpy.get_widget(self.screen_name,self.input_id).content)
@@ -125,29 +126,34 @@ screen koreaninput(prompt):
 
     style_prefix "koreaninput"
 
+    add Solid("#222C")
+
     vbox:
         align (.5, .5)
         spacing 10
 
         text prompt style "input_prompt"
-        input id "inputstr"
+        input id "inputstr":
+            font "NEXON Lv2 Gothic Medium.ttf"
+            size 50
 
-        vbox:
+        hbox:
             xalign .5
             style_prefix "koreaninputsyallbles"
+            spacing 30
 
-            grid 19 1:
+            grid 5 6:
                 for n, i in enumerate(koreanF):
                     textbutton i:
                         action [AddKoreanFirst("koreaninput", "inputstr", n), SetLocalVariable("first", n)]
                         text_size 30
 
-            grid 21 1:
+            grid 5 6:
                 for n, m in enumerate(koreanM):
                     textbutton getKoreanSyllable(first, n, 0):
                         action [AddKoreanMiddle("koreaninput", "inputstr", first, n), SetLocalVariable("middle", n)]
 
-            grid 28 1:
+            grid 5 6:
                 for n, l in enumerate(koreanL):
                     textbutton getKoreanSyllable(first, middle, n):
                         action [AddKoreanLast("koreaninput", "inputstr", first, middle, n), SetLocalVariable("last", n)]
@@ -174,6 +180,7 @@ style koreaninput_vbox:
 
 style koreaninput_text:
     xalign .5
+    font "NEXON Lv2 Gothic Medium.ttf"
 
 style koreaninput_hbox:
     xalign .5
@@ -188,3 +195,4 @@ style koreaninputsyllables_button:
 
 style koreaninputsyllables_button_text:
     size 30
+    font "NEXON Lv2 Gothic Medium.ttf"

@@ -16,14 +16,38 @@ init python:
         print( "choice button size: ", ln, w )
         return w
 
+transform choiceVBoxOneButtonHop(p, t, of):
+    xpos p ypos .5 yanchor .5
+
+    on idle:
+        xoffset 0
+
+    on hover:
+        easein t xoffset of
+        easeout t xoffset 0
+        repeat
+
+screen choiceVBoxOneButton(i):
+    style_prefix "choiceVBox"
+    
+    button:
+        action i.action
+
+        has frame
+
+        xsize gui.choice_button_width
+        text "▶" at choiceVBoxOneButtonHop(.15, .5, 8)
+        text i.caption xalign .5
+        text "◀" at choiceVBoxOneButtonHop(.85, .5, -8)
+
+
 screen choice(items):
     style_prefix "choice"
 
     frame:
         has vbox
         for i in items:
-            textbutton i.caption action i.action
-
+            use choiceVBoxOneButton(i)
 
 style choice_vbox is vbox
 style choice_hbox is hbox
@@ -45,4 +69,15 @@ style choice_button is default:
 
 style choice_button_text is default:
     properties gui.text_properties("choice_button")
+
+style choiceVBox_text is default:
+    properties gui.text_properties("choice_button")
+    idle_color "#000"
+    hover_color "#FFF"
+
+style choiceVBox_frame is frame:
+    xysize (gui.choice_button_width, gui.choice_button_height)
+    idle_background "gui/button/choice_idle_background.png"
+    hover_background "gui/button/choice_hover_background.png"
+    padding (0, 0, 0, 0)
 

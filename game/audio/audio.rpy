@@ -1,0 +1,1 @@
+define audio.alarmclock = "audio/sfx/alarm_clock.ogg"

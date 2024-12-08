@@ -91,6 +91,8 @@ def addBuilding(x, y, b):
         newTree = GrapeTree(x, y)
     elif b == "well":
         newTree = Well(x, y)
+    elif b == "sharon":
+        newTree = SharonTree(x, y)
     else:
         pass
 
