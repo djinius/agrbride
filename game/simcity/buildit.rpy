@@ -75,27 +75,33 @@ screen buildit(isManageEnabled = True):
             elif (gShowDetails is not None) and (gShowDetails.getDetailScreen() is not None) and isManageEnabled:
                 use expression gShowDetails.getDetailScreen() pass (b=gShowDetails)
 
-    vbox:
-        align (.0, .0)
+    frame:
+        align (.0, 1.)
+        background None
 
-        frame:
-            background Solid("#FFF")
-            ysize 35
+        has hbox
 
-            has hbox
-            text "인구: %d" % getTotalPopulation()
-            text "관리: %d" % getTotalManagements()
-            text "대기인력: %d" % getAvailablePopulation()
-            text "물 공급: %d" % getTotalWaterSupply()
-            text "물 수요: %d" % getTotalWaterDemand()
-            text "목재: %d" % gFactory.getWoodStock()
+        text "식량: %d" % getTotalPopulation()
+        text "관리인력: %d" % getTotalManagements()
+        text "대기인력: %d" % getAvailablePopulation()
+        text "물 공급: %d" % getTotalWaterSupply()
+        text "물 수요: %d" % getTotalWaterDemand()
+        text "목재: %d" % gFactory.getWoodStock()
 
-        $ next = availableCutScenes(cutscenes)
-
-        if next:
-            timer .1 action [SetVariable("nextCutScene", next[0]), Return()]
 
     if isManageEnabled:
+        if gFactory.isUnlocked() and factoryPopup:
+            frame:
+                align (1., 1.) offset (-100, -30)
+                background None
+                xysize (300, 300)
+
+                has vbox
+
+                text "공방"
+                text "%d등급" % gFactory.level
+                textbutton "등급 향상" action Function(gFactory.upgrade) sensitive gFactory.isUpgradeAvailable()
+
         frame:
             align (1., 1.)
             padding (0, 0)
@@ -103,20 +109,17 @@ screen buildit(isManageEnabled = True):
 
             has hbox
 
-            if gFactory.isUnlocked():
-                vbox:
-                    if factoryPopup:
-                        text "공방"
-                        text "%d등급" % gFactory.level
-                        textbutton "등급 향상" action Function(gFactory.upgrade) sensitive gFactory.isUpgradeAvailable()
-
-                    textbutton "공방" action ToggleLocalVariable("factoryPopup")
+            textbutton "공방" action ToggleLocalVariable("factoryPopup") sensitive gFactory.isUnlocked()
 
             textbutton "관리 종료" action Return()
 
         if gFactory.isUnlocked():
             timer 1. repeat True action Function(gFactory.recalcStocks)
     
+        $ next = availableCutScenes(cutscenes)
+
+        if next:
+            timer .1 action [SetVariable("nextCutScene", next[0]), Return()]
 
 screen builditPopup(xloc, yloc):
     frame:

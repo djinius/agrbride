@@ -2,6 +2,8 @@ default openingMenuSet = set()
 
 label opening:
 
+    return
+
     scene palace
     show 로잘린드 정면 한복:
         pos (.5, 0) anchor (.5, .0)
@@ -184,7 +186,10 @@ label opening:
     주인공 "아, 저는……."
 
     # (플레이어 이름 입력)
-    $ myName = renpy.input(screen='koreaninput', prompt='아무거나 입력하세요')
+    $ myName = renpy.input(screen='koreaninput', prompt='나의 이름은……')
+
+    if len(myName) == 0:
+        $ myName = "승태"
 
     원화 "으음, 독특하면서도 듣기 좋은 발음이로구나. 잘 알겠네."
     원화 "앞으로 이곳, 별천지 궁전이 자네가 지낼 곳이라네. 그러니 부담 갖지 말고 이곳에서 지내도록 하게나, [myName] 후작."

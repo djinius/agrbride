@@ -2,6 +2,7 @@
 
 # 여기에서부터 게임이 시작합니다.
 label start:
+    $ rosalindName = "로잘린드"
     call opening
 
     $ initBuildings()

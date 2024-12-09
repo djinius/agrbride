@@ -117,7 +117,7 @@ layeredimage 로잘린드 정면:
         attribute 홍조:
             "images/characters/rosalind/front/extras/blush.png"
 
-image side 로잘린드 정면 = LayeredImageProxy("로잘린드 정면", Transform(crop=(600, 0, 1900, 2100), zoom=.4))
+image side 로잘린드 정면 = LayeredImageProxy("로잘린드 정면", Transform(crop=(700, 0, 1800, 1800), zoom=.4))
 
 # 좌측면
 # 얼굴 표정요소 좌표: (650, 366)

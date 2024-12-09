@@ -125,7 +125,7 @@ class AppleTree(FruitTree):
         super(AppleTree, self).__init__("apple", "사과나무", x, y, "#F88",
                                         ["appleTree0", "appleTree1", "appleTree2", "appleTree3"],
                                         [100, 300, 600, 1000], [25, 75, 150, 250],
-                                        [5, 10, 15, 20], [5, 10, 15, 20]
+                                        [10, 20, 50, 100], [5, 10, 15, 20]
                                         )
         self.population = []
 
