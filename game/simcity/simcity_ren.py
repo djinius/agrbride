@@ -83,19 +83,7 @@ def setBuilding(x, y, p):
     gTargetTree = p
 
 def addBuilding(x, y, b):
-    global gBuildings
-
-    if b == "apple":
-        newTree = AppleTree(x, y)
-    elif b == "grape":
-        newTree = GrapeTree(x, y)
-    elif b == "well":
-        newTree = Well(x, y)
-    elif b == "sharon":
-        newTree = SharonTree(x, y)
-    else:
-        pass
-
+    newTree = globals()[b](x, y)
     renpy.restart_interaction()
 
 def placeBuilding(x, y, b):
@@ -128,12 +116,12 @@ def getTotalWaterDemand():
     global gBuildings
 
     ret = 0
-    pop = getTotalPopulation()
+    pop = getTotalFoodSupply()
 
     for b in gBuildings:
         ret += b.getWaterDemand()
 
-    ret += getTotalPopulation() // 50
+    ret += getTotalFoodSupply() // 50
     return ret
 
 def getAvailableWater():

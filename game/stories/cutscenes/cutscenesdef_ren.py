@@ -66,17 +66,17 @@ class RosalindAppleTreeScene(CutScene):
         super(RosalindAppleTreeScene, self).finish()
         gPopupUnlocked = True
 
-class RosalindOneAppleTreeScene(CutScene):
+class RosalindResidenceScene(CutScene):
     def __init__(self):
-        super(RosalindOneAppleTreeScene, self).__init__("시작", "rosalindOneAppleTreeScene", None)
+        super(RosalindResidenceScene, self).__init__("시작", "rosalindResidenceScene", None)
 
     def isAvailable(self):
         return getTotalSupplyDepots() >= 1
 
     def finish(self):
-        global gPopupUnlocked
-        super(RosalindOneAppleTreeScene, self).finish()
-        gPopupUnlocked = True
+        global gResidenceUnlocked
+        super(RosalindResidenceScene, self).finish()
+        gResidenceUnlocked = True
 
 class RosalindFactoryScene(CutScene):
     def __init__(self):

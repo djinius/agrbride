@@ -10,6 +10,7 @@ default gInitialXAlign = .0
 default gInitialYAlign = .0
 
 default gPopupUnlocked = False
+default gResidenceUnlocked = False
 default gWellUnlocked = False
 default gStatiumUnlocked = False
 default gSharonUnlocked = False
@@ -60,7 +61,7 @@ screen buildit(isManageEnabled = True):
 
                     else:
                         imagebutton:
-                            idle "images/simcity/buildings/empty.png"
+                            idle "images/simcity/empty.png"
                             pos calcXYPos(x, y) anchor (.5, .5) focus_mask True
                             selected xLoc==x and yLoc==y
                             action [SetVariable("gTargetTree", None), SetVariable("gShowDetails", None), Function(setLocation, x=x, y=y, p=True)]
@@ -81,9 +82,9 @@ screen buildit(isManageEnabled = True):
 
         has hbox
 
-        text "식량: %d" % getTotalPopulation()
+        text "인구: %d" % getTotalPopulation()
+        text "식량: %d" % getTotalFoodSupply()
         text "관리인력: %d" % getTotalManagements()
-        text "대기인력: %d" % getAvailablePopulation()
         text "물 공급: %d" % getTotalWaterSupply()
         text "물 수요: %d" % getTotalWaterDemand()
         text "목재: %d" % gFactory.getWoodStock()
@@ -137,18 +138,23 @@ screen builditPopup(xloc, yloc):
 
         has vbox
         textbutton "사과나무":
-            action [Function(addBuilding, x=xloc, y=yloc, b="apple"), Function(setLocation, x=None, y=None, p=False)]
+            action [Function(addBuilding, x=xloc, y=yloc, b="AppleTree"), Function(setLocation, x=None, y=None, p=False)]
             sensitive getAvailableWater() > 7
             text_size 25
 
+        if gResidenceUnlocked:
+            textbutton "거주구":
+                action [Function(addBuilding, x=xloc, y=yloc, b="Residence"), Function(setLocation, x=None, y=None, p=False)]
+                text_size 25
+
         if gWellUnlocked:
             textbutton "우물":
-                action [Function(addBuilding, x=xloc, y=yloc, b="well"), Function(setLocation, x=None, y=None, p=False)]
+                action [Function(addBuilding, x=xloc, y=yloc, b="Well"), Function(setLocation, x=None, y=None, p=False)]
                 text_size 25
 
         if gSharonUnlocked:
             textbutton "무궁화":
-                action [Function(addBuilding, x=xloc, y=yloc, b="sharon"), Function(setLocation, x=None, y=None, p=False)]
+                action [Function(addBuilding, x=xloc, y=yloc, b="SharonTree"), Function(setLocation, x=None, y=None, p=False)]
                 text_size 25
 
 screen buildingPopup(b):

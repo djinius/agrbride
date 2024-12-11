@@ -3,7 +3,6 @@ init -1 python:
 """
 
 # 재코딩
-
 class Building:
     def __init__(self, name, localName, x, y, minimapColor, levelSprites, managements, waterDemand = None, detailScreen = None):
         global gCityMap
@@ -99,9 +98,9 @@ class Building:
 # 생명력 일정수준 증가시 수확 가능
 # 수확시 생명력 대폭 감소
 class FruitTree(Building):
-    def __init__(self, name, localName, x, y, minimapcolor, levelSprites, populations, managements, woods, waterDemand = None, detailScreen = None):
+    def __init__(self, name, localName, x, y, minimapcolor, levelSprites, foodSupply, managements, woods, waterDemand = None, detailScreen = None):
         super(FruitTree, self).__init__(name, localName, x, y, minimapcolor, levelSprites, managements, waterDemand, detailScreen)
-        self.populations = populations
+        self.foodSupply = foodSupply
         self.managements = managements
         self.woods = woods
 
@@ -111,10 +110,10 @@ class FruitTree(Building):
 
         return contextMenu
 
-    def getPopulation(self):
-        return self.populations[self.level] * self.getPopulationFactor()
+    def getFoodSupply(self):
+        return self.foodSupply[self.level] * self.getFoodSupplyFactor()
 
-    def getPopulationFactor(self):
+    def getFoodSupplyFactor(self):
         return 1.0
 
     def getWoodProduction(self):
@@ -127,8 +126,6 @@ class AppleTree(FruitTree):
                                         [100, 300, 600, 1000], [25, 75, 150, 250],
                                         [10, 20, 50, 100], [5, 10, 15, 20]
                                         )
-        self.population = []
-
     def isUpgradeAvailable(self):
         global gFactory
 
@@ -186,7 +183,7 @@ class Well(Building):
         contextMenu = {}
         return contextMenu
 
-def getTotalPopulation():
+def getTotalFoodSupply():
     global gCityMap
 
     ret = 0
@@ -194,7 +191,7 @@ def getTotalPopulation():
     for lines in gCityMap:
         for b in lines:
             if isinstance(b, FruitTree):
-                ret += b.getPopulation()
+                ret += b.getFoodSupply()
 
     return ret
 
@@ -211,7 +208,7 @@ def getTotalManagements():
     return ret
 
 def getAvailablePopulation():
-    return getTotalPopulation() - getTotalManagements()
+    return getTotalFoodSupply() - getTotalManagements()
 
 def getTotalSupplyDepots():
     ret = 0

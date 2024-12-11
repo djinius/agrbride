@@ -35,12 +35,18 @@ image peachTree3 = Animation(
 
 ################################################################################
 # 2. 생활시설
-# 2.1. 우물 + 버드나무
-# 2.2. 무궁화나무
-# 2.3. 벌레잡이통풀
-# 2.4. 미나리꽝
-# 2.5. 체육관
+# 2.1. 숙소 - 숙사, 연립주택, 고층건물
+# 2.2. 우물 + 버드나무
+# 2.3. 무궁화나무
+# 2.4. 벌레잡이통풀
+# 2.5. 미나리꽝
+# 2.6. 체육관
 ################################################################################
+
+image residence0 = "images/gamemadang/buildings/residence0.png"
+image residence1 = "images/gamemadang/buildings/residence1.png"
+image residence2 = "images/gamemadang/buildings/residence2.png"
+image residence3 = "images/gamemadang/buildings/residence3.png"
 
 image well = Animation(
     "images/gamemadang/buildings/well0.png", .25,
@@ -65,6 +71,5 @@ image gym = "images/gamemadang/buildings/gym.png"
 # 3.1. 차나무
 ################################################################################
 
-image townHall_idle = "images/gamemadang/buildings/hall_idle.png"
-image townHall_hover = "images/gamemadang/buildings/hall_hover.png"
 image teaTree = "images/gamemadang/buildings/teatree.png"
+
