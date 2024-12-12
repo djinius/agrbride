@@ -22,7 +22,7 @@ label lobby:
 
     menu:
         # 말리, 세라, 보미, 카라
-        "과수원 관리":
+        "영지 관리":
             call buildContinue
 
         # 버스정류장

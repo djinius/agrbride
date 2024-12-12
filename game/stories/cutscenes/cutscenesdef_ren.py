@@ -83,7 +83,7 @@ class RosalindFactoryScene(CutScene):
         super(RosalindFactoryScene, self).__init__("공방", "rosalindFactoryScene", None)
 
     def isAvailable(self):
-        return getTotalSupplyDepots() >= 2
+        return getTotalSupplyDepots() >= 1 and getTotalResidence() >= 1
 
     def finish(self):
         global gFactory

@@ -71,6 +71,10 @@ def setLocation(x, y, p):
     gTargetTree = None
     gShowDetails = None
 
+def getBuilding(x, y):
+    global gCityMap
+    return gCityMap[y][x]
+
 def setBuilding(x, y, p):
     global xLoc
     global yLoc
@@ -121,8 +125,14 @@ def getTotalWaterDemand():
     for b in gBuildings:
         ret += b.getWaterDemand()
 
-    ret += getTotalFoodSupply() // 50
+    ret += (getTotalPopulation() + 49) // 50
     return ret
 
 def getAvailableWater():
     return getTotalWaterSupply() - getTotalWaterDemand()
+
+def getShortColor(fa, fb, ec="#000", sc="#F00"):
+    if fa() < fb():
+        return sc
+    else:
+        return ec

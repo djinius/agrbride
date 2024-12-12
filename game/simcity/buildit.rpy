@@ -82,9 +82,9 @@ screen buildit(isManageEnabled = True):
 
         has hbox
 
-        text "인구: %d" % getTotalPopulation()
+        text "인구: %d" % getTotalPopulation() color getShortColor(getTotalFoodSupply, getTotalPopulation)
         text "식량: %d" % getTotalFoodSupply()
-        text "관리인력: %d" % getTotalManagements()
+        text "관리인력: %d" % getTotalManagements() color getShortColor(getTotalPopulation, getTotalManagements)
         text "물 공급: %d" % getTotalWaterSupply()
         text "물 수요: %d" % getTotalWaterDemand()
         text "목재: %d" % gFactory.getWoodStock()

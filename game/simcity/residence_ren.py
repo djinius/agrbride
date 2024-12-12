@@ -13,11 +13,15 @@ class Residence(Building):
                                    ["residence0", "residence1", "residence2", "residence3", "residence4"],
                                    [5, 10, 20, 50, 100])
 
+    def getBoostFactor(self):
+        return .3 + .15 * self.level
+
     def getWaterDemand(self):
         return 0
 
     def getContextMenu(self):
         contextMenu = {}
+        contextMenu["등급 향상"] = (self.upgrade, self.isUpgradeAvailable)
         return contextMenu
 
     def getPopulationFactor(self):
@@ -25,6 +29,23 @@ class Residence(Building):
 
     def getPopulation(self):
         return int(self.populations[self.level] * self.getPopulationFactor())
+
+    def isUpgradeAvailable(self):
+        global gFactory
+
+        ret = False
+        if super(Residence, self).isUpgradeAvailable():
+            if gFactory.isWoodConsumable(500):
+                ret = True
+
+        return ret
+
+    def upgrade(self):
+        global gFactory
+
+        if super(Residence, self).isUpgradeAvailable():
+            gFactory.consumeWoods(500)
+            super(Residence, self).upgrade()
 
 def getTotalPopulation():
     global gBuildings
@@ -35,3 +56,6 @@ def getTotalPopulation():
             ret += b.getPopulation()
 
     return ret
+
+def getAvailablePopulation():
+    return getTotalPopulation() - getTotalManagements()

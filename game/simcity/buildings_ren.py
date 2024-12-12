@@ -111,13 +111,25 @@ class FruitTree(Building):
         return contextMenu
 
     def getFoodSupply(self):
-        return self.foodSupply[self.level] * self.getFoodSupplyFactor()
+        return int(self.foodSupply[self.level] * self.getFoodSupplyFactor())
 
     def getFoodSupplyFactor(self):
-        return 1.0
+        global gCityMap
+        x = self.x
+        y = self.y
+        factor = 1.
+
+        for sy in [y - 1, y, y + 1]:
+            for sx in [x - 1, x, x + 1]:
+                if sx >= 0 and sx < 20 and sy >= 0 and sy < 16:
+                    b = getBuilding(sx, sy)
+                    if isinstance(b, Residence):
+                        factor += b.getBoostFactor()
+
+        return factor
 
     def getWoodProduction(self):
-        return self.woods[self.level]
+        return int(self.woods[self.level] * self.getFoodSupplyFactor())
 
 class AppleTree(FruitTree):
     def __init__(self, x, y):
@@ -207,15 +219,22 @@ def getTotalManagements():
 
     return ret
 
-def getAvailablePopulation():
-    return getTotalFoodSupply() - getTotalManagements()
-
 def getTotalSupplyDepots():
     ret = 0
 
     for lines in gCityMap:
         for b in lines:
             if isinstance(b, FruitTree):
+                ret += 1
+
+    return ret
+
+def getTotalResidence():
+    ret = 0
+
+    for lines in gCityMap:
+        for b in lines:
+            if isinstance(b, Residence):
                 ret += 1
 
     return ret
