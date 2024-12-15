@@ -10,7 +10,8 @@ init -1 python:
 # 생산품 클래스
 # 0등급 - 목재
 # 1등급 - 뜨개바늘, 옷감
-# 2등급 - 벽돌
+# 2등급 - 벽돌, 기와
+# 3등급 - 
 
 class Factory(Building):
     maxWoodStock = [  1000,   2500,   5000,  10000,  15000,
@@ -27,10 +28,10 @@ class Factory(Building):
                                       -1,           # y
                                       None,         # minimapColor
                                       None,         # levelSprites
-                                      [(x+1)*500 for x in range(0, 10)],  # managements
+                                      [(x+1)*10 for x in range(0, 10)],  # managements
                                       None)         # detailScreen
         self.maxlevel = 10
-        self.woodStock = 0
+        self.woodStock = 1000
         self.unlocked = False
         self.upgradeUnlocked = False
         self.waterDemand = [0] * 10
@@ -57,14 +58,13 @@ class Factory(Building):
     def recalcStocks(self):
         global gBuildings
 
-        newWoodStock = 0
+        newWoodStock = self.woodStock
 
         for b in gBuildings:
             if isinstance(b, FruitTree):
-                print(b.name, b.getWoodProduction())
                 newWoodStock += b.getWoodProduction()
 
-        self.woodStock = min(self.woodStock + newWoodStock, self.maxWoodStock[self.level])
+        self.woodStock = min(newWoodStock, self.maxWoodStock[self.level])
 
     def isWoodConsumable(self, amount):
         return self.woodStock >= amount
@@ -73,12 +73,20 @@ class Factory(Building):
         self.woodStock -= amount
 
     def getMaxWoodStock(self):
-        return self.maxWoodStock[self.level - 1]
+        return self.maxWoodStock[self.level]
 
     def upgrade(self):
         if self.isUpgradeAvailable():
             self.consumeWoods(self.upgradeWoodStock[self.level])
             super(Factory, self).upgrade()
+
+    # 관리인원
+    def getManagements(self):
+        if self.isUnlocked():
+            return self.managements[self.level]
+        else:
+            return 0
+
 
 class PowerPlant(Building):
     def __init__(self): #, name, localName, x, y, minimapColor, levelSprites, managements, detailScreen = None):

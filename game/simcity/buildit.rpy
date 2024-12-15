@@ -7,7 +7,7 @@ default gTargetTree = None
 default xLoc = None
 default yLoc = None
 default gInitialXAlign = .0
-default gInitialYAlign = .0
+default gInitialYAlign = .5
 
 default gPopupUnlocked = False
 default gResidenceUnlocked = False
@@ -16,7 +16,27 @@ default gStatiumUnlocked = False
 default gSharonUnlocked = False
 default nextCutScene = None
 
+default gAppleTrees = 0
+default gGrapeTrees = 0
+default gPeachTrees = 0
+
+default gSupplyDepots = 0
+default gFiefLevel = 1
+default gExperience = 0
+
+define gExperienceLevel = [x*100 for x in range(0, 62)]
+
 default gFactory = Factory()
+
+transform upgradeBubble:
+    on idle:
+        yoffset -120
+
+    on hover:
+        easein .5 yoffset -130
+        easeout .5 yoffset -120
+        repeat
+
 
 ###############################################################################
 #
@@ -38,31 +58,43 @@ screen buildit(isManageEnabled = True):
         key "game_menu" action NullAction()
 
     viewport id "vp" as citymap:
-        if gEdgeScroll:
-            edgescroll (200, 400)
+        if gEdgeScroll and isManageEnabled:
+            edgescroll (200, 200)
             
         draggable True
         mousewheel True
         xinitial gInitialXAlign yinitial gInitialYAlign
 
         frame:
-            xysize (6000, 6000)
-            background "simcity/map.png"
+            xysize (5120, 4096)
+            background "gamemadang/map.png"
 
             for y, row in enumerate(gCityMap):
                 for x, b in enumerate(row):
                     if b is not None:
                         imagebutton:
                             idle b.getIdleSprite()
-                            pos calcXYPos(x, y) anchor (.5, .5)
+                            pos calcXYPos(x, y) anchor (1., 1.)
                             action SetVariable("gShowDetails", b)
                             alternate Function(setBuilding, x=x, y=y, p=b)
                             sensitive isManageEnabled
 
+                        # 업그레이드 자원 표기
+                        if b.upgradeResources is not None:
+                            imagebutton:
+                                idle "gui/buildit/bubble.png"
+                                pos calcXYPos(x, y) anchor (.75, .75)
+                                at upgradeBubble
+
+                                if b.isUpgradeAvailable():
+                                    action Function(b.upgrade)
+                                else:
+                                    action NullAction()
+
                     else:
                         imagebutton:
                             idle "images/simcity/empty.png"
-                            pos calcXYPos(x, y) anchor (.5, .5) focus_mask True
+                            pos calcXYPos(x, y) anchor (1., 1.) focus_mask True
                             selected xLoc==x and yLoc==y
                             action [SetVariable("gTargetTree", None), SetVariable("gShowDetails", None), Function(setLocation, x=x, y=y, p=True)]
                             alternate Function(setLocation, x=x, y=y, p=True)
@@ -79,15 +111,22 @@ screen buildit(isManageEnabled = True):
     frame:
         align (.0, 1.)
         background None
+        has vbox
 
-        has hbox
+        if gFiefLevel == 61:
+            text "특급 영지"
+        else:
+            hbox:
+                text "%d등급 영지" % gFiefLevel yalign 1.
+                bar value AnimatedValue(value = gExperience, range = gExperienceLevel[gFiefLevel]) xysize (300, 25) yalign 1.
 
-        text "인구: %d" % getTotalPopulation() color getShortColor(getTotalFoodSupply, getTotalPopulation)
-        text "식량: %d" % getTotalFoodSupply()
-        text "관리인력: %d" % getTotalManagements() color getShortColor(getTotalPopulation, getTotalManagements)
-        text "물 공급: %d" % getTotalWaterSupply()
-        text "물 수요: %d" % getTotalWaterDemand()
-        text "목재: %d" % gFactory.getWoodStock()
+        hbox:
+            text "수용 가능 인구: %d" % getAcceptablePopulation()
+            text "식량: %d" % getTotalFoodSupply()
+            text "총 인구: %d" % getTotalPopulation() color getShortColor(getTotalFoodSupply, getTotalPopulation)
+            text "관리인력: %d" % getTotalManagements() color getShortColor(getTotalPopulation, getTotalManagements)
+            text "물: %d/%d" % (getTotalWaterDemand(), getTotalWaterSupply()) color getShortColor(getTotalWaterSupply, getTotalWaterDemand)
+            text "목재: %d/%d" % (gFactory.getWoodStock(), gFactory.getMaxWoodStock())
 
 
     if isManageEnabled:
@@ -114,8 +153,7 @@ screen buildit(isManageEnabled = True):
 
             textbutton "관리 종료" action Return()
 
-        if gFactory.isUnlocked():
-            timer 1. repeat True action Function(gFactory.recalcStocks)
+        timer 1. repeat True action Function(manageBuildings)
     
         $ next = availableCutScenes(cutscenes)
 
@@ -124,7 +162,7 @@ screen buildit(isManageEnabled = True):
 
 screen builditPopup(xloc, yloc):
     frame:
-        pos calcXYPos(xloc, yloc) offset (64, 64)
+        pos calcXYPos(xloc, yloc) anchor (1., 1.) offset (-64, -64)
 
         if xloc >= (25):
             xanchor 1.
@@ -139,7 +177,7 @@ screen builditPopup(xloc, yloc):
         has vbox
         textbutton "사과나무":
             action [Function(addBuilding, x=xloc, y=yloc, b="AppleTree"), Function(setLocation, x=None, y=None, p=False)]
-            sensitive getAvailableWater() > 7
+            sensitive ((getTotalPopulation() > getTotalManagements()) and (getTotalAppleTrees() < gFiefLevel * 2)) or ((getTotalAppleTrees() < 2))
             text_size 25
 
         if gResidenceUnlocked:

@@ -68,10 +68,10 @@ class RosalindAppleTreeScene(CutScene):
 
 class RosalindResidenceScene(CutScene):
     def __init__(self):
-        super(RosalindResidenceScene, self).__init__("시작", "rosalindResidenceScene", None)
+        super(RosalindResidenceScene, self).__init__("거주구", "rosalindResidenceScene", None)
 
     def isAvailable(self):
-        return getTotalSupplyDepots() >= 1
+        return getTotalAppleTrees() >= 1
 
     def finish(self):
         global gResidenceUnlocked
@@ -80,10 +80,10 @@ class RosalindResidenceScene(CutScene):
 
 class RosalindFactoryScene(CutScene):
     def __init__(self):
-        super(RosalindFactoryScene, self).__init__("공방", "rosalindFactoryScene", None)
+        super(RosalindFactoryScene, self).__init__("영지 등급", "rosalindFactoryScene", None)
 
     def isAvailable(self):
-        return getTotalSupplyDepots() >= 1 and getTotalResidence() >= 1
+        return gFiefLevel == 2
 
     def finish(self):
         global gFactory
@@ -96,7 +96,7 @@ class RosalindWellScene(CutScene):
         super(RosalindWellScene, self).__init__("우물", "rosalindWellScene", None)
 
     def isAvailable(self):
-        return (getTotalSupplyDepots() >= 4) or (getTotalWaterSupply() - getTotalWaterDemand() <= 10)
+        return (getTotalAppleTrees() >= 4) or (getTotalWaterSupply() - getTotalWaterDemand() <= 10)
 
     def finish(self):
         global gWellUnlocked
@@ -109,15 +109,20 @@ class RosalindDateScene(CutScene):
         super(RosalindDateScene, self).__init__("나들이", "rosalindDateScene", None)
 
     def isAvailable(self):
-        return getAvailablePopulation() >= 1000
+        return getIdlePopulation() >= 1000
 
 class RosalindUpgradeScene(CutScene):
     def __init__(self):
         super(RosalindUpgradeScene, self).__init__("등급 향상", "rosalindUpgradeScene", None)
 
     def isAvailable(self):
-        global gFactory
-        return gFactory.isWoodConsumable(500)
+        global gBuildings
+
+        for b in gBuildings:
+            if b.isUpgradeAvailable():
+                return True
+
+        return False
 
     def finish(self):
         super(RosalindUpgradeScene, self).finish()
@@ -128,7 +133,7 @@ class RosalindFactoryUpgradeScene(CutScene):
 
     def isAvailable(self):
         global gFactory
-        return (getTotalSupplyDepots() >= 5) and (getAvailablePopulation() > 2500) and (gFactory.isWoodConsumable(1000))
+        return (getTotalAppleTrees() >= 5) and (getIdlePopulation() > 2500) and (gFactory.isWoodConsumable(1000))
 
     def finish(self):
         global gFactory
@@ -141,7 +146,7 @@ class MaliSharonScene(CutScene):
         super(MaliSharonScene, self).__init__("무궁화", "maliSharonScene", None)
 
     def isAvailable(self):
-        return getTotalSupplyDepots() >= 7
+        return getTotalAppleTrees() >= 7
 
     def finish(self):
         global gSharonUnlocked

@@ -1,18 +1,11 @@
 screen lobbyMenu(items):
-    default spirits = ["로잘린드", "말리", "만다", "꼭지", "루시"]
-    default actionIndex = [0, 1, 2, 3, 3]
-    default positions = [(.9, .9), (.1, .9), (.1, .7), (.2, .5), (.3, .5)]
 
-    for n, i in enumerate(actionIndex):
-        imagebutton:
-            idle spirits[n] + " 로비"
-            action items[i].action
-            pos positions[n] anchor (.5, .5)
-            focus_mask True
+    use choice(items)
 
+    text "나들이: %d/%d" % (gDates, getIdlePopulation() // 1000) align (.0, .0) color "#FFF"
 
 label lobby:
-    scene menubg:
+    scene black:
         align (.5, .25)
     with dissolve
 
@@ -20,14 +13,15 @@ label lobby:
 
     $ rosalindName = "로잘린드"
 
-    menu:
+    menu(screen = "lobbyMenu"):
         # 말리, 세라, 보미, 카라
         "영지 관리":
             call buildContinue
 
         # 버스정류장
-        "마실":
+        "나들이" if isDateAvailable():
             call rosalind_bedscene
+            $ gDates += 1
 
     jump lobby
     return

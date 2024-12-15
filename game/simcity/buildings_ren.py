@@ -14,6 +14,8 @@ class Building:
         self.level = 0
         self.minimapColor = minimapColor
         self.levelSprites = levelSprites
+        self.upgradeResources = None
+        self.upgradeInterval = renpy.random.randint(5, 10)
 
         if levelSprites:
             self.maxlevel = len(levelSprites) - 1
@@ -36,14 +38,27 @@ class Building:
         return self.levelSprites[self.level]
 
     def isUpgradeAvailable(self):
-        if getAvailableWater() >= self.getWaterDemand():
-            return self.level < self.maxlevel
+        if (self.level < self.maxlevel) and (self.upgradeResources is not None):
+            ret = True
+
+            for f, c, r in self.upgradeResources:
+                if not f(r):
+                    ret = False
+                    break
+        
+            return ret
+
         else:
             return False
 
     def upgrade(self):
         if self.level < self.maxlevel:
+            for f, c, r in self.upgradeResources:
+                c(r)
+
             self.level += 1
+            self.upgradeResources = None
+            self.upgradeInterval = renpy.random.randint(5, 10)
 
     def getMinimapColor(self):
         return self.minimapColor
@@ -90,88 +105,22 @@ class Building:
     def getWaterDemand(self):
         return self.waterDemand[self.level]
 
-# 유실수
-# 컨텍스트 메뉴: 물주기, 거름주기, 벌레잡기, 가지치기, 수확, 등급 상향, 벌목
-# 등급: 싹 -> 묘목 -> 큰키나무 -> 아름드리 -> 고목
-# 물주기, 거름주기, 가지치기를 적당히 했을 때 생명력 증가, 과하면 생명력 감소
-# 벌레잡기를 꾸준히 하면 생명력 증가
-# 생명력 일정수준 증가시 수확 가능
-# 수확시 생명력 대폭 감소
-class FruitTree(Building):
-    def __init__(self, name, localName, x, y, minimapcolor, levelSprites, foodSupply, managements, woods, waterDemand = None, detailScreen = None):
-        super(FruitTree, self).__init__(name, localName, x, y, minimapcolor, levelSprites, managements, waterDemand, detailScreen)
-        self.foodSupply = foodSupply
-        self.managements = managements
-        self.woods = woods
-
-    def getContextMenu(self):
-        contextMenu = {}
-        contextMenu["등급 향상"] = (self.upgrade, self.isUpgradeAvailable)
-
-        return contextMenu
-
-    def getFoodSupply(self):
-        return int(self.foodSupply[self.level] * self.getFoodSupplyFactor())
-
-    def getFoodSupplyFactor(self):
-        global gCityMap
-        x = self.x
-        y = self.y
-        factor = 1.
-
-        for sy in [y - 1, y, y + 1]:
-            for sx in [x - 1, x, x + 1]:
-                if sx >= 0 and sx < 20 and sy >= 0 and sy < 16:
-                    b = getBuilding(sx, sy)
-                    if isinstance(b, Residence):
-                        factor += b.getBoostFactor()
-
-        return factor
-
-    def getWoodProduction(self):
-        return int(self.woods[self.level] * self.getFoodSupplyFactor())
-
-class AppleTree(FruitTree):
-    def __init__(self, x, y):
-        super(AppleTree, self).__init__("apple", "사과나무", x, y, "#F88",
-                                        ["appleTree0", "appleTree1", "appleTree2", "appleTree3"],
-                                        [100, 300, 600, 1000], [25, 75, 150, 250],
-                                        [10, 20, 50, 100], [5, 10, 15, 20]
-                                        )
-    def isUpgradeAvailable(self):
+    # 업그레이드 리소스 결정
+    # 형식: 리스트 - f, c, r
+    ## f: True/False 리턴, r 소모 가능 여부
+    ## c: r 소모
+    ## r: 업그레이드 필요 자원
+    def chooseUpgradeResource(self):
         global gFactory
+        
+        if self.level < self.maxlevel:
+            if self.upgradeInterval > 0:
+                self.upgradeInterval -= 1
+            elif self.upgradeResources is None:
+                # 목재 100은 기본으로 깔고 간다
+                self.upgradeResources = [[gFactory.isWoodConsumable, gFactory.consumeWoods, 100]]
 
-        ret = False
-        if super(AppleTree, self).isUpgradeAvailable():
-            if gFactory.isWoodConsumable(500):
-                ret = True
-
-        return ret
-
-    def upgrade(self):
-        global gFactory
-
-        if super(AppleTree, self).isUpgradeAvailable():
-            gFactory.consumeWoods(500)
-            super(AppleTree, self).upgrade()
-
-class GrapeTree(FruitTree):
-    def __init__(self, x, y):
-        super(GrapeTree, self).__init__("grape", "포도나무", x, y, "#409",
-                                        ["grapeTree0", "grapeTree1", "grapeTree2", "grapeTree3"],
-                                        [200, 500, 1000, 2000], [30, 75, 150, 300],
-                                        [7, 14, 21, 30], [10, 20, 30, 40])
-
-class PeachTree(FruitTree):
-    def __init__(self, x, y):
-        super(PeachTree, self).__init__("peach", "포도나무", x, y, "#409",
-                                        ["peachTree0", "peachTree1", "peachTree2", "peachTree3"],
-                                        [500, 1000, 2000, 3500], [50, 100, 200, 350],
-                                        [10, 25, 50, 75], [15, 25, 40, 55])
-
-class TeaTree(FruitTree):
-    def __init__(self, x, y):
-        super(TeaTree, self).__init__("tea", "차나무", x, y, "#0F0", ["teaTree"], )
+                # 여타 자원 등 결정
 
 class SharonTree(Building):
     def __init__(self, x, y):
@@ -185,56 +134,44 @@ class SharonTree(Building):
 
 class Well(Building):
     def __init__(self, x, y):
-        super(Well, self).__init__("well", "우물", x, y, "#44F", ["well", "well", "well"], [5, 10, 20])
+        super(Well, self).__init__("well", "우물", x, y, "#44F", ["well0", "well1", "well2"], [5, 10, 20])
 
         self.waterSupply = [100, 200, 500]
         self.levelNames = ["우물", "수동 양수기", "전기 양수기"]
         self.electricDemand = [0, 0, 20]
 
-    def getContextMenu(self):
-        contextMenu = {}
-        return contextMenu
+    def getWaterDemand(self):
+        return 0
 
-def getTotalFoodSupply():
-    global gCityMap
-
-    ret = 0
-
-    for lines in gCityMap:
-        for b in lines:
-            if isinstance(b, FruitTree):
-                ret += b.getFoodSupply()
-
-    return ret
+    def getWaterSupply(self):
+        return self.waterSupply[self.level]
 
 def getTotalManagements():
     global gCityMap
 
     ret = 0
 
-    for lines in gCityMap:
-        for b in lines:
-            if isinstance(b, Building):
-                ret += b.getManagements()
-
-    return ret
-
-def getTotalSupplyDepots():
-    ret = 0
-
-    for lines in gCityMap:
-        for b in lines:
-            if isinstance(b, FruitTree):
-                ret += 1
+    for b in gBuildings:
+        if isinstance(b, Building):
+            ret += b.getManagements()
 
     return ret
 
 def getTotalResidence():
     ret = 0
 
-    for lines in gCityMap:
-        for b in lines:
-            if isinstance(b, Residence):
-                ret += 1
+    for b in gBuildings:
+        if isinstance(b, Residence):
+            ret += 1
 
     return ret
+
+def manageBuildings():
+    global gFactory
+    global gBuildings
+
+    for b in gBuildings:
+        b.chooseUpgradeResource()
+
+    if gFactory.isUnlocked():
+        gFactory.recalcStocks()

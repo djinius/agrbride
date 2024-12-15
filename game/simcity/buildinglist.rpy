@@ -48,14 +48,32 @@ image residence1 = "images/gamemadang/buildings/residence1.png"
 image residence2 = "images/gamemadang/buildings/residence2.png"
 image residence3 = "images/gamemadang/buildings/residence3.png"
 
-image well = Animation(
-    "images/gamemadang/buildings/well0.png", .25,
-    "images/gamemadang/buildings/well1.png", .25,
-    "images/gamemadang/buildings/well2.png", .25,
-    "images/gamemadang/buildings/well3.png", .75,
-    "images/gamemadang/buildings/well2.png", .25,
-    "images/gamemadang/buildings/well1.png", .25,
-    "images/gamemadang/buildings/well0.png", .75)
+image well0 = Animation(
+    "images/gamemadang/buildings/well00.png", .25,
+    "images/gamemadang/buildings/well01.png", .25,
+    "images/gamemadang/buildings/well02.png", .25,
+    "images/gamemadang/buildings/well03.png", .75,
+    "images/gamemadang/buildings/well02.png", .25,
+    "images/gamemadang/buildings/well01.png", .25,
+    "images/gamemadang/buildings/well00.png", .75)
+
+image well1 = Animation(
+    "images/gamemadang/buildings/well10.png", .25,
+    "images/gamemadang/buildings/well11.png", .25,
+    "images/gamemadang/buildings/well12.png", .25,
+    "images/gamemadang/buildings/well13.png", .75,
+    "images/gamemadang/buildings/well12.png", .25,
+    "images/gamemadang/buildings/well11.png", .25,
+    "images/gamemadang/buildings/well10.png", .75)
+
+image well2 = Animation(
+    "images/gamemadang/buildings/well20.png", .25,
+    "images/gamemadang/buildings/well21.png", .25,
+    "images/gamemadang/buildings/well22.png", .25,
+    "images/gamemadang/buildings/well23.png", .75,
+    "images/gamemadang/buildings/well22.png", .25,
+    "images/gamemadang/buildings/well21.png", .25,
+    "images/gamemadang/buildings/well20.png", .75)
 
 image roseOfSharonTree = "images/gamemadang/buildings/sharon.png"
 

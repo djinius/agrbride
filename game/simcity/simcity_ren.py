@@ -34,8 +34,8 @@ class CityMapFrame(renpy.Displayable):
             self.isDragging = False
 
         elif ev.type == pygame.MOUSEMOTION:
-            gInitialXAlign = (ms.scope["citymap"].xadjustment.get_value() - 1920) / 6000.
-            gInitialYAlign = ms.scope["citymap"].yadjustment.get_value() / (6000. - 1080)
+            gInitialXAlign = (ms.scope["citymap"].xadjustment.get_value() - 1920) / 5120.
+            gInitialYAlign = ms.scope["citymap"].yadjustment.get_value() / (4096. - 1080)
             renpy.restart_interaction()
 
         return None
@@ -52,9 +52,12 @@ def initBuildings():
             row.append(None)
         gCityMap.append(row)
 
-def calcXYPos(x, y):
-    xp = x * 200 + 320
-    yp = y * 328 + 320
+def calcXYPos(x, y, xoff = 0, yoff = 0):
+    xp  = x * 256 + 512
+    yp  = y * 128 + 2048
+    xp += y * 192
+    yp -= x * 128
+
 
     return (xp, yp)
 
@@ -112,7 +115,7 @@ def getTotalWaterSupply():
 
     for b in gBuildings:
         if isinstance(b, Well):
-            ret += 100
+            ret += b.getWaterSupply()
 
     return ret
 
@@ -125,7 +128,7 @@ def getTotalWaterDemand():
     for b in gBuildings:
         ret += b.getWaterDemand()
 
-    ret += (getTotalPopulation() + 49) // 50
+    ret += (getAcceptablePopulation() + 19) // 20
     return ret
 
 def getAvailableWater():
@@ -136,3 +139,14 @@ def getShortColor(fa, fb, ec="#000", sc="#F00"):
         return sc
     else:
         return ec
+
+def addExperience(amount):
+    global gExperience
+    global gExperienceLevel
+    global gFiefLevel
+
+    gExperience += amount
+
+    while gExperience >= gExperienceLevel[gFiefLevel]:
+        gExperience -= gExperienceLevel[gFiefLevel]
+        gFiefLevel += 1
