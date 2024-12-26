@@ -38,7 +38,7 @@ class FruitTree(Building):
                 if sx >= 0 and sx < 20 and sy >= 0 and sy < 16:
                     b = getBuilding(sx, sy)
                     if isinstance(b, Residence):
-                        factor += b.getBoostFactor()
+                        factor += b.getFoodSupplyBoostFactor()
 
         return factor
 

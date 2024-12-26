@@ -1,5 +1,5 @@
 """renpy
-init -1 python:
+init -2 python:
 """
 
 # 재코딩

@@ -18,7 +18,7 @@ class Residence(Building):
         if getTotalResidence() == 1:
             self.upgradeResources = [[gFactory.isWoodConsumable, gFactory.consumeWoods, 100]]
 
-    def getBoostFactor(self):
+    def getFoodSupplyBoostFactor(self):
         return .3 + .15 * self.level
 
     def getWaterDemand(self):
