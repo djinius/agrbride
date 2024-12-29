@@ -34,8 +34,8 @@ class CityMapFrame(renpy.Displayable):
             self.isDragging = False
 
         elif ev.type == pygame.MOUSEMOTION:
-            gInitialXAlign = (ms.scope["citymap"].xadjustment.get_value() - 1920) / 5120.
-            gInitialYAlign = ms.scope["citymap"].yadjustment.get_value() / (4096. - 1080)
+            gInitialXAlign = ms.scope["citymap"].xadjustment.get_value() / (5120 - 1920)
+            gInitialYAlign = ms.scope["citymap"].yadjustment.get_value() / (4096 - 1080)
             renpy.restart_interaction()
 
         return None
@@ -123,12 +123,11 @@ def getTotalWaterDemand():
     global gBuildings
 
     ret = 0
-    pop = getTotalFoodSupply()
 
     for b in gBuildings:
         ret += b.getWaterDemand()
 
-    ret += (getAcceptablePopulation() + 19) // 20
+    ret += (getTotalPopulation() + 19) // 20
     return ret
 
 def getAvailableWater():
@@ -140,13 +139,21 @@ def getShortColor(fa, fb, ec="#000", sc="#F00"):
     else:
         return ec
 
-def addExperience(amount):
+def addExperience(amount = -1):
     global gExperience
     global gExperienceLevel
     global gFiefLevel
+
+    if gFiefLevel == len(gExperienceLevel):
+        return
+
+    if amount == -1:
+        amount = gExperienceLevel[gFiefLevel]
 
     gExperience += amount
 
     while gExperience >= gExperienceLevel[gFiefLevel]:
         gExperience -= gExperienceLevel[gFiefLevel]
         gFiefLevel += 1
+
+    renpy.restart_interaction()

@@ -122,29 +122,31 @@ class Building:
 
                 # 여타 자원 등 결정
 
-class SharonTree(Building):
-    def __init__(self, x, y):
-        super(SharonTree, self).__init__("sharon", "무궁화", x, y, "#FF0",
-                                         ["roseOfSharonTree"],
-                                         [125], [30])
+    # 건물의 식량, 인구 증강 팩터
+    def getDistance(self, x, y):
+        dx = self.x - x
+        dy = self.y - y
+        d = (dx * dx) + (dy * dy)
+        return d
 
-    def getContextMenu(self):
-        contextMenu = {}
-        return contextMenu
-
-class Well(Building):
-    def __init__(self, x, y):
-        super(Well, self).__init__("well", "우물", x, y, "#44F", ["well0", "well1", "well2"], [5, 10, 20])
-
-        self.waterSupply = [100, 200, 500]
-        self.levelNames = ["우물", "수동 양수기", "전기 양수기"]
-        self.electricDemand = [0, 0, 20]
-
-    def getWaterDemand(self):
+    # 식량 생산 증강
+    def getProductionBoostFactor(self, x, y):
         return 0
 
-    def getWaterSupply(self):
-        return self.waterSupply[self.level]
+    # 인구 증강
+    def getPopulationBoostFactor(self, x, y):
+        return 0
+
+    def getProductionFactor(self):
+        global gBuildings
+
+        ret = 1.
+
+        for b in gBuildings:
+            if b != self:
+                ret += b.getProductionBoostFactor(self.x, self.y)
+
+        return ret
 
 def getTotalManagements():
     global gCityMap

@@ -22,7 +22,7 @@ define gui.show_name = True
 
 ## 게임의 버전입니다.
 
-define config.version = "1.0"
+define config.version = "0.1"
 
 
 ## 게임의 about 스크린에 배치되는 텍스트입니다. 텍스트를 삼중 따옴표 사이에 배치
@@ -178,6 +178,9 @@ init python:
     build.classify('**/.**', None)
     build.classify('**/#**', None)
     build.classify('**/thumbs.db', None)
+    build.classify('**.rpy', None)
+    build.classify('**.ini', None)
+    build.classify('**_ren.py', None)
 
     ## 파일을 아카이브하려면 'archive'로 분류하십시오.
 

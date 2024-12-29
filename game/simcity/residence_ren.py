@@ -18,8 +18,17 @@ class Residence(Building):
         if getTotalResidence() == 1:
             self.upgradeResources = [[gFactory.isWoodConsumable, gFactory.consumeWoods, 100]]
 
-    def getFoodSupplyBoostFactor(self):
-        return .3 + .15 * self.level
+    # 식량 생산 증강
+    def getProductionBoostFactor(self, x, y):
+        d = self.getDistance(x, y)
+        if d == 1:
+            return .3 + .15 * self.level
+        else:
+            return 0
+
+    # 인구 증강 - 거주구는 증강 효과 없음
+    def getPopulationBoostFactor(self, x, y):
+        return 0
 
     def getWaterDemand(self):
         return 0
@@ -30,7 +39,15 @@ class Residence(Building):
         return contextMenu
 
     def getPopulationFactor(self):
-        return 1.0
+        global gBuildings
+
+        ret = 1.
+
+        for b in gBuildings:
+            if b != self:
+                ret += b.getPopulationBoostFactor(self.x, self.y)
+
+        return ret
 
     def getPopulation(self):
         return int(self.populations[self.level] * self.getPopulationFactor())

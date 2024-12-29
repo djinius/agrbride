@@ -16,12 +16,17 @@ label lobby:
     menu(screen = "lobbyMenu"):
         # 말리, 세라, 보미, 카라
         "영지 관리":
-            call buildContinue
+            call buildContinue from _call_buildContinue
 
         # 버스정류장
         "나들이" if isDateAvailable():
-            call rosalind_bedscene
+            call rosalind_bedscene from _call_rosalind_bedscene
             $ gDates += 1
+
+        "스토리 진행" if isDateAvailable():
+            call rosalind_wetdream from _call_rosalind_wetdream
+            $ gDates += 1
+            $ addExperience()
 
     jump lobby
     return

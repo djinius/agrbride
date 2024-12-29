@@ -2,7 +2,8 @@ default openingMenuSet = set()
 
 label opening:
 
-    return
+    if builditTesting:
+        return
 
     scene palace
     show 로잘린드 정면 한복:

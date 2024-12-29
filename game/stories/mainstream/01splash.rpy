@@ -7,7 +7,9 @@ screen splashAskStreaming():
     key "mouseup_1" action Return()
 
 label splashscreen:
-    return
+
+    if builditTesting:
+        return
 
     scene black with dissolve
 

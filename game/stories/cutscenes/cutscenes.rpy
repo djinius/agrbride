@@ -21,7 +21,7 @@ label playCutScene(cutSceneObject):
 
     show screen buildit(isManageEnabled = False)
 
-    call expression cutSceneObject.getLabelName()
+    call expression cutSceneObject.getLabelName() from _call_expression
     $ cutSceneObject.finish()
     $ nextCutScene = None
 
@@ -36,7 +36,6 @@ label rosalindAppleTreeScene:
     로잘린드 "수석 시녀인 제가 하나하나 함께 하며 알려드리겠습니다."
     로잘린드 "영지의 기반은 영민입니다. 영민이 많을수록 영지의 힘이 강해지고, 공주님께서 낳으실 알들도 충실히 돌볼 수 있습니다."
     로잘린드 "영민들을 모으려면 우선 식량을 제공하는 식량수를 심어야 합니다."
-    로잘린드 장난기1 "식량수를 짓기 전까지는 우리도 쫄쫄 굶을 수밖에 없습니다."
     로잘린드 미소1 "지금은 맨 처음이기에 가장 기본이 되는 사과나무를 심을 수 있습니다."
     로잘린드 보통 "빈 땅을 선택해 사과나무를 심어 보십시오."
     로잘린드 "말리 님께서 땅속줄기를 뻗어 새로운 나무를 생성해 주실 겁니다."
@@ -83,6 +82,7 @@ label rosalindWellScene:
     로잘린드 보통 "그만큼 물도 많이 필요해집니다."
     로잘린드 "우물을 파서 수자원을 확보해 보십시오. 버드나무도 우물 옆에 함께 심어서 깨끗한 물을 얻어야 합니다."
     로잘린드 "영민들도 물을 소비하기 때문에, 식량수에서 필요로 하는 양보다 더 많은 수자원을 넉넉히 준비해 두어야 합니다."
+    로잘린드 "또한, 우물 근처에 위치한 식량수와 거주구에서는 식량 생산량과 인구 수용량이 늘어납니다."
 
     return
 

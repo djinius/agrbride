@@ -1,3 +1,5 @@
+default builditTesting = True
+
 default gEdgeScroll = False
 default gCityMap = None
 default gBuildings = []
@@ -24,7 +26,7 @@ default gSupplyDepots = 0
 default gFiefLevel = 1
 default gExperience = 0
 
-define gExperienceLevel = [x*100 for x in range(0, 62)]
+define gExperienceLevel = [(50+x*50) for x in range(0, 62)]
 
 default gFactory = Factory()
 
@@ -61,8 +63,13 @@ screen buildit(isManageEnabled = True):
         if gEdgeScroll and isManageEnabled:
             edgescroll (200, 200)
             
-        draggable True
-        mousewheel True
+        if isManageEnabled:
+            draggable True
+            mousewheel True
+        else:
+            draggable False
+            mousewheel False
+        
         xinitial gInitialXAlign yinitial gInitialYAlign
 
         frame:
@@ -100,13 +107,14 @@ screen buildit(isManageEnabled = True):
                             alternate Function(setLocation, x=x, y=y, p=True)
                             sensitive gPopupUnlocked and isManageEnabled
         
-            if (xLoc is not None) and (yLoc is not None) and isManageEnabled:
-                if gShowPopupMenu:
-                    use builditPopup(xLoc, yLoc)
-            elif (gTargetTree is not None) and isManageEnabled:
-                use buildingPopup(gTargetTree)
-            elif (gShowDetails is not None) and (gShowDetails.getDetailScreen() is not None) and isManageEnabled:
-                use expression gShowDetails.getDetailScreen() pass (b=gShowDetails)
+            if isManageEnabled:
+                if (xLoc is not None) and (yLoc is not None):
+                    if gShowPopupMenu:
+                        use builditPopup(xLoc, yLoc)
+                elif (gTargetTree is not None):
+                    use buildingPopup(gTargetTree)
+                elif (gShowDetails is not None) and (gShowDetails.getDetailScreen() is not None):
+                    use expression gShowDetails.getDetailScreen() pass (b=gShowDetails)
 
     frame:
         align (.0, 1.)
@@ -183,11 +191,13 @@ screen builditPopup(xloc, yloc):
         if gResidenceUnlocked:
             textbutton "거주구":
                 action [Function(addBuilding, x=xloc, y=yloc, b="Residence"), Function(setLocation, x=None, y=None, p=False)]
+                sensitive getAcceptablePopulation() < getTotalFoodSupply()
                 text_size 25
 
         if gWellUnlocked:
             textbutton "우물":
                 action [Function(addBuilding, x=xloc, y=yloc, b="Well"), Function(setLocation, x=None, y=None, p=False)]
+                sensitive getTotalWaterSupply() < (getTotalWaterDemand() + 10)
                 text_size 25
 
         if gSharonUnlocked:

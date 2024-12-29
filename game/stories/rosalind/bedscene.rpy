@@ -1,4 +1,4 @@
-label rosalind_bedscene:
+label rosalind_wetdream:
 
     $ gHScene = True
 
@@ -9,11 +9,50 @@ label rosalind_bedscene:
         align (.5, .25)
     with dissolve
 
-    로잘린드 "향상을 가로막은(閼) 것을 깨뜨려(破) 실력을 높인다(高)는 의미로 '알파고'라고 이름붙여 보았습니다."
-
     로잘린드 "물을 끼얹어 주십시오."
     로잘린드 "주인님과 함께 목욕하니 즐겁습니다."
+    로잘린드 "왜 그러십니까? 제게서 눈을 떼지 못하시는군요."
 
+    $ gHScene = True
+
+    show white
+    pause .5
+    hide white
+    pause .5
+    show white
+    pause .25
+    hide white
+    pause .25
+
+    $ loop = 5
+
+    while loop > 0:
+        show white
+        pause .1
+        hide white
+        pause .1
+        $ loop -= 1
+
+    scene black with Dissolve(2.)
+    pause 1.
+
+    $ gHScene = False
+
+    독백 "으, 찝찝해. 설마......"
+    독백 "이런 데서 몽정을 다 하다니."
+
+    scene black with dissolve
+
+    return
+
+
+label rosalind_bedscene:
+
+    $ gHScene = True
+
+    scene black
+    pause 1.
+    
     scene rosalind_bedscene:
         align (.5, .0)
     with dissolve

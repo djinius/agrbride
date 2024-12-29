@@ -25,25 +25,10 @@ class FruitTree(Building):
         return contextMenu
 
     def getFoodSupply(self):
-        return int(self.foodSupply[self.level] * self.getFoodSupplyFactor())
-
-    def getFoodSupplyFactor(self):
-        global gCityMap
-        x = self.x
-        y = self.y
-        factor = 1.
-
-        for sy in [y - 1, y, y + 1]:
-            for sx in [x - 1, x, x + 1]:
-                if sx >= 0 and sx < 20 and sy >= 0 and sy < 16:
-                    b = getBuilding(sx, sy)
-                    if isinstance(b, Residence):
-                        factor += b.getFoodSupplyBoostFactor()
-
-        return factor
+        return int(self.foodSupply[self.level] * self.getProductionFactor())
 
     def getWoodProduction(self):
-        return int(self.woods[self.level] * self.getFoodSupplyFactor())
+        return int(self.woods[self.level] * self.getProductionFactor())
 
 class AppleTree(FruitTree):
     def __init__(self, x, y):

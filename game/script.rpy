@@ -3,7 +3,7 @@
 # 여기에서부터 게임이 시작합니다.
 label start:
     $ rosalindName = "로잘린드"
-    call opening
+    call opening from _call_opening
 
     $ initBuildings()
 
@@ -12,13 +12,13 @@ label start:
     # $ helloworld = renpy.input(screen='koreaninput', prompt='뭐든지 입력하세요')
     # 카라 "[helloworld]"
 
-    call lobby
+    call lobby from _call_lobby
 
 label buildContinue:
     call screen buildit
 
     if nextCutScene is not None:
-        call playCutScene(nextCutScene)
+        call playCutScene(nextCutScene) from _call_playCutScene
         jump buildContinue
 
     return
