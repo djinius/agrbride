@@ -175,5 +175,5 @@ def manageBuildings():
     for b in gBuildings:
         b.chooseUpgradeResource()
 
-    if gFactory.isUnlocked():
-        gFactory.recalcStocks()
+    # if gFactory.isUnlocked():
+    #    gFactory.recalcStocks()

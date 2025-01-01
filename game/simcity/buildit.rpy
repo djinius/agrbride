@@ -16,6 +16,7 @@ default gResidenceUnlocked = False
 default gWellUnlocked = False
 default gStatiumUnlocked = False
 default gSharonUnlocked = False
+default gPortalUnlocked = False
 default nextCutScene = None
 
 default gAppleTrees = 0
@@ -185,7 +186,7 @@ screen builditPopup(xloc, yloc):
         has vbox
         textbutton "사과나무":
             action [Function(addBuilding, x=xloc, y=yloc, b="AppleTree"), Function(setLocation, x=None, y=None, p=False)]
-            sensitive ((getTotalPopulation() > getTotalManagements()) and (getTotalAppleTrees() < gFiefLevel * 2)) or ((getTotalAppleTrees() < 2))
+            sensitive ((getTotalPopulation() > getTotalManagements()) and (getTotalAppleTrees() < gFiefLevel * 2)) or ((getTotalAppleTrees() < 2)) or (getAcceptablePopulation() >= getTotalFoodSupply())
             text_size 25
 
         if gResidenceUnlocked:
@@ -203,6 +204,11 @@ screen builditPopup(xloc, yloc):
         if gSharonUnlocked:
             textbutton "무궁화":
                 action [Function(addBuilding, x=xloc, y=yloc, b="SharonTree"), Function(setLocation, x=None, y=None, p=False)]
+                text_size 25
+
+        if gPortalUnlocked:
+            textbutton "차원문 정류장":
+                action [Function(addBuilding, x=xloc, y=yloc, b="PortalStop"), Function(setLocation, x=None, y=None, p=False)]
                 text_size 25
 
 screen buildingPopup(b):

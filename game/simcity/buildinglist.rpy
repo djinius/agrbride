@@ -75,6 +75,18 @@ image well2 = Animation(
     "images/gamemadang/buildings/well21.png", .25,
     "images/gamemadang/buildings/well20.png", .75)
 
+image well3 = Animation(
+    "images/gamemadang/buildings/well30.png", .25,
+    "images/gamemadang/buildings/well31.png", .25,
+    "images/gamemadang/buildings/well32.png", .25,
+    "images/gamemadang/buildings/well33.png", .25,
+    "images/gamemadang/buildings/well34.png", .25,
+    "images/gamemadang/buildings/well35.png", .25,
+    "images/gamemadang/buildings/well36.png", .25,
+    "images/gamemadang/buildings/well35.png", .25,
+    "images/gamemadang/buildings/well34.png", .25,
+    "images/gamemadang/buildings/well33.png", .25)
+
 image roseOfSharonTree = "images/gamemadang/buildings/sharon.png"
 
 image nepenthes = "images/gamemadang/buildings/nepenthes.png"
@@ -82,6 +94,10 @@ image nepenthes = "images/gamemadang/buildings/nepenthes.png"
 image dropwort = "images/gamemadang/buildings/dropwort.png"
 
 image gym = "images/gamemadang/buildings/gym.png"
+
+image portal = Animation(
+    "images/gamemadang/buildings/portal00.png", .75,
+    "images/gamemadang/buildings/portal01.png", .75)
 
 ################################################################################
 # 3. 특별 - 고유 건물

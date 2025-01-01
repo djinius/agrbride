@@ -20,9 +20,11 @@ transform choiceVBoxOneButtonHop(p, t, of):
     xpos p ypos .5 yanchor .5
 
     on idle:
+        alpha .0
         xoffset 0
 
     on hover:
+        alpha 1.
         easein t xoffset of
         easeout t xoffset 0
         repeat
@@ -57,7 +59,7 @@ style choice_button_text is button_text
 style choice_frame is frame:
     pos (gui.textbox_xpos, gui.textbox_ypos) anchor (gui.textbox_xanchor, gui.textbox_yanchor)
     xysize (1280, 256)
-    padding (0, 0, 0, 0)
+    padding (2, 2, 2, 42)
     background "gui/textbox.png"
 
 style choice_vbox:

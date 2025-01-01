@@ -81,6 +81,7 @@ style namebox_label is say_label
 style window:
     pos (gui.textbox_xpos, gui.textbox_ypos) anchor (gui.textbox_xanchor, gui.textbox_yanchor)
     xysize (gui.textbox_width, gui.textbox_height)
+    padding (2, 2, 2, 42)
 
     background Image("gui/textbox.png", xalign=0.5, yalign=1.0)
 
@@ -102,3 +103,5 @@ style say_dialogue:
     text_align gui.dialogue_text_xalign
     adjust_spacing False
 
+screen ctc:
+    pass

@@ -1486,13 +1486,3 @@ style slider_vbox:
 style slider_slider:
     variant "small"
     xsize 900
-
-default afm = None
-
-screen ctc:
-    if preferences.afm_enable and afm is not None:
-        $ print(afm, len(afm), 1.0 * (renpy.config.afm_bonus + len(afm) / renpy.config.afm_characters) * renpy.game.preferences.afm_time)
-        bar:
-            align (1., 1.)
-            xysize (50, 15)
-            value AnimatedValue(old_value=0, value=1, delay=(1.0 * (renpy.config.afm_bonus + len(afm) / renpy.config.afm_characters) * renpy.game.preferences.afm_time) / 100.)
