@@ -1,4 +1,4 @@
-default builditTesting = True
+default builditTesting = False
 
 default gEdgeScroll = False
 default gCityMap = None

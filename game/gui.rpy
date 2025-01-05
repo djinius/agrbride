@@ -71,10 +71,10 @@ define gui.name_text_font = "KCC-Hanbit.ttf"
 define gui.interface_text_font = "KCC-Hanbit.ttf"
 
 ## 일반 대사의 글자 크기입니다.
-define gui.text_size = 33
+define gui.text_size = 35
 
 ## 캐릭터 이름의 글자 크기입니다.
-define gui.name_text_size = 40
+define gui.name_text_size = 30
 
 ## 게임의 유저 인터페이스에서 글자의 크기입니다.
 define gui.interface_text_size = 33
@@ -117,16 +117,16 @@ define gui.textbox_yanchor = 1.
 
 ## 말하는 캐릭터의 이름을 텍스트 박스를 기준으로 배치합니다. 이것은 좌측이나 최
 ## 상단으로부터 전체 픽셀값의 숫자가 되거나, 0.5로 중앙이 될 수 있습니다.
-define gui.name_xpos = 0.5
-define gui.name_ypos = .0
-define gui.name_xanchor = 0.5
-define gui.name_yanchor = .5
+define gui.name_xpos = 50
+define gui.name_ypos = 1.
+define gui.name_xanchor = .0
+define gui.name_yanchor = .0
 define gui.name_xoffset = 0
-define gui.name_yoffset = 0
+define gui.name_yoffset = -4
 
 ## 캐릭터들의 이름을 수평으로 정렬합니다. 이것은 0.0으로 좌측 정렬, 0.5로 중앙,
 ## 그리고 1.0으로 우측 정렬될 수 있습니다.
-define gui.name_xalign = 0.5
+define gui.name_xalign = 0.
 
 ## 캐릭터들의 이름이 들어 있는 박스의 너비, 높이, 그리고 테두리입니다. 혹은 그것
 ## 을 None으로 자동 설정할 수 있습니다.
@@ -135,7 +135,7 @@ define gui.namebox_height = 52
 
 ## 캐릭터의 이름이 들어 있는 박스의 테두리를 좌측, 상단, 우측, 하단의 순서로 정
 ## 합니다.
-define gui.namebox_borders = Borders(52, 5, 52, 5)
+define gui.namebox_borders = Borders(2, 2, 2 ,2)
 
 ## 만약 참(True)이면, 네임박스의 배경은 바둑판식으로 배열(tiled)될 것이고, 거짓
 ## (False)이면, 네임박스의 배경은 채워질(scaled) 것입니다.

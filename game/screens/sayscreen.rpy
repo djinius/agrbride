@@ -31,12 +31,12 @@ screen sayNormal(who, what):
 
             window:
                 id "namebox"
-                if who in whoBackgrounds:
-                    background Frame(whoBackgrounds[who], gui.namebox_borders, tile=gui.namebox_tile, xalign=gui.name_xalign)
                 style "namebox"
                 text who id "who"
 
         text what id "what"
+
+        use splashQuickMenu()
 
 screen sayHScene(who, what):
     style_prefix "say"
@@ -48,7 +48,7 @@ screen sayHScene(who, what):
         text what id "what":
             color "#FFF"
             if who is not None:
-                outlines [(3, globals()[who].who_args['color'], 1, 1)]
+                outlines [(3, globals()[who].who_args['hcolor'], 1, 1)]
             else:
                 outlines [(3, "#000", 1, 1)]
             yalign 1.
@@ -86,10 +86,10 @@ style window:
     background Image("gui/textbox.png", xalign=0.5, yalign=1.0)
 
 style namebox:
-    padding (50, 5, 50, 5)
-    background Frame("gui/namebox.png", gui.namebox_borders, tile=gui.namebox_tile, xalign=gui.name_xalign)
+    padding (5, 5)
+    background None # Frame("gui/namebox.png", gui.namebox_borders, tile=gui.namebox_tile, xalign=gui.name_xalign)
     pos (gui.name_xpos, gui.name_ypos) anchor (gui.name_xanchor, gui.name_yanchor) offset (gui.name_xoffset, gui.name_yoffset)
-    xminimum 202 yminimum 52
+    xminimum 202 yminimum 40
     text_align gui.name_xalign
 
 style say_label:

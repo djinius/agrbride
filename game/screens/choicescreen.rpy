@@ -47,9 +47,13 @@ screen choice(items):
     style_prefix "choice"
 
     frame:
-        has vbox
-        for i in items:
-            use choiceVBoxOneButton(i)
+        vbox:
+            align (.5, .5)
+
+            for i in items:
+                use choiceVBoxOneButton(i)
+
+        use splashQuickMenu()
 
 style choice_vbox is vbox
 style choice_hbox is hbox
