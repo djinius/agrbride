@@ -1,4 +1,4 @@
-default sunnaName = "??"
+default sunnaName = "???"
 
 define 수나 = Character('sunnaName', dynamic=True, color="#FF66CC", hcolor="#803366", image="수나")
 

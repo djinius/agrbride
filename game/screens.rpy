@@ -625,12 +625,17 @@ screen preferences():
                         textbutton _("창 화면") action Preference("display", "window")
                         textbutton _("전체 화면") action Preference("display", "fullscreen")
 
-                vbox:
-                    style_prefix "check"
-                    label _("넘기기")
-                    textbutton _("읽지 않은 지문") action Preference("skip", "toggle")
-                    textbutton _("선택지 이후") action Preference("after choices", "toggle")
-                    textbutton _("화면 전환 효과") action InvertSelected(Preference("transitions", "toggle"))
+                        if renpy.variant("pc"):
+                            textbutton _("테두리 없음") action Function(setborder, False)
+                            textbutton _("테두리 있음") action Function(setborder, True)
+                            textbutton _("최대화") action Function(maximize)
+
+                    vbox:
+                        style_prefix "check"
+                        label _("넘기기")
+                        textbutton _("읽지 않은 지문") action Preference("skip", "toggle")
+                        textbutton _("선택지 이후") action Preference("after choices", "toggle")
+                        textbutton _("화면 전환 효과") action InvertSelected(Preference("transitions", "toggle"))
 
                 ## "radio_pref" 나 "check_pref" 를 추가하여 그 외에도 환경설정
                 ## 항목을 추가할 수 있습니다.
@@ -801,6 +806,7 @@ screen history():
                 $ what = renpy.filter_text_tags(h.what, allow=gui.history_allow_tags)
                 text what:
                     substitute False
+                    color "#FFF"
 
         if not _history_list:
             label _("대사가 없습니다.")

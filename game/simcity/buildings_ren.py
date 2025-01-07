@@ -118,11 +118,11 @@ class Building:
                 self.upgradeInterval -= 1
             elif self.upgradeResources is None:
                 # 목재 100은 기본으로 깔고 간다
-                self.upgradeResources = [[gFactory.isWoodConsumable, gFactory.consumeWoods, 100]]
+                self.upgradeResources = [[gFactory.isBalanceEnough, gFactory.withdraw, 100]]
 
                 # 여타 자원 등 결정
 
-    # 건물의 식량, 인구 증강 팩터
+    # 건물간 거리
     def getDistance(self, x, y):
         dx = self.x - x
         dy = self.y - y

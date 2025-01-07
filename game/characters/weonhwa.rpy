@@ -1,4 +1,4 @@
-default wonhwaName = "????"
+default wonhwaName = "???"
 
 define 원화 = Character('wonhwaName', dynamic=True, color="#FF007F", hcolor="#8F003F", image="원화")
 

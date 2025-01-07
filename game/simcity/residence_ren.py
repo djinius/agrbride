@@ -16,7 +16,7 @@ class Residence(Building):
 
         addExperience(25)
         if getTotalResidence() == 1:
-            self.upgradeResources = [[gFactory.isWoodConsumable, gFactory.consumeWoods, 100]]
+            self.upgradeResources = [[gFactory.isBalanceEnough, gFactory.withdraw, 100]]
 
     # 식량 생산 증강
     def getProductionBoostFactor(self, x, y):
@@ -53,8 +53,10 @@ class Residence(Building):
         return int(self.populations[self.level] * self.getPopulationFactor())
 
     def upgrade(self):
+        global gFactory
         super(Residence, self).upgrade()
         addExperience(15)
+        gFactory.deposit(self.level * 300)
 
 def getAcceptablePopulation():
     global gBuildings

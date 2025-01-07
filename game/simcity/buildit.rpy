@@ -1,5 +1,3 @@
-default builditTesting = False
-
 default gEdgeScroll = False
 default gCityMap = None
 default gBuildings = []
@@ -82,16 +80,17 @@ screen buildit(isManageEnabled = True):
                     if b is not None:
                         imagebutton:
                             idle b.getIdleSprite()
-                            pos calcXYPos(x, y) anchor (1., 1.)
+                            pos calcXYPos(x, y) anchor (.5, .5)
                             action SetVariable("gShowDetails", b)
                             alternate Function(setBuilding, x=x, y=y, p=b)
                             sensitive isManageEnabled
+                            focus_mask True
 
                         # 업그레이드 자원 표기
                         if b.upgradeResources is not None:
                             imagebutton:
                                 idle "gui/buildit/bubble.png"
-                                pos calcXYPos(x, y) anchor (.75, .75)
+                                pos calcXYPos(x, y, 0, 128) anchor (.5, .5)
                                 at upgradeBubble
 
                                 if b.isUpgradeAvailable():
@@ -102,7 +101,7 @@ screen buildit(isManageEnabled = True):
                     else:
                         imagebutton:
                             idle "images/simcity/empty.png"
-                            pos calcXYPos(x, y) anchor (1., 1.) focus_mask True
+                            pos calcXYPos(x, y) anchor (.5, .5) focus_mask True
                             selected xLoc==x and yLoc==y
                             action [SetVariable("gTargetTree", None), SetVariable("gShowDetails", None), Function(setLocation, x=x, y=y, p=True)]
                             alternate Function(setLocation, x=x, y=y, p=True)
@@ -135,7 +134,7 @@ screen buildit(isManageEnabled = True):
             text "총 인구: %d" % getTotalPopulation() color getShortColor(getTotalFoodSupply, getTotalPopulation)
             text "관리인력: %d" % getTotalManagements() color getShortColor(getTotalPopulation, getTotalManagements)
             text "물: %d/%d" % (getTotalWaterDemand(), getTotalWaterSupply()) color getShortColor(getTotalWaterSupply, getTotalWaterDemand)
-            text "목재: %d/%d" % (gFactory.getWoodStock(), gFactory.getMaxWoodStock())
+            text "금편: %d" % (gFactory.getBalance())
 
 
     if isManageEnabled:

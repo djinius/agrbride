@@ -1,8 +1,12 @@
 ﻿# 이 파일에 게임 스크립트를 입력합니다.
 
+default builditTesting = True
+default _in_gameplay = False
+
 # 여기에서부터 게임이 시작합니다.
 label start:
     $ rosalindName = "로잘린드"
+    $ _in_gameplay = True
     call opening from _call_opening
 
     $ initBuildings()

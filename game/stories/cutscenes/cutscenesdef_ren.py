@@ -133,7 +133,7 @@ class RosalindFactoryUpgradeScene(CutScene):
 
     def isAvailable(self):
         global gFactory
-        return (getTotalAppleTrees() >= 5) and (getIdlePopulation() > 2500) and (gFactory.isWoodConsumable(1000))
+        return (getTotalAppleTrees() >= 5) and (getIdlePopulation() > 2500) and (gFactory.isBalanceEnough(1000))
 
     def finish(self):
         global gFactory

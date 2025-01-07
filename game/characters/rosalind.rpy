@@ -91,9 +91,9 @@ layeredimage 로잘린드 정면:
 
     group faceshadow:
         pos (991, 265)
-        attribute 그림자없음 default:
+        attribute 얼굴그림자없음 default:
             Null()
-        attribute 그림자:
+        attribute 얼굴그림자:
             "images/characters/rosalind/front/extras/shadow.png"
 
     group surprisedmark:
@@ -111,7 +111,7 @@ layeredimage 로잘린드 정면:
             "images/characters/rosalind/front/extras/sweat.png"
 
     group blush:
-        pos (971, 478) # (1074, 646) => 
+        pos (971, 478)
         attribute 홍조없음 default:
             Null()
         attribute 홍조:
