@@ -1,6 +1,6 @@
 default rosalindName = "???"
 
-define 로잘린드 = Character('rosalindName', dynamic=True, color="#CDC8C3", hcolor="#4D4843", image="로잘린드")
+define 로잘린드 = Character('rosalindName', dynamic=True, color="#CDC8C3", hcolor="#4D4843", image="로잘린드", ctc="ctcTail", ctc_position="nestled-close")
 
 # 정면
 # 얼굴 표정요소 좌표: (976, 359)

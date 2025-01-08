@@ -1,6 +1,6 @@
 default sunnaName = "???"
 
-define 수나 = Character('sunnaName', dynamic=True, color="#FF66CC", hcolor="#803366", image="수나")
+define 수나 = Character('sunnaName', dynamic=True, color="#FF66CC", hcolor="#803366", image="수나", ctc="ctcTail", ctc_position="nestled-close")
 
 image 수나 몬무스 = "images/ai/characters/standings/sunna.png"
 

@@ -9,12 +9,6 @@
 ##
 ## https://www.renpy.org/doc/html/screen_special.html#say
 
-define whoBackgrounds = {
-    "???": "gui/nameboxes/rosalind.png",
-    "로잘린드": "gui/nameboxes/rosalind.png",
-    "말리": "gui/nameboxes/mali.png",
-}
-
 screen sayNormal(who, what):
 
     ## 사이드 이미지가 있는 경우 글자 위에 표시합니다. 휴대폰 환경에서는 보이지
@@ -103,5 +97,16 @@ style say_dialogue:
     text_align gui.dialogue_text_xalign
     adjust_spacing False
 
+image ctcBlink:
+    Animation("gui/ctc_off.png", .5, "gui/ctc_on.png", .5)
+
+image ctcTail:
+    "gui/ctc_tail_on.png"
+    alpha .0
+    block:
+        easeout 1. alpha 1.
+        easein 1. alpha .0
+        repeat
+
 screen ctc:
-    pass
+    add "ctcBlink" align (1., 1.)

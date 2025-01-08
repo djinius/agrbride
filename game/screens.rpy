@@ -625,11 +625,6 @@ screen preferences():
                         textbutton _("창 화면") action Preference("display", "window")
                         textbutton _("전체 화면") action Preference("display", "fullscreen")
 
-                        if renpy.variant("pc"):
-                            textbutton _("테두리 없음") action Function(setborder, False)
-                            textbutton _("테두리 있음") action Function(setborder, True)
-                            textbutton _("최대화") action Function(maximize)
-
                     vbox:
                         style_prefix "check"
                         label _("넘기기")

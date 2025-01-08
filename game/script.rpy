@@ -1,6 +1,6 @@
 ﻿# 이 파일에 게임 스크립트를 입력합니다.
 
-default builditTesting = True
+default builditTesting = False
 default _in_gameplay = False
 
 # 여기에서부터 게임이 시작합니다.

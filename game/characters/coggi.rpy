@@ -1,4 +1,4 @@
-define 꼭지 = Character('꼭지', color="#fe8040", hcolor="#7e4020", image="꼭지")
+define 꼭지 = Character('꼭지', color="#fe8040", hcolor="#7e4020", image="꼭지", ctc="ctcTail", ctc_position="nestled-close")
 
 image 꼭지 몬무스 = "images/ai/characters/standings/coggi.png"
 
