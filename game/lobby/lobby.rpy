@@ -15,7 +15,7 @@ label lobby:
 
     menu(screen = "lobbyMenu"):
         # 말리, 세라, 보미, 카라
-        "영지 관리":
+        "영지 관리"(noHistory=True):
             call buildContinue from _call_buildContinue
 
         # 버스정류장

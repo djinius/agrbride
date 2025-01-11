@@ -3,6 +3,7 @@ image classRoomDoor = Composite((1920, 1080), (0, 0), "nobg.png", (.5, .5), Text
 image classRoomDoorPortal = Composite((1920, 1080), (0, 0), "nobg.png", (.5, .5), Text("강의실 문 포탈", color="#FFF", align=(.5, .5)))
 
 image palace = Composite((1920, 1080), (0, 0), "nobg.png", (.5, .5), Text("별천지 궁전", color="#FFF", align=(.5, .5)))
-image palaceGarden = Composite((1920, 1080), (0, 0), "nobg.png", (.5, .5), Text("별천지 뒤뜰", color="#FFF", align=(.5, .5)))
+image palaceGarden = Composite((1920, 1080), (0, 0), "nobg.png", (.5, .5), Text("별천지 궁전 뒤뜰", color="#FFF", align=(.5, .5)))
+image palaceWorkRoom = Composite((1920, 1080), (0, 0), "nobg.png", (.5, .5), Text("별천지 공주 집무실", color="#FFF", align=(.5, .5)))
 
 image white = Solid("#FFF")

@@ -229,7 +229,7 @@ define gui.choice_button_text_font = gui.text_font
 define gui.choice_button_text_size = 32 # gui.text_size
 define gui.choice_button_text_xalign = 0.5
 define gui.choice_button_text_idle_color = '#000'
-define gui.choice_button_text_hover_color = "#ffffff"
+define gui.choice_button_text_hover_color = "#FFF8EB"
 define gui.choice_button_text_insensitive_color = '#8888887f'
 
 
@@ -353,11 +353,11 @@ define gui.unscrollable = "hide"
 ## 대사록 화면은 사용자가 이미 확인한 다이얼로그를 표시합니다.
 
 ## 렌파이가 보관할 대사록의 블록 갯수입니다.
-define config.history_length = 250
+define config.history_length = 128
 
 ## 대사록 화면 항목의 높이를 지정하거나 None으로 하여 높이를 성능에 맡길 수 있습
 ## 니다.
-define gui.history_height = 210
+define gui.history_height = None
 
 ## Additional space to add between history screen entries.
 define gui.history_spacing = 0

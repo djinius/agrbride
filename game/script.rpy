@@ -7,6 +7,7 @@ default _in_gameplay = False
 label start:
     $ rosalindName = "로잘린드"
     $ _in_gameplay = True
+
     call opening from _call_opening
 
     $ initBuildings()

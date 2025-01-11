@@ -1,6 +1,6 @@
 default rosalindName = "???"
 
-define 로잘린드 = Character('rosalindName', dynamic=True, color="#CDC8C3", hcolor="#4D4843", image="로잘린드", ctc="ctcTail", ctc_position="nestled-close")
+define 로잘린드 = Character('rosalindName', dynamic=True, color="#CDC8C3", hcolor="#4D4843", image="로잘린드")
 
 # 정면
 # 얼굴 표정요소 좌표: (976, 359)
@@ -353,5 +353,16 @@ layeredimage 로잘린드 우측면:
         attribute 홍조:
             "images/characters/rosalind/right/extras/blush.png"
 
-
 image side 로잘린드 우측면 = LayeredImageProxy("로잘린드 우측면", Transform(crop=(600, 0, 1900, 2100), zoom=.4))
+
+layeredimage 로잘린드 유년기:
+    group whole:
+        attribute 보통 default:
+            "images/characters/rosalind/youth/normal.png"
+        attribute 입벌림:
+            "images/characters/rosalind/youth/speak.png"
+        attribute 미소:
+            "images/characters/rosalind/youth/smile.png"
+
+image side 로잘린드 유년기 = LayeredImageProxy("로잘린드 유년기", Transform(crop=(150, 0, 1100, 1500), zoom=.4))
+

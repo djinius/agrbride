@@ -25,17 +25,19 @@ default gSupplyDepots = 0
 default gFiefLevel = 1
 default gExperience = 0
 
+default gDates = 0
+
 define gExperienceLevel = [(50+x*50) for x in range(0, 62)]
 
 default gFactory = Factory()
 
 transform upgradeBubble:
     on idle:
-        yoffset -120
+        yoffset 0
 
     on hover:
-        easein .5 yoffset -130
-        easeout .5 yoffset -120
+        easein .5 yoffset -12
+        easeout .5 yoffset 0
         repeat
 
 
@@ -50,6 +52,8 @@ transform upgradeBubble:
 ###############################################################################
 
 screen buildit(isManageEnabled = True):
+    layer "master"
+
     add CityMapFrame()
     style_prefix "buildit"
 
