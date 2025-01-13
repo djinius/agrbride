@@ -100,6 +100,9 @@ style say_dialogue:
 image ctcBlink:
     Animation("gui/ctc_off.png", .5, "gui/ctc_on.png", .5)
 
+image ctcSplashBlink:
+    Animation("gui/ctc_splash_off.png", .5, "gui/ctc_splash_on.png", .5)
+
 image ctcTail:
     "gui/ctc_tail_on.png"
     alpha .0
@@ -109,4 +112,9 @@ image ctcTail:
         repeat
 
 screen ctc:
-    add "ctcBlink" pos (1590, 1020) anchor (1., 1.)
+    if (_in_gameplay or _in_replay) and (persistent.ctcDetail == 2):
+        add "ctcBlink" pos (1590, 1020) anchor (1., 1.)
+    elif persistent.ctcDetail in [1, 2]:
+        add "ctcSplashBlink" pos (1590, 1020) anchor (1., 1.)
+    else:
+        pass

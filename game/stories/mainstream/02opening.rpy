@@ -31,10 +31,12 @@ label opening:
     독백 "지루하게 반복되는 일상. 나는 또다시 톱니바퀴처럼 같은 나날을 반복해야만 했다."
     주인공 "오늘은 전공 수업이었지……."
     독백 "대학생의 일과라고 해봤자 학교에서 수업 듣고 과제하는 게 전부."
+
+    scene black with dissolve
     독백 "대충 세수를 한 나는 곧바로 학교로 향했다."
 
     # 배경 – 대학교 강의실 입구. (철제 문으로 닫혀있다.)
-    scene classRoomDoor
+    scene classRoomDoor with dissolve
 
     독백 "한숨이 절로 나오는 강의실 앞."
     독백 "오늘따라 유난히도 이 문을 여는 게 참으로 어려웠다."
@@ -186,11 +188,19 @@ label opening:
     원화 "이런. 그러고보니 아직 자네의 이름을 듣지 못하였군. 자네, 이름이 어떻게 되나?"
     주인공 "아, 저는……."
 
+label inputName:
     # (플레이어 이름 입력)
-    $ myName = renpy.input(screen='koreaninput', prompt='나의 이름은……')
+    $ myName = renpy.input(screen='koreaninput', default='승태', prompt='나의 이름은……')
+    # $ myName = renpy.input(default='승태', prompt='나의 이름은……')
 
     if len(myName) == 0:
         $ myName = "승태"
+
+    menu(screen="namechoice"):
+        "예"(noHistory=True):
+            pass
+        "아니요":
+            jump inputName
 
     원화 "으음, 독특하면서도 듣기 좋은 발음이로구나. 잘 알겠네."
     원화 "앞으로 이곳, 별천지 궁전이 자네가 지낼 곳이라네. 그러니 부담 갖지 말고 이곳에서 지내도록 하게나, [myName] 후작."

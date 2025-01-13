@@ -56,7 +56,7 @@ define gui.hover_muted_color = '#003d7a'
 # define gui.interface_text_color = '#ffffff'
 
 define gui.text_color = '#000000'
-define gui.interface_text_color = '#000000'
+define gui.interface_text_color = '#FFFFFF'
 
 
 ## 글자와 글자 크기 ###################################################################
@@ -221,8 +221,8 @@ define gui.quick_button_text_selected_color = gui.accent_color
 ##
 ## 선택 버튼은 인-게임 메뉴에 사용됩니다.
 
-define gui.choice_button_width = 1000
-define gui.choice_button_height = 40
+define gui.choice_button_width = 800
+define gui.choice_button_height = 35
 define gui.choice_button_tile = False
 define gui.choice_button_borders = Borders(8, 0, 8, 0)
 define gui.choice_button_text_font = gui.text_font

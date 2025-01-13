@@ -226,4 +226,15 @@ define config.mouse = { }
 define config.mouse['default'] = [ ( "gui/cursors/arrowcursor.png", 0, 0) ]
 
 # 스트리밍 모드
-default persistent.isStreaming = False
+default persistent.isStreaming = True
+
+# CTC 디테일
+default persistent.ctcDetail = 1
+
+# 한글 조사
+define config.custom_text_tags["은는"] = ppCommon
+define config.custom_text_tags["이가"] = ppCommon
+define config.custom_text_tags["을를"] = ppCommon
+define config.custom_text_tags["과와"] = ppCommon
+define config.custom_text_tags["아야"] = ppCommon
+define config.custom_text_tags["으로"] = ppLo

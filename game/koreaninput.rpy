@@ -114,7 +114,7 @@ init python:
         else:
             return chr(0xAC00 + first * 588 + middle * 28 + last)
 
-screen koreaninput(prompt):
+screen koreaninput(prompt, default=''):
 
     default koreanF = "ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ"
     default koreanM = "ㅏㅐㅑㅒㅓㅔㅕㅖㅗㅘㅙㅚㅛㅜㅝㅞㅟㅠㅡㅢㅣ"
@@ -132,10 +132,11 @@ screen koreaninput(prompt):
         align (.5, .5)
         spacing 10
 
-        text prompt style "input_prompt"
-        input id "inputstr":
+        text prompt style "koreaninput_prompt"
+        input id "input":
             font "NEXON Lv2 Gothic Medium.ttf"
             size 50
+            value default
 
         hbox:
             xalign .5
@@ -145,42 +146,47 @@ screen koreaninput(prompt):
             grid 5 6:
                 for n, i in enumerate(koreanF):
                     textbutton i:
-                        action [AddKoreanFirst("koreaninput", "inputstr", n), SetLocalVariable("first", n)]
+                        action [AddKoreanFirst("koreaninput", "input", n), SetLocalVariable("first", n)]
                         text_size 30
 
             grid 5 6:
                 for n, m in enumerate(koreanM):
                     textbutton getKoreanSyllable(first, n, 0):
-                        action [AddKoreanMiddle("koreaninput", "inputstr", first, n), SetLocalVariable("middle", n)]
+                        action [AddKoreanMiddle("koreaninput", "input", first, n), SetLocalVariable("middle", n)]
 
             grid 5 6:
                 for n, l in enumerate(koreanL):
                     textbutton getKoreanSyllable(first, middle, n):
-                        action [AddKoreanLast("koreaninput", "inputstr", first, middle, n), SetLocalVariable("last", n)]
+                        action [AddKoreanLast("koreaninput", "input", first, middle, n), SetLocalVariable("last", n)]
 
         hbox:
             textbutton "깨끗이":
                 xalign .5
-                action ClearText("koreaninput", "inputstr")
+                action ClearText("koreaninput", "input")
 
             textbutton "지우기":
                 xalign .5
-                action BSText("koreaninput", "inputstr")
+                action BSText("koreaninput", "input")
 
             textbutton "띄우기":
                 xalign .5
-                action SpaceText("koreaninput", "inputstr")
+                action SpaceText("koreaninput", "input")
 
         textbutton "완료":
             xalign .5
-            action GetText("koreaninput", "inputstr")
+            action GetText("koreaninput", "input")
 
 style koreaninput_vbox:
     align (.5, .5)
 
+style koreaninput_prompt:
+    xalign .5
+    color "#FFF"
+
 style koreaninput_text:
     xalign .5
     font "NEXON Lv2 Gothic Medium.ttf"
+    color "#FFF"
 
 style koreaninput_hbox:
     xalign .5

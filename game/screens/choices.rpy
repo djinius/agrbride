@@ -102,10 +102,29 @@ screen choice(items):
 
         use splashQuickMenu()
 
+screen namechoice(items):
+    style_prefix "choice"
+
+    frame:
+        vbox:
+            align (.5, .5)
+
+            text "{으로=#33F}[myName]{/으로} 결정하시겠습니까?"
+            null height(10)
+
+            for i in items:
+                use choiceVBoxOneButton(i)
+
+        use splashQuickMenu()
+
 style choice_vbox is vbox
 style choice_hbox is hbox
 style choice_button is button
 style choice_button_text is button_text
+
+style choice_text is text:
+    xalign .5
+    size 35
 
 style choice_frame is frame:
     pos (gui.textbox_xpos, gui.textbox_ypos) anchor (gui.textbox_xanchor, gui.textbox_yanchor)

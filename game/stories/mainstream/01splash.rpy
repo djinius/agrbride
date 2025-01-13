@@ -1,10 +1,60 @@
-screen splashAskStreaming():
-    frame:
-        xysize (1., 1.)
-        background Solid("#000")
-        text "스트리밍 여부 물어보기" align (.5, .5) color "#FFF"
+image streamingGuide = ConditionSwitch(
+    "persistent.isStreaming", "로잘린드 정면 한복",
+    "True", "로잘린드 정면 몬무스")
 
-    key "mouseup_1" action Return()
+image streamingOnOff = ConditionSwitch(
+    "persistent.isStreaming", "gui/streaming/on.png",
+    "True", "gui/streaming/off.png")
+
+screen splashAskStreaming():
+    style_prefix "splash"
+
+    add Solid("#000")
+
+    add "streamingGuide":
+        pos (.25, .05) anchor (.5, .0)
+        zoom .4
+
+    vbox:
+        align (.75, .5)
+
+        imagebutton:
+            xalign .5
+            action ToggleField(persistent, "isStreaming")
+            auto "gui/streaming/%s.png"
+
+        text "게임을 스트리밍 중이신가요?"
+
+        hbox:
+            xalign .5
+            style_prefix "radio"
+            textbutton "예" action SetField(persistent, "isStreaming", True)
+            textbutton "아니요" action SetField(persistent, "isStreaming", False)
+
+        if persistent.isStreaming:
+            text "스트리밍 모드"
+            text "일부 그림이 검열됩니다."
+
+        else:
+            text "일반 모드"
+            text "검열되는 그림이 없습니다."
+
+        text "모든 이야기를 감상할 수 있습니다."
+
+        text "퀵메뉴의 {image=streamingOnOff}버튼을 눌러서 게임 도중 실시간으로 켜고 끌 수 있습니다."
+        textbutton "게임 시작" xalign .5 action Return()
+
+style splash_button:
+    xalign .5
+
+style splash_text:
+    xalign .5
+    color "#FFF"
+    xmaximum 768
+    text_align .5
+
+style splash_grid:
+    xalign .5
 
 label splashscreen:
 
@@ -28,7 +78,12 @@ label splashscreen:
     주인공 "뭐?"
     독백 "어디선가 들려오는 목소리. 나는 자동으로 그쪽을 향해 몸을 틀었다."
 
-    # 로잘린드 스탠딩 일러스트 등장
+    # TODO:: 시녀 전원 일러스트 등장
+
+    show 말리 정면 한복:
+        pos (.85, .0) anchor (.5, .0)
+        zoom .35
+
     show 로잘린드 정면 한복:
         pos (.5, 0) anchor (.5, .0)
         zoom .5

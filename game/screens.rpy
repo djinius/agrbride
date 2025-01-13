@@ -638,6 +638,18 @@ screen preferences():
                         textbutton _("켜기") action SetField(persistent, "isStreaming", True)
                         textbutton _("끄기") action SetField(persistent, "isStreaming", False)
 
+                        label _("CTC 설명")
+                        hbox:
+                            vbox:
+                                textbutton _("자세히") action SetField(persistent, "ctcDetail", 2)
+                                textbutton _("간단히") action SetField(persistent, "ctcDetail", 1)
+                                textbutton _("끄기") action SetField(persistent, "ctcDetail", 0)
+
+                            if persistent.ctcDetail == 2:
+                                add "ctcBlink"
+                            elif persistent.ctcDetail == 1:
+                                add "ctcSplashBlink"
+
                 ## "radio_pref" 나 "check_pref" 를 추가하여 그 외에도 환경설정
                 ## 항목을 추가할 수 있습니다.
 
@@ -648,8 +660,9 @@ screen preferences():
                 box_wrap True
 
                 vbox:
+                    label _("자동 진행")
 
-                    textbutton _("자동 진행") action Preference("auto-forward", "toggle")
+                    textbutton _("자동 진행 켜기") action Preference("auto-forward", "toggle")
                     textbutton _("클릭 후에도 자동 진행") action Preference("auto-forward after click", "toggle")
 
                     label _("텍스트 속도")
@@ -987,6 +1000,7 @@ style confirm_frame:
 style confirm_prompt_text:
     textalign 0.5
     layout "subtitle"
+    color "#000"
 
 style confirm_button:
     properties gui.button_properties("confirm_button")
