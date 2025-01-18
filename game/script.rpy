@@ -8,7 +8,7 @@ label start:
     $ rosalindName = "로잘린드"
     $ _in_gameplay = True
 
-    call opening from _call_opening
+    call ch01Opening from _call_ch01Opening
 
     $ initBuildings()
 

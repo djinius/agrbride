@@ -5,14 +5,14 @@ init -1 python:
 # 추가 빌딩 - 숙소
 
 class Residence(Building):
-    populations = [40, 80, 256, 768, 1920]
+    populations = [40, 80, 256, 768, 1920, 10800]
     levelNames = ["생활관", "숙사", "연립주택", "고층건물", "마천루"]
-    levelExperience = [25, 25, 25, 25, 25]
+    levelExperience = [25, 25, 25, 25, 25, 25]
 
     def __init__(self, x, y):
         super(Residence, self).__init__("residence", "주거 건물", x, y, "#44F",
-                                   ["residence0", "residence1", "residence2", "residence3", "residence4"],
-                                   [5, 10, 20, 50, 100])
+                                   ["residence0", "residence1", "residence2", "residence3", "residence4", "residence5"],
+                                   [5, 10, 20, 50, 100, 150])
 
         addExperience(25)
         if getTotalResidence() == 1:

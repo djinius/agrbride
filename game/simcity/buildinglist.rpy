@@ -47,6 +47,23 @@ image residence0 = "images/gamemadang/buildings/residence0.png"
 image residence1 = "images/gamemadang/buildings/residence1.png"
 image residence2 = "images/gamemadang/buildings/residence2.png"
 image residence3 = "images/gamemadang/buildings/residence3.png"
+image residence4 = "images/gamemadang/buildings/residence4.png"
+image residence5 = Animation(
+    "images/gamemadang/buildings/residence50.png", .25,
+    "images/gamemadang/buildings/residence51.png", .25,
+    "images/gamemadang/buildings/residence52.png", .25,
+    "images/gamemadang/buildings/residence53.png", .25,
+    "images/gamemadang/buildings/residence52.png", .25,
+    "images/gamemadang/buildings/residence51.png", .25)
+
+image well0 = Animation(
+    "images/gamemadang/buildings/well00.png", .25,
+    "images/gamemadang/buildings/well01.png", .25,
+    "images/gamemadang/buildings/well02.png", .25,
+    "images/gamemadang/buildings/well03.png", .75,
+    "images/gamemadang/buildings/well02.png", .25,
+    "images/gamemadang/buildings/well01.png", .25,
+    "images/gamemadang/buildings/well00.png", .75)
 
 image well0 = Animation(
     "images/gamemadang/buildings/well00.png", .25,

@@ -102,7 +102,7 @@ layeredimage 말리 정면:
         attribute 홍조:
             "images/characters/mali/front/extras/blush.png"
 
-image side 말리 정면 = LayeredImageProxy("말리 정면", Transform(crop=(700, 0, 1800, 1800), zoom=.4))
+image side 말리 정면 = LayeredImageProxy("말리 정면", Transform(crop=(1100, 0, 1800, 1950), zoom=.4))
 
 ######
 # 좌측면 - 3285x4063
@@ -200,7 +200,7 @@ layeredimage 말리 좌측면:
         attribute 홍조:
             "images/characters/mali/left/extras/blush.png"
 
-image side 말리 좌측면 = LayeredImageProxy("말리 좌측면", Transform(crop=(0, 0, 1397, 1800), zoom=.4))
+image side 말리 좌측면 = LayeredImageProxy("말리 좌측면", Transform(crop=(0, 0, 1397, 1950), zoom=.4))
 
 ######
 # 우측면 - 1397x3961
@@ -298,5 +298,5 @@ layeredimage 말리 우측면:
         attribute 홍조:
             "images/characters/mali/right/extras/blush.png"
 
-image side 말리 우측면 = LayeredImageProxy("말리 우측면", Transform(crop=(400, 0, 897, 1800), zoom=.4))
+image side 말리 우측면 = LayeredImageProxy("말리 우측면", Transform(crop=(400, 0, 897, 1950), zoom=.4))
 

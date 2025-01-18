@@ -236,7 +236,9 @@ screen main_menu():
     tag menu
 
     # add gui.main_menu_background
-    add "로잘린드 정면 한복":
+    add "palace":
+        pos (.5, .5) anchor (.5, .5)
+    add "로잘린드 정면 장옷":
         pos (.5, 0) anchor (.5, .0)
         zoom .75
 
@@ -631,6 +633,11 @@ screen preferences():
                         textbutton _("읽지 않은 지문") action Preference("skip", "toggle")
                         textbutton _("선택지 이후") action Preference("after choices", "toggle")
                         textbutton _("화면 전환 효과") action InvertSelected(Preference("transitions", "toggle"))
+
+
+                        label _("대사록 불러오기")
+                        textbutton _("스크롤 휠") action SetField(persistent, "isScrollLog", True)
+                        textbutton _("스크롤 버튼") action SetField(persistent, "isScrollLog", False)
 
                     vbox:
                         style_prefix "check"

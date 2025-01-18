@@ -46,8 +46,10 @@ screen splashQuickMenu():
         key "s" action ShowMenu("save")
         key "L" action ShowMenu("load")
         key "l" action ShowMenu("load")
-        # key "mousedown_5" action ShowMenu("history")
 
     if _in_gameplay or _in_replay:
-        key "mousedown_4" action ShowMenu("history")
-        key "mousedown_5" action ShowMenu("history")
+        if persistent.isScrollLog:
+            key "mousedown_4" action ShowMenu("history")
+            key "mousedown_5" action ShowMenu("history")
+        else:
+            key "mouseup_2" action ShowMenu("history")

@@ -84,7 +84,7 @@ screen buildit(isManageEnabled = True):
                     if b is not None:
                         imagebutton:
                             idle b.getIdleSprite()
-                            pos calcXYPos(x, y) anchor (.5, .5)
+                            pos calcXYPos(x, y) anchor (.5, 1.)
                             action SetVariable("gShowDetails", b)
                             alternate Function(setBuilding, x=x, y=y, p=b)
                             sensitive isManageEnabled
@@ -94,7 +94,7 @@ screen buildit(isManageEnabled = True):
                         if b.upgradeResources is not None:
                             imagebutton:
                                 idle "gui/buildit/bubble.png"
-                                pos calcXYPos(x, y, 0, 128) anchor (.5, .5)
+                                pos calcXYPos(x, y, 0, 128) anchor (.5, 1.)
                                 at upgradeBubble
 
                                 if b.isUpgradeAvailable():
@@ -105,7 +105,7 @@ screen buildit(isManageEnabled = True):
                     else:
                         imagebutton:
                             idle "images/simcity/empty.png"
-                            pos calcXYPos(x, y) anchor (.5, .5) focus_mask True
+                            pos calcXYPos(x, y) anchor (.5, 1.) focus_mask True
                             selected xLoc==x and yLoc==y
                             action [SetVariable("gTargetTree", None), SetVariable("gShowDetails", None), Function(setLocation, x=x, y=y, p=True)]
                             alternate Function(setLocation, x=x, y=y, p=True)

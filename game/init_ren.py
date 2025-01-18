@@ -16,6 +16,7 @@ config.keymap['fast_skip'].append('noshift_K_k')
 config.keymap['fast_skip'].append('K_END')
 config.keymap['rollback'].clear()
 config.keymap['rollforward'].clear()
+config.keymap['hide_windows'] = ['noshift_K_h']
 # mousedown_4, mousedown_5
 
 # s for save

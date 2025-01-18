@@ -231,6 +231,9 @@ default persistent.isStreaming = True
 # CTC 디테일
 default persistent.ctcDetail = 1
 
+# 스크롤휠 로그
+default persistent.isScrollLog = True
+
 # 한글 조사
 define config.custom_text_tags["은는"] = ppCommon
 define config.custom_text_tags["이가"] = ppCommon

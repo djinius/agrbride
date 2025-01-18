@@ -235,7 +235,7 @@ layeredimage 로잘린드 좌측면:
             "images/characters/rosalind/left/extras/blush.png"
 
 
-image side 로잘린드 좌측면 = LayeredImageProxy("로잘린드 좌측면", Transform(crop=(600, 0, 1900, 2100), zoom=.4))
+image side 로잘린드 좌측면 = LayeredImageProxy("로잘린드 좌측면", Transform(crop=(300, 0, 1900, 1800), zoom=.4))
 
 # 우측면
 # 얼굴 표정요소 좌표: (950, 366)
@@ -353,7 +353,7 @@ layeredimage 로잘린드 우측면:
         attribute 홍조:
             "images/characters/rosalind/right/extras/blush.png"
 
-image side 로잘린드 우측면 = LayeredImageProxy("로잘린드 우측면", Transform(crop=(600, 0, 1900, 2100), zoom=.4))
+image side 로잘린드 우측면 = LayeredImageProxy("로잘린드 우측면", Transform(crop=(600, 0, 1900, 1800), zoom=.4))
 
 layeredimage 로잘린드 유년기:
     group whole:
