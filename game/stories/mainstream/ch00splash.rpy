@@ -6,7 +6,7 @@ label splashscreen:
 
     call screen splashAskStreaming
 
-    scene palace with dissolve
+    scene palaceGarden with dissolve
     # 배경 – 별천지 궁전. (화려한 동양풍의 건물 내부)
 
     독백 "……."
