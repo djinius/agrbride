@@ -9,13 +9,12 @@ label start:
     $ _in_gameplay = True
 
     call ch01Opening from _call_ch01Opening
+    call ch02Tutor
+    call ch03Eclosion
 
     $ initBuildings()
 
     scene black
-
-    # $ helloworld = renpy.input(screen='koreaninput', prompt='뭐든지 입력하세요')
-    # 카라 "[helloworld]"
 
     call lobby from _call_lobby
 
