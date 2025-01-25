@@ -11,6 +11,7 @@ label start:
     call ch01Opening from _call_ch01Opening
     call ch02Tutor
     call ch03Eclosion
+    call rosalindWetDream
 
     $ initBuildings()
 

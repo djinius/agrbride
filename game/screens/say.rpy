@@ -20,6 +20,7 @@ screen sayNormal(who, what):
 
     window:
         id "window"
+        background Transform("gui/textbox.png", alpha=(persistent.sayScreenAlpha / 100.))
 
         if who is not None:
 
@@ -28,9 +29,22 @@ screen sayNormal(who, what):
                 style "namebox"
                 text who id "who"
 
-        text what id "what"
+        text what id "what":
+            if persistent.sayScreenAlpha < 50:
+                color "#FFF"
 
-        use splashQuickMenu()
+                if (who is None):
+                    outlines [(3, "#000", 1, 1)]
+                elif (who == myName):
+                    outlines [(3, 주인공.who_args['hcolor'], 1, 1)]
+                elif (who not in globals()):
+                    outlines [(3, "#000", 1, 1)]
+                else:
+                    outlines [(3, globals()[who].who_args['hcolor'], 1, 1)]
+            else:
+                pass
+
+        use splashQuickMenu(hscene = False)
 
 screen sayHScene(who, what):
     style_prefix "say"
@@ -41,12 +55,16 @@ screen sayHScene(who, what):
 
         text what id "what":
             color "#FFF"
-            if who is not None:
-                outlines [(3, globals()[who].who_args['hcolor'], 1, 1)]
-            else:
+            if (who is None):
                 outlines [(3, "#000", 1, 1)]
+            elif (who == myName):
+                outlines [(3, 주인공.who_args['hcolor'], 1, 1)]
+            else:
+                outlines [(3, globals()[who].who_args['hcolor'], 1, 1)]
+                
             yalign 1.
 
+        use splashQuickMenu(hscene = True)
 
 screen say(who, what):
 
@@ -76,8 +94,6 @@ style window:
     pos (gui.textbox_xpos, gui.textbox_ypos) anchor (gui.textbox_xanchor, gui.textbox_yanchor)
     xysize (gui.textbox_width, gui.textbox_height)
     padding (2, 2, 2, 42)
-
-    background Image("gui/textbox.png", xalign=0.5, yalign=1.0)
 
 style namebox:
     padding (5, 5)
@@ -112,9 +128,9 @@ image ctcTail:
         repeat
 
 screen ctc:
-    if (_in_gameplay or _in_replay) and (persistent.ctcDetail == 2):
+    if gHScene:
+        pass
+    elif (_in_gameplay or _in_replay) and (persistent.ctcDetail):
         add "ctcBlink" pos (1590, 1020) anchor (1., 1.)
-    elif persistent.ctcDetail in [1, 2]:
-        add "ctcSplashBlink" pos (1590, 1020) anchor (1., 1.)
     else:
         pass

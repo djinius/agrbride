@@ -3,16 +3,6 @@ init -1 python:
 """
 
 class MyScreenshot(Action, DictEquality):
-    """
-        :doc: file_action
-
-        Saves the file.
-
-        The button with this slot is selected if it's marked as the
-        newest save file.
-
-        """
-
     alt = "Screenshot"
 
     def __init__(self):
@@ -59,4 +49,3 @@ class MyScreenshot(Action, DictEquality):
         renpy.sound.play("audio/ui/save.mp3", channel="sound3", loop=False)
         renpy.restart_interaction()
         renpy.show_screen("screenshotScreen")
-

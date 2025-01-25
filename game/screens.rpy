@@ -608,6 +608,90 @@ style slot_button_text:
 ##
 ## https://www.renpy.org/doc/html/screen_special.html#preferences
 
+image preferencesLeftClick_idle     = "gui/preferences/leftclick_idle.png"
+image preferencesLeftClick_hover    = Animation("gui/preferences/leftclick_idle.png", .75, "gui/preferences/leftclick_hover.png", .75)
+image preferencesRightClick_idle    = "gui/preferences/rightclick_idle.png"
+image preferencesRightClick_hover   = Animation("gui/preferences/rightclick_idle.png", .75, "gui/preferences/rightclick_hover.png", .75)
+image preferencesScroll_idle        = "gui/preferences/scroll_idle.png"
+image preferencesScroll_hover       = Animation("gui/preferences/scroll_idle.png", .75, "gui/preferences/scroll_hover.png", .75)
+image preferencesScrollClick_idle   = "gui/preferences/scrollclick_idle.png"
+image preferencesScrollClick_hover  = Animation("gui/preferences/scrollclick_idle.png", .75, "gui/preferences/scrollclick_hover.png", .75)
+
+screen preferencesScrollFunction():
+        hbox:
+            xalign .5
+            spacing 24
+            
+            button:
+                action SetField(persistent, "isScrollLog", True)
+                idle_background Solid("#444")
+                hover_background Solid("#080")
+                selected_background Solid("#400")
+                selected_hover_background Solid("#440")
+
+                has vbox
+
+                hbox:
+                    frame:
+                        xysize (96, 96)
+                        idle_background "preferencesLeftClick_idle"
+                        hover_background "preferencesLeftClick_hover"
+                    text "대사 진행"
+                hbox:
+                    frame:
+                        xysize (96, 96)
+                        idle_background "preferencesRightClick_idle"
+                        hover_background "preferencesRightClick_hover"
+                    text "게임 메뉴"
+                hbox:
+                    frame:
+                        xysize (96, 96)
+                        idle_background "preferencesScroll_idle"
+                        hover_background "preferencesScroll_hover"
+                    text "대사록 보기"
+                hbox:
+                    frame:
+                        xysize (96, 96)
+                        idle_background "preferencesScrollClick_idle"
+                        hover_background "preferencesScrollClick_hover"
+                    text "UI 숨기기"
+
+            button:
+                action SetField(persistent, "isScrollLog", False)
+                idle_background Solid("#444")
+                hover_background Solid("#040")
+                selected_background Solid("#400")
+                selected_hover_background Solid("#440")
+
+                has vbox
+
+                hbox:
+                    frame:
+                        xysize (96, 96)
+                        idle_background "preferencesLeftClick_idle"
+                        hover_background "preferencesLeftClick_hover"
+                    text "대사 진행"
+                hbox:
+                    frame:
+                        xysize (96, 96)
+                        idle_background "preferencesRightClick_idle"
+                        hover_background "preferencesRightClick_hover"
+                    text "게임 메뉴"
+                hbox:
+                    frame:
+                        xysize (96, 96)
+                        idle_background "preferencesScroll_idle"
+                        hover_background "preferencesScroll_hover"
+                    text "대사 진행"
+                hbox:
+                    frame:
+                        xysize (96, 96)
+                        idle_background "preferencesScrollClick_idle"
+                        hover_background "preferencesScrollClick_hover"
+                    text "대사록 보기"
+
+        transclude
+
 screen preferences():
 
     tag menu
@@ -627,6 +711,14 @@ screen preferences():
                         textbutton _("창 화면") action Preference("display", "window")
                         textbutton _("전체 화면") action Preference("display", "fullscreen")
 
+                        label _("스트리밍 모드")
+                        textbutton _("켜기") action SetField(persistent, "isStreaming", True)
+                        textbutton _("끄기") action SetField(persistent, "isStreaming", False)
+
+                        label _("대사 종료 표식")
+                        textbutton _("표기") action SetField(persistent, "ctcDetail", True)
+                        textbutton _("미표기") action SetField(persistent, "ctcDetail", False)
+
                     vbox:
                         style_prefix "check"
                         label _("넘기기")
@@ -634,28 +726,8 @@ screen preferences():
                         textbutton _("선택지 이후") action Preference("after choices", "toggle")
                         textbutton _("화면 전환 효과") action InvertSelected(Preference("transitions", "toggle"))
 
-
                         label _("대사록 불러오기")
-                        textbutton _("스크롤 휠") action SetField(persistent, "isScrollLog", True)
-                        textbutton _("스크롤 버튼") action SetField(persistent, "isScrollLog", False)
-
-                    vbox:
-                        style_prefix "check"
-                        label _("스트리밍 모드")
-                        textbutton _("켜기") action SetField(persistent, "isStreaming", True)
-                        textbutton _("끄기") action SetField(persistent, "isStreaming", False)
-
-                        label _("CTC 설명")
-                        hbox:
-                            vbox:
-                                textbutton _("자세히") action SetField(persistent, "ctcDetail", 2)
-                                textbutton _("간단히") action SetField(persistent, "ctcDetail", 1)
-                                textbutton _("끄기") action SetField(persistent, "ctcDetail", 0)
-
-                            if persistent.ctcDetail == 2:
-                                add "ctcBlink"
-                            elif persistent.ctcDetail == 1:
-                                add "ctcSplashBlink"
+                        use preferencesScrollFunction
 
                 ## "radio_pref" 나 "check_pref" 를 추가하여 그 외에도 환경설정
                 ## 항목을 추가할 수 있습니다.
@@ -679,6 +751,9 @@ screen preferences():
                     label _("자동 진행 시간")
 
                     bar value Preference("auto-forward time")
+
+                    label _("투명도 %d%%" % (100 - persistent.sayScreenAlpha))
+                    bar value FieldValue(persistent, "sayScreenAlpha", 100) bar_invert True
 
                 vbox:
 

@@ -4,6 +4,7 @@ label splashscreen:
 
     scene black with dissolve
 
+    call screen splashAskControl    
     call screen splashAskStreaming
 
     scene palaceGarden with dissolve
@@ -66,6 +67,27 @@ image streamingOnOff = ConditionSwitch(
     "persistent.isStreaming", "gui/streaming/on.png",
     "True", "gui/streaming/off.png")
 
+screen splashAskControl():
+    style_prefix "splash"
+
+    add Solid("#000")
+
+    add "streamingGuide":
+        pos (.25, .05) anchor (.5, .0)
+        zoom .4
+
+    vbox:
+        align (.75, .5)
+
+        text "마우스 기능을 선택하십시오."
+        null height(32)
+
+        use preferencesScrollFunction()
+
+        null height(32)
+        text "게임 메뉴의 환경설정에서 바꿀 수 있습니다."
+        textbutton "다음" xalign .5 action Return()
+
 screen splashAskStreaming():
     style_prefix "splash"
 
@@ -108,10 +130,14 @@ style splash_button:
     xalign .5
 
 style splash_text:
-    xalign .5
+    align (.5, 1.)
     color "#FFF"
     xmaximum 768
     text_align .5
 
 style splash_grid:
     xalign .5
+
+style splash_frame:
+    padding (0, 0, 0, 0)
+    background None
