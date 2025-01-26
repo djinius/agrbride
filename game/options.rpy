@@ -241,6 +241,7 @@ define config.custom_text_tags["을를"] = ppCommon
 define config.custom_text_tags["과와"] = ppCommon
 define config.custom_text_tags["아야"] = ppCommon
 define config.custom_text_tags["으로"] = ppLo
+define config.custom_text_tags["이야"] = ppYa
 
 # 대사창 투명도
 default persistent.sayScreenAlpha = 1.

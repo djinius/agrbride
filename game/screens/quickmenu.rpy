@@ -27,7 +27,8 @@ screen splashQuickMenu(hscene = False):
                 hotspot (208, 0, 78, 38) action EndReplay(confirm=False)
                 hotspot (402, 0, 78, 38) action VoiceReplay()
                 hotspot (480, 0, 68, 38) action HideInterface()
-                hotspot (550, 0, 30, 38) action ToggleField(persistent, "isStreaming")
+                hotspot (575, 0, 30, 38) action ShowMenu("preferences")
+                hotspot (605, 0, 30, 38) action ToggleField(persistent, "isStreaming")
 
             else:
                 auto "gui/quickmenu/inplay_%s.png"
@@ -38,7 +39,13 @@ screen splashQuickMenu(hscene = False):
                 hotspot (276, 0, 68, 38) action ShowMenu("load") sensitive _in_gameplay
                 hotspot (402, 0, 78, 38) action VoiceReplay()
                 hotspot (480, 0, 68, 38) action HideInterface()
-                hotspot (550, 0, 30, 38) action ToggleField(persistent, "isStreaming")
+                hotspot (575, 0, 30, 38) action ShowMenu("preferences")
+                hotspot (605, 0, 30, 38) action ToggleField(persistent, "isStreaming")
+
+            if persistent.sayScreenAlpha < 50:
+                ground "gui/quickmenu/ground_transparent.png"
+            else:
+                ground "gui/quickmenu/ground.png"
 
     if _in_replay:
         pass

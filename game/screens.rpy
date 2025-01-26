@@ -752,7 +752,7 @@ screen preferences():
 
                     bar value Preference("auto-forward time")
 
-                    label _("투명도 %d%%" % (100 - persistent.sayScreenAlpha))
+                    label _("대사창 투명도 %d%%" % (100 - persistent.sayScreenAlpha))
                     bar value FieldValue(persistent, "sayScreenAlpha", 100) bar_invert True
 
                 vbox:

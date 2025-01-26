@@ -1,0 +1,2 @@
+label trueEnding:
+    return

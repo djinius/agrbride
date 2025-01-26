@@ -15,3 +15,7 @@ image fiefMyRoom = Composite((1920, 1080), (0, 0), "nobg.png", (.5, .5), Text("�
 image fiefOffice = Composite((1920, 1080), (0, 0), "nobg.png", (.5, .5), Text("영지 집무실", color="#FFF", align=(.5, .5)))
 
 image white = Solid("#FFF")
+
+
+image downtown = Composite((1920, 1080), (0, 0), "nobg.png", (.5, .5), Text("번화가", color="#FFF", align=(.5, .5)))
+image rosalindHappyEnding = Composite((1920, 1080), (0, 0), "nobg.png", (.5, .5), Text("번화가\n손 잡고 이끄는 로잘린드", color="#FFF", align=(.5, .5)))

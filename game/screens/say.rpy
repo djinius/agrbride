@@ -27,7 +27,19 @@ screen sayNormal(who, what):
             window:
                 id "namebox"
                 style "namebox"
-                text who id "who"
+                text who id "who":
+                    if persistent.sayScreenAlpha < 50:
+                        color "#FFF"
+
+                        if (who == myName):
+                            outlines [(2, 주인공.who_args['hcolor'], 1, 1)]
+                        elif (who not in globals()):
+                            outlines [(2, "#000", 1, 1)]
+                        else:
+                            outlines [(2, globals()[who].who_args['hcolor'], 1, 1)]
+                    else:
+                        pass
+
 
         text what id "what":
             if persistent.sayScreenAlpha < 50:

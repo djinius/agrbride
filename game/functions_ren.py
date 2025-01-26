@@ -86,3 +86,19 @@ def ppLo(tag, argument, contents):
         
     return ret
 
+def ppYa(tag, argument, contents):
+    (kind, str) = contents[-1]
+
+    ret = []
+    if finalCheckerLo(str):
+        ret = [(renpy.TEXT_TEXT, "이야")]
+    else:
+        ret = [(renpy.TEXT_TEXT, "야")]
+
+    if argument:
+        ret = [(renpy.TEXT_TAG, "color=" + argument)] + contents + [(renpy.TEXT_TAG, "/color")] + ret
+    else:
+        ret = contents + ret
+        
+    return ret
+
