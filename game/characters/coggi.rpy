@@ -1,4 +1,7 @@
-define 꼭지 = Character('꼭지', color="#fe8040", hcolor="#7e4020", image="꼭지")
+define 꼭지 = Character('꼭지', color="#fe8040", hcolor="#7e4020", image="꼭지", ctc="ctc35Blink", ctc_position="nestled-close", screen="sayCoggi")
+
+screen sayCoggi(who, what):
+    use sayCommon(who, what, hcolor="#7e4020")
 
 image 꼭지 몬무스 = "images/ai/characters/standings/coggi.png"
 

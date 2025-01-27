@@ -1,0 +1,2 @@
+label hiddenEnding:
+    return

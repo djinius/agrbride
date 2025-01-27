@@ -3,7 +3,7 @@ default ch01OpeningMenuSet = set()
 label ch01Opening:
 
     if builditTesting:
-        return
+       return
 
     scene palace
     show 로잘린드 정면 장옷:

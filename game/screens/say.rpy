@@ -9,7 +9,7 @@
 ##
 ## https://www.renpy.org/doc/html/screen_special.html#say
 
-screen sayNormal(who, what):
+screen sayNormal(who, what, hcolor='#FFF', bg='gui/textbox.png'):
 
     ## 사이드 이미지가 있는 경우 글자 위에 표시합니다. 휴대폰 환경에서는 보이지
     ## 않습니다.
@@ -20,7 +20,7 @@ screen sayNormal(who, what):
 
     window:
         id "window"
-        background Transform("gui/textbox.png", alpha=(persistent.sayScreenAlpha / 100.))
+        background Transform(bg, alpha=(persistent.sayScreenAlpha / 100.))
 
         if who is not None:
 
@@ -29,14 +29,7 @@ screen sayNormal(who, what):
                 style "namebox"
                 text who id "who":
                     if persistent.sayScreenAlpha < 50:
-                        color "#FFF"
-
-                        if (who == myName):
-                            outlines [(2, 주인공.who_args['hcolor'], 1, 1)]
-                        elif (who not in globals()):
-                            outlines [(2, "#000", 1, 1)]
-                        else:
-                            outlines [(2, globals()[who].who_args['hcolor'], 1, 1)]
+                        outlines [(2, hcolor, 1, 1)]
                     else:
                         pass
 
@@ -44,21 +37,13 @@ screen sayNormal(who, what):
         text what id "what":
             if persistent.sayScreenAlpha < 50:
                 color "#FFF"
-
-                if (who is None):
-                    outlines [(3, "#000", 1, 1)]
-                elif (who == myName):
-                    outlines [(3, 주인공.who_args['hcolor'], 1, 1)]
-                elif (who not in globals()):
-                    outlines [(3, "#000", 1, 1)]
-                else:
-                    outlines [(3, globals()[who].who_args['hcolor'], 1, 1)]
+                outlines [(3, hcolor, 1, 1)]
             else:
                 pass
 
         use splashQuickMenu(hscene = False)
 
-screen sayHScene(who, what):
+screen sayHScene(who, what, hcolor="#444"):
     style_prefix "say"
 
     window:
@@ -67,26 +52,20 @@ screen sayHScene(who, what):
 
         text what id "what":
             color "#FFF"
-            if (who is None):
-                outlines [(3, "#000", 1, 1)]
-            elif (who == myName):
-                outlines [(3, 주인공.who_args['hcolor'], 1, 1)]
-            else:
-                outlines [(3, globals()[who].who_args['hcolor'], 1, 1)]
+            outlines [(3, hcolor, 1, 1)]
                 
             yalign 1.
 
         use splashQuickMenu(hscene = True)
 
-screen say(who, what):
-
-    on "show" action SetVariable("afm", what)
-    on "hide" action SetVariable("afm", None)
-
+screen sayCommon(who, what, hcolor="#444", bg='gui/textbox.png'):
     if gHScene:
-        use sayHScene(who, what)
+        use sayHScene(who, what, hcolor)
     else:
-        use sayNormal(who, what)
+        use sayNormal(who, what, hcolor, bg)
+
+screen say(who, what):
+    use sayCommon(who, what)
 
 ## Character 객체를 통해 스타일을 지정할 수 있도록 namebox를 사용할 수 있게 만듭
 ## 니다.
@@ -128,16 +107,10 @@ style say_dialogue:
 image ctcBlink:
     Animation("gui/ctc_off.png", .5, "gui/ctc_on.png", .5)
 
-image ctcSplashBlink:
-    Animation("gui/ctc_splash_off.png", .5, "gui/ctc_splash_on.png", .5)
-
-image ctcTail:
-    "gui/ctc_tail_on.png"
-    alpha .0
-    block:
-        easeout 1. alpha 1.
-        easein 1. alpha .0
-        repeat
+image ctc35Blink:
+    ConditionSwitch("gHScene", Animation("gui/ctc35_off.png", .5, "gui/ctc35_on.png", .5),
+                    "True", Text(""))
+    yoffset 7
 
 screen ctc:
     if gHScene:
