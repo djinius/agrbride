@@ -81,7 +81,7 @@ class Factory(Building):
 class PowerPlant(Building):
     def __init__(self): #, name, localName, x, y, minimapColor, levelSprites, managements, detailScreen = None):
         super(Factory, self).__init__("PowerPlant", # name
-                                      "전기나무",   # localName
+                                      "번개나무",   # localName
                                       -1,           # x
                                       -1,           # y
                                       None,         # minimapColor

@@ -39,6 +39,7 @@ class MyScreenshot(Action, DictEquality):
             if not renpy.screenshot(fn):
                 renpy.notify(__("Failed to save screenshot as %s.") % fn)
                 return
+
         except Exception:
             import traceback
             traceback.print_exc()

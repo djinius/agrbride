@@ -224,15 +224,68 @@ define config.side_image_only_not_showing = True
 # 마우스 커서
 define config.mouse = { }
 define config.mouse['default'] = [ ( "gui/cursors/arrowcursor.png", 0, 0) ]
+define config.mouse['pressed_say'] = [ ( "gui/cursors/pressed_say.png", 0, 0) ]
+define config.mouse['with'] = [ ( "gui/cursors/hourglass00.png", 0, 0),
+    ( "gui/cursors/hourglass00.png", 0, 0),
+    ( "gui/cursors/hourglass00.png", 0, 0),
+    ( "gui/cursors/hourglass00.png", 0, 0),
+    ( "gui/cursors/hourglass01.png", 0, 0),
+    ( "gui/cursors/hourglass01.png", 0, 0),
+    ( "gui/cursors/hourglass02.png", 0, 0),
+    ( "gui/cursors/hourglass02.png", 0, 0),
+    ( "gui/cursors/hourglass03.png", 0, 0),
+    ( "gui/cursors/hourglass03.png", 0, 0),
+    ( "gui/cursors/hourglass04.png", 0, 0),
+    ( "gui/cursors/hourglass04.png", 0, 0),
+    ( "gui/cursors/hourglass05.png", 0, 0),
+    ( "gui/cursors/hourglass05.png", 0, 0),
+    ]
+define config.mouse['button'] = [ ( "gui/cursors/pressed_leftclick_off.png", 0, 0),
+    ( "gui/cursors/pressed_leftclick_off.png", 0, 0),
+    ( "gui/cursors/pressed_leftclick_off.png", 0, 0),
+    ( "gui/cursors/pressed_leftclick_off.png", 0, 0),
+    ( "gui/cursors/pressed_leftclick_off.png", 0, 0),
+    ( "gui/cursors/pressed_leftclick_off.png", 0, 0),
+    ( "gui/cursors/pressed_leftclick_off.png", 0, 0),
+    ( "gui/cursors/pressed_leftclick_off.png", 0, 0),
+    ( "gui/cursors/pressed_leftclick_off.png", 0, 0),
+    ( "gui/cursors/pressed_leftclick_off.png", 0, 0),
+    ( "gui/cursors/pressed_leftclick_on.png", 0, 0),
+    ( "gui/cursors/pressed_leftclick_on.png", 0, 0),
+    ( "gui/cursors/pressed_leftclick_on.png", 0, 0),
+    ( "gui/cursors/pressed_leftclick_on.png", 0, 0),
+    ( "gui/cursors/pressed_leftclick_on.png", 0, 0),
+    ( "gui/cursors/pressed_leftclick_on.png", 0, 0),
+    ( "gui/cursors/pressed_leftclick_on.png", 0, 0),
+    ( "gui/cursors/pressed_leftclick_on.png", 0, 0),
+    ( "gui/cursors/pressed_leftclick_on.png", 0, 0),
+    ( "gui/cursors/pressed_leftclick_on.png", 0, 0)
+    ]
+define config.mouse['pressed_button'] = [ ( "gui/cursors/pressed_leftclick.png", 0, 0) ]
+define config.mouse['pause'] = [ ( "gui/cursors/hourglass00.png", 0, 0),
+    ( "gui/cursors/hourglass00.png", 0, 0),
+    ( "gui/cursors/hourglass00.png", 0, 0),
+    ( "gui/cursors/hourglass00.png", 0, 0),
+    ( "gui/cursors/hourglass01.png", 0, 0),
+    ( "gui/cursors/hourglass01.png", 0, 0),
+    ( "gui/cursors/hourglass02.png", 0, 0),
+    ( "gui/cursors/hourglass02.png", 0, 0),
+    ( "gui/cursors/hourglass03.png", 0, 0),
+    ( "gui/cursors/hourglass03.png", 0, 0),
+    ( "gui/cursors/hourglass04.png", 0, 0),
+    ( "gui/cursors/hourglass04.png", 0, 0),
+    ( "gui/cursors/hourglass05.png", 0, 0),
+    ( "gui/cursors/hourglass05.png", 0, 0),
+    ]
 
 # 스트리밍 모드
 default persistent.isStreaming = True
 
 # CTC 디테일
-default persistent.ctcDetail = 1
+default persistent.ctcDetail = True
 
 # 스크롤휠 로그
-default persistent.isScrollLog = True
+default persistent.scrollFunction = 1
 
 # 한글 조사
 define config.custom_text_tags["은는"] = ppCommon
@@ -246,3 +299,6 @@ define config.custom_text_tags["이야"] = ppYa
 # 대사창 투명도
 default persistent.sayScreenAlpha = 100
 
+# 초반 설정 물어봄
+default persistent.splashSettings = False
+default persistent.splashPlayed = False

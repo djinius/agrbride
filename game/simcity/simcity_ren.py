@@ -145,7 +145,7 @@ def addExperience(amount = -1):
     global gFiefLevel
 
     if gFiefLevel == len(gExperienceLevel):
-        return
+          return
 
     if amount == -1:
         amount = gExperienceLevel[gFiefLevel]

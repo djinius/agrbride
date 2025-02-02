@@ -91,9 +91,9 @@ class RosalindFactoryScene(CutScene):
         super(RosalindFactoryScene, self).finish()
         gFactory.unlock()
 
-class RosalindWellScene(CutScene):
+class MaliWellScene(CutScene):
     def __init__(self):
-        super(RosalindWellScene, self).__init__("우물", "rosalindWellScene", None)
+        super(MaliWellScene, self).__init__("우물", "maliWellScene", None)
 
     def isAvailable(self):
         return (getTotalAppleTrees() >= 4) or (getTotalWaterSupply() - getTotalWaterDemand() <= 10)
@@ -101,7 +101,7 @@ class RosalindWellScene(CutScene):
     def finish(self):
         global gWellUnlocked
 
-        super(RosalindWellScene, self).finish()
+        super(MaliWellScene, self).finish()
         gWellUnlocked = True
 
 class RosalindDateScene(CutScene):
@@ -141,9 +141,9 @@ class RosalindFactoryUpgradeScene(CutScene):
         super(RosalindFactoryUpgradeScene, self).finish()
         gFactory.unlockUpgrade()
 
-class MaliSharonScene(CutScene):
+class CoggiSharonScene(CutScene):
     def __init__(self):
-        super(MaliSharonScene, self).__init__("무궁화", "maliSharonScene", None)
+        super(CoggiSharonScene, self).__init__("무궁화", "coggiSharonScene", None)
 
     def isAvailable(self):
         return getTotalAppleTrees() >= 7
@@ -151,7 +151,7 @@ class MaliSharonScene(CutScene):
     def finish(self):
         global gSharonUnlocked
 
-        super(MaliSharonScene, self).finish()
+        super(CoggiSharonScene, self).finish()
         gSharonUnlocked = True
 
 def availableCutScenes(scenes):

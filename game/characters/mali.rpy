@@ -1,4 +1,4 @@
-define 말리 = Character('말리', color="#98FF98", hcolor="#188018", image="말리", ctc="ctc35Blink", ctc_position="nestled-close", screen="sayMali")
+define 말리 = Character('말리', color="#98FF98", image="말리", ctc="ctc35Blink", ctc_position="nestled-close", screen="sayMali")
 
 screen sayMali(who, what):
     use sayCommon(who, what, hcolor="#188018")

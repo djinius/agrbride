@@ -1,4 +1,16 @@
-label ch08Generator:
+label ch08Motor(forcePlay = False):
+
+    if builditTesting and (not forcePlay):
+        return
+
+    # 자석과 코일(전자석)을 만들어 전동기 제작 시도
+    # 자석 - 북부 제 대공가의 특산물 (제 인아 대공)
+    # 루시와 꼭지를 보내 자석과 구리 주괴를 구매해 오라는 수나
+    # 국수를 치듯이 구리 주괴를 쭉쭉 늘려 코일을 만드는 효주
+    # 자신의 점액으로 코일에 코팅을 하는 카라
+    # 자석 사이에 전자석을 놓고 전기를 흘려 보는 주인공
+    # 간신히 돌다가 튕겨나가는 전자석 축
+    # 갈 길이 멀다
 
     return
 

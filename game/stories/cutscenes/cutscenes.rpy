@@ -2,9 +2,9 @@ default cutscenes = [
     RosalindAppleTreeScene(),
     RosalindResidenceScene(),
     RosalindFactoryScene(),
-    RosalindWellScene(),
+    MaliWellScene(),
     RosalindUpgradeScene(),
-    MaliSharonScene(),
+    CoggiSharonScene(),
     RosalindDateScene(),
     RosalindFactoryUpgradeScene(),
     ]
@@ -21,7 +21,7 @@ label playCutScene(cutSceneObject):
 
     show screen buildit(isManageEnabled = False)
 
-    call expression cutSceneObject.getLabelName() from _call_expression
+    call expression cutSceneObject.getLabelName()
     $ cutSceneObject.finish()
     $ nextCutScene = None
 
@@ -74,13 +74,13 @@ label rosalindFactoryScene:
 
     return
 
-label rosalindWellScene:
+label maliWellScene:
 
-    로잘린드 몬무스 정면 미소2 "영지에 나무와 인구가 계속 늘어나고 있군요. 아주 좋습니다."
-    로잘린드 보통 "그만큼 물도 많이 필요해집니다."
-    로잘린드 "우물을 파서 수자원을 확보해 보십시오. 버드나무도 우물 옆에 함께 심어서 깨끗한 물을 얻어야 합니다."
-    로잘린드 "영민들도 물을 소비하기 때문에, 식량수에서 필요로 하는 양보다 더 많은 수자원을 넉넉히 준비해 두어야 합니다."
-    로잘린드 "또한, 우물 근처에 위치한 식량수와 거주구에서는 식량 생산량과 인구 수용량이 늘어납니다."
+    말리 정면 몬무스 "오, 이런 자기."
+    말리 "영민과 나무가 계속 늘어나는 건 좋지만 물도 그만큼 더 필요해."
+    말리 "우물을 파서 수자원을 확보해야 해."
+    말리 "버드나무를 심으면 내가 수기를 감지해서 지하수를 끌어올려 줄게."
+    말리 "우물 근처에서는 식량 생산이 늘어나니까 참고하도록 해."
 
     return
 
@@ -92,12 +92,12 @@ label hyojuStatiumScene:
 
     return
 
-label maliSharonScene:
+label coggiSharonScene:
 
-    말리 정면 몬무스 "오, 이런 자기."
-    말리 "내 열매를 노리고 해충들이 몰려들고 있어."
-    말리 "무궁화나무를 심어. 해충들을 소탕할 전초기지가 되어 줄 거야."
-    말리 "무궁화나무 근처에서는 식량 생산량이 늘어나."
+    꼭지 "열심히 하네, 오빠. 결과도 좋아."
+    꼭지 "말리가 만드는 열매에 해충들이 몰려들고 있어."
+    꼭지 "무궁화나무를 심어. 해충들을 유인해 줄 거야."
+    꼭지 "무궁화 주변에서는 수확량이 3할 늘어나니까 배치에 신경써 봐."
 
     return
 

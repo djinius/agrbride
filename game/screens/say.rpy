@@ -58,7 +58,7 @@ screen sayHScene(who, what, hcolor="#444"):
 
         use splashQuickMenu(hscene = True)
 
-screen sayCommon(who, what, hcolor="#444", bg='gui/textbox.png'):
+screen sayCommon(who, what, hcolor="#666", bg='gui/textbox.png'):
     if gHScene:
         use sayHScene(who, what, hcolor)
     else:
@@ -113,9 +113,7 @@ image ctc35Blink:
     yoffset 7
 
 screen ctc:
-    if gHScene:
-        pass
-    elif (_in_gameplay or _in_replay) and (persistent.ctcDetail):
+    if persistent.ctcDetail and (not gHScene):
         add "ctcBlink" pos (1590, 1020) anchor (1., 1.)
     else:
         pass

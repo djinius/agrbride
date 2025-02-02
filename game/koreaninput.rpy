@@ -64,7 +64,7 @@ init python:
 
         def __call__(self):
             if not self.get_sensitive():
-                return
+                  return
 
             cs = renpy.get_screen(self.screen_name)
             inputWindow = renpy.get_widget(self.screen_name, self.input_id)

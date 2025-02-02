@@ -1,9 +1,9 @@
 default rosalindName = "???"
 
-define 로잘린드 = Character('rosalindName', dynamic=True, color="#B1DFD0", hcolor="#214F40", image="로잘린드", ctc="ctc35Blink", ctc_position="nestled-close", screen='sayRosalind')
+define 로잘린드 = Character('rosalindName', dynamic=True, color="#B1DFD0", image="로잘린드", ctc="ctc35Blink", ctc_position="nestled-close", screen='sayRosalind')
 
 screen sayRosalind(who, what):
-    use sayCommon(who, what, "#214F40")
+    use sayCommon(who, what, hcolor="#214F40")
 
 # 정면
 # 얼굴 표정요소 좌표: (976, 359)

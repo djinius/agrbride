@@ -1,11 +1,19 @@
 label splashscreen:
+    scene black
+    if persistent.splashSettings:
+        pass
+    else:
+        call screen splashAskControl    
+        call screen splashAskStreaming
+        $ persistent.splashSettings = True
+
+    call screen splashNote with dissolve
+
     if builditTesting:
+          return
+
+    if persistent.splashPlayed:
         return
-
-    scene black with dissolve
-
-    call screen splashAskControl    
-    call screen splashAskStreaming
 
     scene palaceGarden with dissolve
     # 배경 – 별천지 궁전. (화려한 동양풍의 건물 내부)
@@ -50,12 +58,18 @@ label splashscreen:
     로잘린드 "설마 저 때문에 이렇게 되셨을까요?"
     독백 "너무나도 생생하게 느껴지는 부드러운 감촉에 또 한 번 당황했다."
     로잘린드 미소1 "후후. 이런 반응을 보여주시면 저도 조금 장난을 쳐보고 싶어집니다."
+
+    ## TODO::
+    # 뒷짐 지고 주인공을 올려다 보는 로잘린드 - 특수스탠딩 주문
+    # 표정 - 미소, 눈 감고 입술 쭉 내밀기
     독백 "조금 짓궂은 미소를 지은 미녀가 나와 시선을 올곧게 마주쳤다."
     로잘린드 보통 "무례를 용서하시길"
     주인공 "어… 어어……?"
     독백 "그 말과 함께 눈을 감은 미녀."
     독백 "준비되지 않은 내게 미녀는 점차 입술을 가까이 댄다."
     독백 "따뜻한 숨결이 코에 닿고, 나도 그녀와 키스를……."
+
+    $ persistent.splashPlayed = True
 
     return
 
@@ -82,7 +96,7 @@ screen splashAskControl():
         text "마우스 기능을 선택하십시오."
         null height(32)
 
-        use preferencesScrollFunction()
+        use preferencesScrollFunction(iconsize=48)
 
         null height(32)
         text "게임 메뉴의 환경설정에서 바꿀 수 있습니다."
@@ -126,6 +140,23 @@ screen splashAskStreaming():
         text "퀵메뉴의 {image=streamingOnOff}버튼을 눌러서 게임 도중 실시간으로 켜고 끌 수 있습니다."
         textbutton "게임 시작" xalign .5 action Return()
 
+screen splashNote():
+    frame:
+        background Solid("#000")
+        xysize (1., 1.)
+        align (.5, .5)
+    
+        text "이 게임은 허구이며,\n실존하는 인물 및 기업, 종교, 단체와\n아무런 관련이 없습니다.":
+            align (.5, .5)
+            size 40
+            color "#FFF"
+            text_align .5
+
+        at splashNoteText
+
+    timer 3. action Return()
+    key "mouseup_1" action Return()
+
 style splash_button:
     xalign .5
 
@@ -141,3 +172,9 @@ style splash_grid:
 style splash_frame:
     padding (0, 0, 0, 0)
     background None
+
+transform splashNoteText():
+    alpha .0
+    linear .5 alpha 1.
+    pause 1.5
+    linear .5 alpha .0

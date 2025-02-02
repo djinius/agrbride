@@ -1,4 +1,7 @@
-label rosalindHappyEnding:
+label rosalindHappyEnding(forcePlay = False):
+
+    if builditTesting and (not forcePlay):
+        return
 
     주인공 "로잘린드. 나와 지구로 가 주겠어?"
     로잘린드 "물론 함께 하겠습니다. 제 몸과 마음은 모두 주인님의 것이니까요."
@@ -18,6 +21,8 @@ label rosalindHappyEnding:
     독백 "이크. 지금 바로 나가지 않으면 지각하겠다. 즉시 학교로 뛰었다."
 
     # 학교 건물 fadein
+    scene college with fadeoutin
+    pause 3.
 
     # 자취방 복도 fadein
 
@@ -70,7 +75,7 @@ label rosalindHappyEnding:
     로잘린드 "앞으로 돈을 벌고 재산을 증식시키는 데 제 역량을 쏟을 생각입니다만……."
     로잘린드 "지금 바로 하고 싶은 일이 있습니다."
     주인공 "뭔데? 말만 해. 네가 원하면 하늘의 별이라도 따다 줄게."
-    로잘린드 "주인님과 함게 놀러 나가고 싶습니다."
+    로잘린드 "주인님과 함께 놀러 나가고 싶습니다."
 
     scene downtown:
         align (.5, .0)
@@ -91,7 +96,7 @@ label rosalindHappyEnding:
     로잘린드 @윙크2 "너무나 사실이라서 더 드릴 말씀이 없습니다."
     로잘린드 풀죽음2 "……."
     주인공 "……. 그만 하자. 점점 닭살이 돋고 있어."
-    로잘린드 웃음3 "역시 주인님과 저는 일심동체가 되었군요. 저도 닭살이 돋으려던 참이었습니다."
+    로잘린드 웃음3 "역시 주인님과 저는 일심동체가 되었군요. 저도 닭살이 돋았습니다."
     show 로잘린드 웃음1
     독백 "정말 성격 많이 바뀌었다."
     독백 "시시덕거리는 사이 번화가에 도착했다."
