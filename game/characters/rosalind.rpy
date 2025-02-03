@@ -1,6 +1,6 @@
-default rosalindName = "???"
+default persistent.rosalindName = "???"
 
-define 로잘린드 = Character('rosalindName', dynamic=True, color="#B1DFD0", image="로잘린드", ctc="ctc35Blink", ctc_position="nestled-close", screen='sayRosalind')
+define 로잘린드 = Character('persistent.rosalindName', dynamic=True, color="#B1DFD0", image="로잘린드", ctc="ctc35Blink", ctc_position="nestled-close", screen='sayRosalind')
 
 screen sayRosalind(who, what):
     use sayCommon(who, what, hcolor="#214F40")

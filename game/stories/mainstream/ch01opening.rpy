@@ -5,6 +5,12 @@ label ch01Opening(forcePlay = False):
     if builditTesting and (not forcePlay):
         return
 
+    if not _in_replay:
+        $ persistent.myName = "나"
+        $ persistent.sunnaName = "???"
+        $ persistent.wonhwaName = "???"
+        $ persistent.rosalindName = "로잘린드"
+
     scene palace
     show 로잘린드 정면 장옷:
         pos (.5, 0) anchor (.5, .0)
@@ -91,7 +97,7 @@ label ch01Opening(forcePlay = False):
     수나 "흠. 이번에는 또 어느 세계에서 흘러들어온 존재일까? 겉으로는 우리와 크게 다르지 않구나."
     수나 "음? 아니, 아니로군. 비슷하긴 하지만, 날개도 더듬이도 뿔도 없구나. 이거 참, 실로 요상한 생김새로다."
     주인공 "생김새라고?"
-    독백 "그제야 나는 어린 소녀의 머리에서 돋아나 있는 길쭉한 무언가를 발견할 수 있었다."
+    독백 "그제야 나는 소녀의 머리에서 돋아나 있는 길쭉한 무언가를 발견할 수 있었다."
     독백 "마치 곤충의 더듬이와도 같은 그것은, 징그럽다기보단 이질적인 생김새에 더 가까웠다."
     주인공 "너, 넌 대체 누구야? 여긴 또 어디고? 설마 오늘 아침 꿈도 관련이 있는 건가?"
     수나 "오호라. 말을 하는구나. 드디어 써먹기 좋을 만한 재료를 소환했도다."
@@ -121,7 +127,7 @@ label ch01Opening(forcePlay = False):
     독백 "곧 우아한 자태의 여인이 한 명 나타났다."
     원화 "수나 공주! 어제도 짐이 그토록 자중하라 일렀거늘. 그새를 못 참고 또 대형사고를 치고야 말았구나!"
 
-    $ sunnaName = "수나"
+    $ persistent.sunnaName = "수나"
 
     수나 "아, 아아, 어마마마……."
     원화 "또다시 이세계의 마물을 불러들이다니! 이것은 너 자신조차 위험하게 만드는 일임을 모르겠느냐?"
@@ -137,7 +143,7 @@ label ch01Opening(forcePlay = False):
     원화 "무엇이든 말을 해 보거라."
     주인공 "아……. 으……."
     독백 "머릿속이 완전히 엉켜서 아무런 말도 꺼내지 못했다. 나를 바라보는 여인의 표정이 한층 날카로워진다."
-    원화 "괴성만 내지 않느냐? 이세계의 존재는 포악한 마물들 뿐이니라."
+    원화 "괴성만 내지 않느냐? 이세계의 존재는 포악한 마물들 뿐이니라. 즉시 허공간으로 내칠 것이다!"
     수나 "아니 되옵니다, 어마마마! 이 이세계인은 소녀가 권속으로 삼을 것이옵니다."
     주인공 "야! 무슨 소리야? 누구 멋대로 나를 권속으로 삼아?"
     원화 "응?"
@@ -162,7 +168,7 @@ label ch01Opening(forcePlay = False):
     독백 "그리 말하며 고개를 숙이는 여성과 그 광경을 경악하며 바라보는 수나."
     독백 "지금까지 오간 대화로 보아하니 이곳의 임금님인 모양인데, 그런 사람이 고개를 숙이니 그야 놀랄 만도 하겠지."
 
-    $ wonhwaName = "원화"
+    $ persistent.wonhwaName = "원화"
 
     원화 "짐은 원화. 이 별천지를 다스리는 황제라네."
     주인공 "아, 네……."
@@ -171,7 +177,7 @@ label ch01Opening(forcePlay = False):
 
     scene palaceDrawingRoom with dissolve
 
-    독백 "원화라고 불린 여인이 시녀들을 불러 나를 응접실로 안내하도록 했다."
+    독백 "원화라고 자신을 소개한 여인이 시녀들을 불러 나를 응접실로 안내하도록 했다."
     독백 "시녀들은 차를 한 잔 내 준 후 물러났다."
     독백 "넓은 응접실에서 한참 멀뚱거리며 앉아 있자니 지루하다. 가방 정리라도 해 볼까?"
     독백 "다행히 내가 등교하려고 넣어 둔 물건들은 가방 속에 그대로 들어 있었다."
@@ -181,13 +187,15 @@ label ch01Opening(forcePlay = False):
     원화 "자네, 이름이 어떻게 되나?"
     주인공 "아, 저는……."
 
+    if _in_replay:
+        jump inputNameDone
+
 label inputName:
     # (플레이어 이름 입력)
-    $ myName = renpy.input(screen='koreaninput', default='승태', prompt='나의 이름은……')
-    # $ myName = renpy.input(default='승태', prompt='나의 이름은……')
+    $ persistent.myName = renpy.input(screen='koreaninput', default='승태', prompt='나의 이름은……')
 
-    if len(myName) == 0:
-        $ myName = "승태"
+    if len(persistent.myName) == 0:
+        $ persistent.myName = "승태"
 
     menu(screen="namechoice"):
         "예"(noHistory=True):
@@ -195,7 +203,9 @@ label inputName:
         "아니요":
             jump inputName
 
-    원화 "으음, 독특하면서도 듣기 좋은 발음이로군. 잘 알겠네."
+label inputNameDone:
+
+    원화 "[persistent.myName]라……. 독특하면서도 듣기 좋은 발음이로군. 잘 알겠네."
     원화 "그럼 다시 찬찬히 말해 주게나. 자네는 어떻게 이곳에 오게 되었나?"
 
     scene palaceDrawingRoom with fadeoutin
@@ -326,7 +336,7 @@ label inputName:
     수나 "머리를 한 번 더 쓰다듬어 다오. 은근히 좋은 기분이더구나."
     수나 "헤헤……."
     독백 "머리를 쓰다듬어 주자, 눈을 감고 가볍게 웃은 수나는 내 손을 잡고 한 건물로 이끌었다."
-    수나 "내 개인교사가 되어 주어 고맙구나, [myName] 후작! 어서 이쪽으로 오너라!"
+    수나 "내 개인교사가 되어 주어 고맙구나, [persistent.myName] 후작! 어서 이쪽으로 오너라!"
     독백 "그녀의 손에 이끌린 끝에 내가 보게 된 것은……."
 
     scene palaceWorkRoom
@@ -355,9 +365,9 @@ label inputName:
 
     독백 "내가 잠깐 당황한 사이 수나는 시녀들 가운데로 쪼르르 달려가 으스댔다."
     수나 "내 시녀들이니라. 이 나라에서 고르고 골라 모은 아주 우수한 이들이로다."
-    수나 "그럼, 예의에는 어긋나지만 먼저 소개하마. [myName] 후작이니라."
+    수나 "그럼, 예의에는 어긋나지만 먼저 소개하마. [persistent.myName] 후작이니라."
     수나 "내 개인교사로 특별히 이세계에서 초빙했느니라. 모두들 정성들여 모시거라."
-    주인공 "{이야}[myName]{/이야}……, 입니다?"
+    주인공 "{이야}[persistent.myName]{/이야}……, 입니다?"
     독백 "존대를 해야 하나?"
     수나 "어마마마께서 네게 후작위를 내리셨으니 나를 빼고는 네가 가장 높은 신분이니라. 편하게 말해도 된다."
     수나 "후작. 한 명씩 소개해 줄테니 잘 새겨 두거라."

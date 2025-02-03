@@ -1,4 +1,5 @@
 label splashscreen:
+
     scene black
     if persistent.splashSettings:
         pass
@@ -7,7 +8,7 @@ label splashscreen:
         call screen splashAskStreaming
         $ persistent.splashSettings = True
 
-    call screen splashNote with dissolve
+    call screen splashNote
 
     if builditTesting:
           return
@@ -15,6 +16,10 @@ label splashscreen:
     if persistent.splashPlayed:
         return
 
+    if not _in_replay:
+        $ persistent.myName = "나"
+        $ persistent.rosalindName = "???"
+    
     scene palaceGarden with dissolve
     # 배경 – 별천지 궁전. (화려한 동양풍의 건물 내부)
 

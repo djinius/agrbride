@@ -109,7 +109,7 @@ screen namechoice(items):
         vbox:
             align (.5, .5)
 
-            text "{으로=#33F}[myName]{/으로} 결정하시겠습니까?"
+            text "{으로=#33F}[persistent.myName]{/으로} 결정하시겠습니까?"
             null height(10)
 
             for i in items:

@@ -18,10 +18,10 @@ def isDateAvailable():
 # 받침유무판별기
 # URL : [렌파이] 한국어 조사 자동으로 바꾸기 ===> https://cafe.naver.com/vmo/102
 # 수정: 파이썬 3.0부터는 유니코드가 기본
-def finalChecker(myName):
+def finalChecker(korstr):
     # 마지막 한 글자의 유니코드 가져와 '가'와의 거리 구하기
     dec = 0
-    for c in reversed(myName):
+    for c in reversed(korstr):
         if c >= '가' and c <= '힣':
             dec = ord(c) - ord('가')
             break
@@ -34,11 +34,10 @@ def finalChecker(myName):
     else:
         return True
 
-def finalCheckerLo(myName):
+def finalCheckerLo(korstr):
     # 마지막 한 글자의 유니코드 가져와 '가/갈'와의 거리 구하기
-    print(myName)
     dec = 0
-    for c in reversed(myName):
+    for c in reversed(korstr):
         if c >= '가' and c <= '힣':
             dec = ord(c) - ord('가')
             break
@@ -94,6 +93,22 @@ def ppYa(tag, argument, contents):
         ret = [(renpy.TEXT_TEXT, "이야")]
     else:
         ret = [(renpy.TEXT_TEXT, "야")]
+
+    if argument:
+        ret = [(renpy.TEXT_TAG, "color=" + argument)] + contents + [(renpy.TEXT_TAG, "/color")] + ret
+    else:
+        ret = contents + ret
+        
+    return ret
+
+def ppLa(tag, argument, contents):
+    (kind, str) = contents[-1]
+
+    ret = []
+    if finalCheckerLo(str):
+        ret = [(renpy.TEXT_TEXT, "이라")]
+    else:
+        ret = [(renpy.TEXT_TEXT, "라")]
 
     if argument:
         ret = [(renpy.TEXT_TAG, "color=" + argument)] + contents + [(renpy.TEXT_TAG, "/color")] + ret
