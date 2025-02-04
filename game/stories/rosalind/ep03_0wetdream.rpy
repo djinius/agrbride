@@ -1,4 +1,4 @@
-label rosalindEp03WetDream(forcePlay = False):
+label rosalindEp03_0WetDream(forcePlay = False):
 
     if builditTesting and (not forcePlay):
         return

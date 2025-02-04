@@ -1,6 +1,6 @@
 ﻿# 이 파일에 게임 스크립트를 입력합니다.
 
-default builditTesting = False
+default builditTesting = True
 default _in_gameplay = False
 
 # 여기에서부터 게임이 시작합니다.
@@ -11,10 +11,11 @@ label start:
     call ch01Opening
     call ch02Tutor
     call ch03Eclosion
-    call rosalindEp01HumanComputer(True)
-    call rosalindEp03WetDream(True)
+    call rosalindEp01HumanComputer
+    call rosalindEp03_0WetDream
+    call rosalindEp03_1Apologize(True)
 
-    call endingBegin(True)
+    call endingBegin
     return
 
     $ initBuildings()
