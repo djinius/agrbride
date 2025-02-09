@@ -13,9 +13,12 @@ label start:
     call ch03Eclosion
     call rosalindEp01HumanComputer
     call rosalindEp03_0WetDream
-    call rosalindEp03_1Apologize(True)
+    call rosalindEp03_1Apologize
+    call rosalindEp06Trauma
+    call hyojuEpFirstSex
+    call charaEp01Discourtesy(True)
 
-    call endingBegin
+    call endingBegin(True)
     return
 
     $ initBuildings()

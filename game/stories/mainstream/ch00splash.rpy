@@ -6,7 +6,7 @@ label splashscreen:
     else:
         call screen splashAskControl    
         call screen splashAskStreaming
-        $ persistent.splashSettings = True
+        # $ persistent.splashSettings = True
 
     call screen splashNote
 
@@ -14,7 +14,8 @@ label splashscreen:
           return
 
     if persistent.splashPlayed:
-        return
+        # return
+        pass
 
     if not _in_replay:
         $ persistent.myName = "나"
@@ -99,6 +100,7 @@ screen splashAskControl():
         align (.75, .5)
 
         text "마우스 기능을 선택하십시오."
+        text "대사록의 특정 대사를 누르면 해당 시점으로 되돌아갈 수 있습니다."
         null height(32)
 
         use preferencesScrollFunction(iconsize=48)

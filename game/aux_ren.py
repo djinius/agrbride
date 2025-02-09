@@ -50,3 +50,42 @@ class MyScreenshot(Action, DictEquality):
         renpy.sound.play("audio/ui/save.mp3", channel="sound3", loop=False)
         renpy.restart_interaction()
         renpy.show_screen("screenshotScreen")
+
+class MyFileSave(FileSave):
+    def get_sensitive(self):
+        global _in_gameplay
+
+        if _in_gameplay:
+            return super(MyFileSave, self).get_sensitive()
+        else:
+            return False
+
+class QuickNotify(Action):
+    def predict(self):
+        renpy.predict_screen("quickSaveNotify")
+
+    def __call__(self):
+        renpy.show_screen("quickSaveNotify")
+
+def MyQuickSave(message=_("Quick save complete."), newest=False):
+    """
+    :doc: file_action
+
+    Performs a quick save.
+
+    `message`
+        A message to display to the user when the quick save finishes.
+
+    `newest`
+        Set to true to mark the quicksave as the newest save.
+        """
+
+    rv = [ MyFileSave(1, page="quick", confirm=False, cycle=True, newest=newest, action=QuickNotify()) ]
+
+    rv[0].alt = _("Quick save.")
+
+    if not getattr(renpy.context(), "_menu", False):
+        rv.insert(0, FileTakeScreenshot())
+
+    return rv
+

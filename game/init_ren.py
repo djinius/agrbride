@@ -16,10 +16,11 @@ config.keymap['fast_skip'].append('noshift_K_k')
 config.keymap['fast_skip'].append('K_END')
 config.keymap['rollback'].clear()
 config.keymap['rollforward'].clear()
+config.keymap['quicksave'] = ['noshift_K_q']
 # config.keymap['hide_windows'] = ['noshift_K_h']
 # config.keymap['save'] = ['noshift_K_s']
 # mousedown_4, mousedown_5
 
 # s for save
-custom_keymap = renpy.Keymap(screenshot = MyScreenshot())
+custom_keymap = renpy.Keymap(screenshot = MyScreenshot(), quicksave=MyQuickSave())
 config.underlay.append(custom_keymap)

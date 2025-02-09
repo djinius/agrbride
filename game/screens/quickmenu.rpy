@@ -60,7 +60,6 @@ screen splashQuickMenu(hscene = False):
     elif persistent.scrollFunction == 1:
         if _in_gameplay or _in_replay:
             key "mousedown_4" action ShowMenu("history")
-
         key "mousedown_5" action QueueEvent('dismiss')
     elif persistent.scrollFunction == 2:
         key "mousedown_4" action Rollback()

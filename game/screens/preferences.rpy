@@ -33,11 +33,8 @@ screen preferencesScrollFunction(iconsize=96):
         style_prefix "preferencesScroll"
         
         button:
+            xminimum int(iconsize * 4)
             action SetField(persistent, "scrollFunction", 0)
-            idle_background Solid("#444")
-            hover_background Solid("#080")
-            selected_background Solid("#400")
-            selected_hover_background Solid("#440")
 
             has vbox
 
@@ -46,38 +43,35 @@ screen preferencesScrollFunction(iconsize=96):
                     xysize (iconsize, iconsize)
                     idle_background "preferencesLeftClick" + str(iconsize) + "_idle"
                     hover_background "preferencesLeftClick" + str(iconsize) + "_hover"
-                text "대사 진행"
+                text "대사 진행" size (iconsize / 2)
             hbox:
                 frame:
                     xysize (iconsize, iconsize)
                     idle_background "preferencesRightClick" + str(iconsize) + "_idle"
                     hover_background "preferencesRightClick" + str(iconsize) + "_hover"
-                text "게임 메뉴"
+                text "게임 메뉴" size (iconsize / 2)
             hbox:
                 frame:
                     xysize (iconsize, iconsize)
                     idle_background "preferencesScrollUp" + str(iconsize) + "_idle"
                     hover_background "preferencesScrollUp" + str(iconsize) + "_hover"
-                text "대사록 보기"
+                text "대사록 보기" size (iconsize / 2)
             hbox:
                 frame:
                     xysize (iconsize, iconsize)
                     idle_background "preferencesScrollDown" + str(iconsize) + "_idle"
                     hover_background "preferencesScrollDown" + str(iconsize) + "_hover"
-                text "대사록 보기"
+                text "대사록 보기" size (iconsize / 2)
             hbox:
                 frame:
                     xysize (iconsize, iconsize)
                     idle_background "preferencesScrollClick" + str(iconsize) + "_idle"
                     hover_background "preferencesScrollClick" + str(iconsize) + "_hover"
-                text "UI 숨기기"
+                text "UI 숨기기" size (iconsize / 2)
 
         button:
+            xminimum int(iconsize * 4)
             action SetField(persistent, "scrollFunction", 1)
-            idle_background Solid("#444")
-            hover_background Solid("#040")
-            selected_background Solid("#400")
-            selected_hover_background Solid("#440")
 
             has vbox
 
@@ -86,39 +80,36 @@ screen preferencesScrollFunction(iconsize=96):
                     xysize (iconsize, iconsize)
                     idle_background "preferencesLeftClick" + str(iconsize) + "_idle"
                     hover_background "preferencesLeftClick" + str(iconsize) + "_hover"
-                text "대사 진행"
+                text "대사 진행" size (iconsize / 2)
             hbox:
                 frame:
                     xysize (iconsize, iconsize)
                     idle_background "preferencesRightClick" + str(iconsize) + "_idle"
                     hover_background "preferencesRightClick" + str(iconsize) + "_hover"
-                text "게임 메뉴"
+                text "게임 메뉴" size (iconsize / 2)
             hbox:
                 frame:
                     xysize (iconsize, iconsize)
                     idle_background "preferencesScrollUp" + str(iconsize) + "_idle"
                     hover_background "preferencesScrollUp" + str(iconsize) + "_hover"
-                text "대사록 보기"
+                text "대사록 보기" size (iconsize / 2)
             hbox:
                 frame:
                     xysize (iconsize, iconsize)
                     idle_background "preferencesScrollDown" + str(iconsize) + "_idle"
                     hover_background "preferencesScrollDown" + str(iconsize) + "_hover"
-                text "대사 진행"
+                text "대사 진행" size (iconsize / 2)
             hbox:
                 frame:
                     xysize (iconsize, iconsize)
                     idle_background "preferencesScrollClick" + str(iconsize) + "_idle"
                     hover_background "preferencesScrollClick" + str(iconsize) + "_hover"
-                text "UI 숨기기"
+                text "UI 숨기기" size (iconsize / 2)
 
 
         button:
+            xminimum int(iconsize * 4)
             action SetField(persistent, "scrollFunction", 2)
-            idle_background Solid("#444")
-            hover_background Solid("#040")
-            selected_background Solid("#400")
-            selected_hover_background Solid("#440")
 
             has vbox
 
@@ -127,31 +118,31 @@ screen preferencesScrollFunction(iconsize=96):
                     xysize (iconsize, iconsize)
                     idle_background "preferencesLeftClick" + str(iconsize) + "_idle"
                     hover_background "preferencesLeftClick" + str(iconsize) + "_hover"
-                text "대사 진행"
+                text "대사 진행" size (iconsize / 2)
             hbox:
                 frame:
                     xysize (iconsize, iconsize)
                     idle_background "preferencesRightClick" + str(iconsize) + "_idle"
                     hover_background "preferencesRightClick" + str(iconsize) + "_hover"
-                text "게임 메뉴"
+                text "게임 메뉴" size (iconsize / 2)
             hbox:
                 frame:
                     xysize (iconsize, iconsize)
                     idle_background "preferencesScrollUp" + str(iconsize) + "_idle"
                     hover_background "preferencesScrollUp" + str(iconsize) + "_hover"
-                text "이전 대사"
+                text "이전 대사" size (iconsize / 2)
             hbox:
                 frame:
                     xysize (iconsize, iconsize)
                     idle_background "preferencesScrollDown" + str(iconsize) + "_idle"
                     hover_background "preferencesScrollDown" + str(iconsize) + "_hover"
-                text "대사 진행"
+                text "대사 진행" size (iconsize / 2)
             hbox:
                 frame:
                     xysize (iconsize, iconsize)
                     idle_background "preferencesScrollClick" + str(iconsize) + "_idle"
                     hover_background "preferencesScrollClick" + str(iconsize) + "_hover"
-                text "UI 숨기기"
+                text "UI 숨기기" size (iconsize / 2)
 
     transclude
 
@@ -325,3 +316,18 @@ style slider_vbox:
     xsize 675
 
 
+style preferencesScroll_text is pref_button_text:
+    idle_color "#EEE"
+    hover_color "#FFF"
+    size 24
+    yalign 1.
+
+style preferencesScroll_button is pref_button:
+    idle_background Solid("#444")
+    hover_background Solid("#080")
+    selected_background Solid("#400")
+    selected_hover_background Solid("#440")
+
+style preferencesScroll_vbox is pref_vbox:
+    xsize 1.
+    xalign .5
