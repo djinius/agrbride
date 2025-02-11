@@ -20,6 +20,8 @@ label endingBegin(forcePlay = False):
             call maliHappyEnding(forcePlay)
         "효주 엔딩":
             call hyojuHappyEnding(forcePlay)
+        "카라 엔딩":
+            call charaHappyEnding(forcePlay)
         "트루 엔딩":
             call trueEnding(forcePlay)
 

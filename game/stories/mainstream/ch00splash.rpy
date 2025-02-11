@@ -6,16 +6,15 @@ label splashscreen:
     else:
         call screen splashAskControl    
         call screen splashAskStreaming
-        # $ persistent.splashSettings = True
+        $ persistent.splashSettings = True
 
     call screen splashNote
 
     if builditTesting:
-          return
+        return
 
     if persistent.splashPlayed:
-        # return
-        pass
+        return
 
     if not _in_replay:
         $ persistent.myName = "나"

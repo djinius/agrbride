@@ -3,7 +3,7 @@ label charaEp01Discourtesy(forcePlay = False):
     if builditTesting and (not forcePlay):
         return
 
-    # 바벨 소개
+    # 카라
     독백 "오늘은 집사 업무가 일찍 끝났다. 과외도 쉬는 날이다."
     독백 "산책 삼아서 영지를 둘러볼까?"
 

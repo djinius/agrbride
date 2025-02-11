@@ -68,6 +68,9 @@ label rosalindEp01HumanComputer(forcePlay = False):
     독백 "손을 내렸다……. 이건 거의 비키니 수준인데?"
     로잘린드 "열 배출이 한층 원활해졌습니다. 노트북을 다시 켜 드릴까요?"
     주인공 "으… 응."
+
+    scene rosalind_programming with dissolve
+    
     독백 "책상에 딱 달라붙어서 작업을 마저 진행했다."
     독백 "설마 들키진 않았겠지?"
 

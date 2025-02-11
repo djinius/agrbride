@@ -16,7 +16,8 @@
 screen splashQuickMenu(hscene = False):
     if hscene is False:
         imagemap:
-            pos (1., 1.) anchor (1., .0) offset (-50, 2)
+            pos (gui.textbox_xpos, gui.textbox_ypos) anchor (gui.textbox_xanchor, gui.textbox_yanchor)
+            offset (280, -2)
             alpha False
 
             if _in_replay:

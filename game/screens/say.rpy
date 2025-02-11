@@ -33,7 +33,6 @@ screen sayNormal(who, what, hcolor='#FFF', bg='gui/textbox.png'):
                     else:
                         pass
 
-
         text what id "what":
             if persistent.sayScreenAlpha < 50:
                 color "#FFF"
@@ -41,7 +40,7 @@ screen sayNormal(who, what, hcolor='#FFF', bg='gui/textbox.png'):
             else:
                 pass
 
-        use splashQuickMenu(hscene = False)
+    use splashQuickMenu(hscene = False)
 
 screen sayHScene(who, what, hcolor="#444"):
     style_prefix "say"

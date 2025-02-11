@@ -84,23 +84,21 @@ screen choiceVBoxOneButton(i):
 
         has frame
 
-        xsize gui.choice_button_width
+        xysize (gui.choice_button_width, 32)
+
         text "▶" at choiceVBoxOneButtonHop(.15, .5, 8)
         text i.caption xalign .5
         text "◀" at choiceVBoxOneButtonHop(.85, .5, -8)
-
 
 screen choice(items):
     style_prefix "choice"
 
     frame:
         vbox:
-            align (.5, .5)
-
             for i in items:
                 use choiceVBoxOneButton(i)
 
-        use splashQuickMenu()
+    use splashQuickMenu()
 
 screen namechoice(items):
     style_prefix "choice"
@@ -115,7 +113,7 @@ screen namechoice(items):
             for i in items:
                 use choiceVBoxOneButton(i)
 
-        use splashQuickMenu()
+    use splashQuickMenu()
 
 style choice_vbox is vbox
 style choice_hbox is hbox
@@ -128,13 +126,14 @@ style choice_text is text:
 
 style choice_frame is frame:
     pos (gui.textbox_xpos, gui.textbox_ypos) anchor (gui.textbox_xanchor, gui.textbox_yanchor)
-    xysize (1280, 256)
-    padding (2, 2, 2, 42)
-    background "gui/choicebox.png"
+    xsize 1280 yminimum 256 yfill False
+    padding (10, 20, 10, 60)
+    background Frame("gui/choicebox.png", 40, 40, 40, 80)
 
 style choice_vbox:
     spacing gui.choice_spacing
-    pos (gui.dialogue_ypos, gui.dialogue_ypos) anchor (gui.dialogue_xanchor, gui.dialogue_yanchor)
+    pos (gui.dialogue_xpos, gui.dialogue_ypos) anchor (gui.dialogue_xanchor, gui.dialogue_yanchor)
+    yfill False
 
 style choice_button is default:
     properties gui.button_properties("choice_button")

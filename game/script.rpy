@@ -12,11 +12,14 @@ label start:
     call ch02Tutor
     call ch03Eclosion
     call rosalindEp01HumanComputer
+    call rosalindEp02Programming(True)
+
     call rosalindEp03_0WetDream
     call rosalindEp03_1Apologize
+    call coggiEp01Exterminator
     call rosalindEp06Trauma
     call hyojuEpFirstSex
-    call charaEp01Discourtesy(True)
+    call charaEp01Discourtesy
 
     call endingBegin(True)
     return
