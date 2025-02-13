@@ -14,8 +14,9 @@ label start:
     call rosalindEp01HumanComputer
     call rosalindEp02Programming(True)
 
-    call rosalindEp03_0WetDream
+    call rosalindEp03_0WetDream(True)
     call rosalindEp03_1Apologize
+    call rosalindEp04Fear(True)
     call coggiEp01Exterminator
     call rosalindEp06Trauma
     call hyojuEpFirstSex

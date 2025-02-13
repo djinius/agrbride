@@ -22,6 +22,8 @@ label rosalindEp01HumanComputer(forcePlay = False):
     주인공 "그럼 오늘 업무를 정리해야겠네. 로잘린드? 노트북을 켜 줘."
     로잘린드 "알겠습니다."
 
+    scene rosalind_programming with dissolve
+
     독백 "열기가 빠져나가도록 창문을 열었다."
     독백 "스프레드시트를 열고 따로 기록해 두었던 영지 배치를 입력했다."
     독백 "그냥 숫자만 내내 보고 있자니 뭔가 심심한데……."
