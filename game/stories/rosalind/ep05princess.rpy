@@ -1,4 +1,4 @@
-label rosalindEp06Princess(forcePlay = False):
+label rosalindEp05Princess(forcePlay = False):
 
     if builditTesting and (not forcePlay):
         return
