@@ -11,7 +11,8 @@ label start:
     call ch01Opening
     call ch02Tutor
     call ch03Eclosion
-    call ch04Yutnori(True)
+    call ch04Yutnori
+    call ch05Ramen(True)
     call rosalindEp01HumanComputer
     call rosalindEp02Programming
 

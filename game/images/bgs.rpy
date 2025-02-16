@@ -12,7 +12,13 @@ image palaceMyRoom = Composite((1920, 1080), (0, 0), "nobg.png", (.5, .5), Text(
 image palaceStudyRoom = Composite((1920, 1080), (0, 0), "nobg.png", (.5, .5), Text("궁중 공부방", color="#FFF", align=(.5, .5)))
 
 image fiefMyRoom = Composite((1920, 1080), (0, 0), "nobg.png", (.5, .5), Text("영지 숙소", color="#FFF", align=(.5, .5)))
+image fiefYardDay = Composite((1920, 1080), (0, 0), "nobg.png", (.5, .5), Text("영지 마당 낮", color="#FFF", align=(.5, .5)))
+image fiefYardNight = Composite((1920, 1080), (0, 0), "nobg.png", (.5, .5), Text("영지 마당 밤", color="#FFF", align=(.5, .5)))
 image fiefOffice = Composite((1920, 1080), (0, 0), "nobg.png", (.5, .5), Text("영지 집무실", color="#FFF", align=(.5, .5)))
+
+image rosalindRoomDay = Composite((1920, 1080), (0, 0), "nobg.png", (.5, .5), Text("로잘린드 방 앞 낮", color="#FFF", align=(.5, .5)))
+image rosalindRoomNight = Composite((1920, 1080), (0, 0), "nobg.png", (.5, .5), Text("로잘린드 방 앞 밤", color="#FFF", align=(.5, .5)))
+
 
 image white = Solid("#FFF")
 
