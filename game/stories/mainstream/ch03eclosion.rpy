@@ -1,7 +1,7 @@
 label ch03Eclosion(forcePlay = False):
 
     if builditTesting and (not forcePlay):
-      return
+        return
 
     scene palaceStudyRoom with fadeoutin
     독백 "한 달이 후딱 지나갔다. 수나는 1학년 과정을 다 떼었다. 정말 놀라운 속도다."
@@ -88,6 +88,6 @@ label ch03Eclosion(forcePlay = False):
     로잘린드 "알겠습니다. 저녁상을 준비하겠습니다."
     독백 "오늘 저녁도 닭가슴살 맛 사과군."
     독백 "다른 음식은 없나……."
-    독백 "저녁을 먹고 맨몸 스쿼트와 푸쉬업을 한 후 침대에 누웠다."
+    독백 "저녁을 먹고 맨몸 스쾃을 100개 한 후 침대에 누웠다."
 
     return
