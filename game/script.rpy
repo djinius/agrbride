@@ -9,14 +9,14 @@ label start:
     $ _in_gameplay = True
 
     call ch01Opening
-    call ch02Tutor
-    call ch03Eclosion
+    call ch02Tutor(True)
+    call ch03Eclosion(True)
     call ch04Yutnori(True)
     call ch05Ramen(True)
-    call rosalindEp01HumanComputer
-    call rosalindEp02Programming
+    call rosalindEp01HumanComputer(True)
+    call rosalindEp02Programming(True)
 
-    call rosalindEp03_0WetDream
+    call rosalindEp03_0WetDream(True)
     call rosalindEp03_1Apologize
     call rosalindEp04Fear
     call coggiEp01Exterminator
