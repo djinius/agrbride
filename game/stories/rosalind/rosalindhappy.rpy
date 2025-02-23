@@ -31,6 +31,7 @@ label rosalindHappyEnding(forcePlay = False):
     독백 "언제나처럼 자취방의 문을 열었다."
 
     # 알몸 앞치마(+ 돌핀팬츠) 로잘린드
+    scene rosalind_nudeapron with dissolve
     로잘린드 "어서 오세요, 주인님!"
     주인공 "로잘린드!"
     로잘린드 "목욕부터 하시겠어요? 아니면 식사부터? 아니면……."
@@ -38,11 +39,11 @@ label rosalindHappyEnding(forcePlay = False):
     주인공 "그야 당연히……."
 
     menu:
-        "사랑부터":
+        "달콤한 사랑부터":
             pass
-        "사랑부터":
+        "뜨거운 사랑부터":
             pass
-        "사랑부터":
+        "격렬한 사랑부터":
             pass
 
     로잘린드 "떽!"
@@ -55,7 +56,6 @@ label rosalindHappyEnding(forcePlay = False):
     with dissolve
 
     독백 "목욕, 식사, 그리고 뜨거운 사랑의 시간이 지나갔다."
-    독백 "로잘린드는 내 품에 안겨 내 가슴을 손가락으로 훑었다."
     주인공 "밥 맛있었어, 로잘린드."
     주인공 "요리는 어디서 배웠어? 별천지에서는 요리할 필요가 없었잖아."
     로잘린드 "지구에는 인터넷이라는 기물이 있더군요. 인터넷을 통해 요리 방법을 학습했니다."

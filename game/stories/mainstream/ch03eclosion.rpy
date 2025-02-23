@@ -90,4 +90,6 @@ label ch03Eclosion(forcePlay = False):
     독백 "다른 음식은 없나……."
     독백 "저녁을 먹고 맨몸 스쾃을 100개 한 후 침대에 누웠다."
 
+    scene black with dissolve
+
     return

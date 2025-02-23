@@ -24,6 +24,8 @@ label endingBegin(forcePlay = False):
             call charaHappyEnding(forcePlay)
         "트루 엔딩":
             call trueEnding(forcePlay)
+        "히든 엔딩":
+            call hiddenEnding(forcePlay)
 
     return
 

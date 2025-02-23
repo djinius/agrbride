@@ -179,7 +179,12 @@ label ch05Ramen(forcePlay = False):
     수나 "그럼 이만 가 보마. 잘 자거라, 후작."
     로잘린드 "내일 아침에 뵙겠습니다, 주인님."
 
+    scene fiefMyRoom with dissolve
+
     독백 "결국 내 손에는 씨앗 몇 개만이 남았다. 내일부터는 텃밭을 일구게 되려나……."
+
+    scene black with dissolve
+
 
     # 텃밭 해금
 

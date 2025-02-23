@@ -106,9 +106,6 @@ define gui.textbox_height = 256
 
 ## 화면에 텍스트박스를 세로로 배치합니다. 0.0은 최상단, 0.5는 중앙, 그리고 1.0은
 ## 최하단입니다.
-define gui.textbox_xalign = .5
-define gui.textbox_yalign = .95
-
 define gui.textbox_xpos = .5
 define gui.textbox_ypos = (1080 - 8)
 

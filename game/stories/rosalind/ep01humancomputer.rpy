@@ -65,7 +65,9 @@ label rosalindEp01HumanComputer(forcePlay = False):
     독백 "어쩐지 남자를 찾아볼 수가 없더라."
     주인공 "이런이런. 조심해 줘."
 
-    show 로잘린드 몬무스
+    show 로잘린드 정면 몬무스:
+        align (.5, .0) zoom .6
+    with dissolve
     로잘린드 "입었습니다. 안심하십시오."
     독백 "손을 내렸다……. 이건 거의 비키니 수준인데?"
     로잘린드 "열 배출이 한층 원활해졌습니다. 노트북을 다시 켜 드릴까요?"

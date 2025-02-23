@@ -9,20 +9,25 @@ label start:
     $ _in_gameplay = True
 
     call ch01Opening
-    call ch02Tutor(True)
-    call ch03Eclosion(True)
-    call ch04Yutnori(True)
-    call ch05Ramen(True)
-    call rosalindEp01HumanComputer(True)
-    call rosalindEp02Programming(True)
+    call ch02Tutor
+    call ch03Eclosion
+
+    call rosalindEp01HumanComputer
+    call lucyEp01LampPost
+    call coggiEp01Exterminator
+    call charaEp01Discourtesy
+    call maliEp01ThanksGiving
+
+    call ch04Yutnori
+    call ch05Ramen
+
+    call rosalindEp02Programming
 
     call rosalindEp03_0WetDream(True)
     call rosalindEp03_1Apologize
     call rosalindEp04Fear
-    call coggiEp01Exterminator
     call rosalindEp05Princess
     call hyojuEpFirstSex
-    call charaEp01Discourtesy
 
     call endingBegin(True)
     return
