@@ -16,20 +16,20 @@ label start:
     call lucyEp01LampPost
     call coggiEp01Exterminator
     call charaEp01Discourtesy
-    call maliEp01ThanksGiving
+    call maliEp01ThanksGiving(True)
 
     call ch04Yutnori
     call ch05Ramen
 
     call rosalindEp02Programming
 
-    call rosalindEp03_0WetDream(True)
+    call rosalindEp03_0WetDream
     call rosalindEp03_1Apologize
     call rosalindEp04Fear
     call rosalindEp05Princess
     call hyojuEpFirstSex
 
-    call endingBegin(True)
+    call endingBegin
     return
 
     $ initBuildings()
