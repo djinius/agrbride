@@ -1,7 +1,7 @@
 label splashscreen:
 
     scene black
-    if persistent.splashSettings:
+    if persistent.splashSettings and not splashTesting:
         pass
     else:
         call screen splashAskControl    
@@ -10,10 +10,10 @@ label splashscreen:
 
     call screen splashNote
 
-    if builditTesting:
+    if builditTesting and not splashTesting:
         return
 
-    if persistent.splashPlayed:
+    if persistent.splashPlayed and not splashTesting:
         return
 
     if not _in_replay:
@@ -35,9 +35,13 @@ label splashscreen:
 
     # TODO:: 시녀 전원 일러스트 등장
 
+    show 효주 정면 한복:
+        pos (.70, .15) anchor (.5, .0)
+        zoom .3
+
     show 말리 정면 한복:
-        pos (.85, .0) anchor (.5, .0)
-        zoom .35
+        pos (.85, .15) anchor (.5, .0)
+        zoom .3
 
     show 로잘린드 정면 장옷:
         pos (.5, 0) anchor (.5, .0)

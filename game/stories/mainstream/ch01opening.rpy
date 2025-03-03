@@ -3,6 +3,8 @@ default ch01OpeningMenuSet = set()
 label ch01Opening(forcePlay = False):
 
     if builditTesting and (not forcePlay):
+        $ persistent.sunnaName = "수나"
+        $ persistent.wonhwaName = "원화"
         return
 
     if not _in_replay:
@@ -10,6 +12,7 @@ label ch01Opening(forcePlay = False):
         $ persistent.sunnaName = "???"
         $ persistent.wonhwaName = "???"
         $ persistent.rosalindName = "로잘린드"
+
 
     scene palace
     show 로잘린드 정면 장옷:
@@ -95,7 +98,7 @@ label ch01Opening(forcePlay = False):
     주인공 "엥?"
     독백 "웬 낯선 어린아이였다."
     수나 "흠. 이번에는 또 어느 세계에서 흘러들어온 존재일까? 겉으로는 우리와 크게 다르지 않구나."
-    수나 "음? 아니, 아니로군. 비슷하긴 하지만, 날개도 더듬이도 뿔도 없구나. 이거 참, 실로 요상한 생김새로다."
+    수나 "음? 아니, 아니로군. 비슷하긴 하지만, 날개도 더듬이도 가슴도 없구나. 이거 참, 실로 요상한 생김새로다."
     주인공 "생김새라고?"
     독백 "그제야 나는 소녀의 머리에서 돋아나 있는 길쭉한 무언가를 발견할 수 있었다."
     독백 "마치 곤충의 더듬이와도 같은 그것은, 징그럽다기보단 이질적인 생김새에 더 가까웠다."
@@ -205,7 +208,8 @@ label inputName:
 
 label inputNameDone:
 
-    원화 "[persistent.myName]라……. 독특하면서도 듣기 좋은 발음이로군. 잘 알겠네."
+    원화 "[persistent.myName]라…….{nw}{w=.5}"
+    extend " 독특하면서도 듣기 좋은 발음이로군. 잘 알겠네."
     원화 "그럼 다시 찬찬히 말해 주게나. 자네는 어떻게 이곳에 오게 되었나?"
 
     scene palaceDrawingRoom with fadeoutin
@@ -339,19 +343,21 @@ label inputNameDone:
     수나 "머리를 한 번 더 쓰다듬어 다오. 은근히 좋은 기분이더구나."
     수나 "헤헤……."
     독백 "머리를 쓰다듬어 주자, 눈을 감고 가볍게 웃은 수나는 내 손을 잡고 한 건물로 이끌었다."
-    수나 "내 개인교사가 되어 주어 고맙구나, [persistent.myName] 후작! 어서 이쪽으로 오너라!"
+    수나 "내 개인교사가 되어 주어 고맙구나, {nw}\n"
+    extend "[persistent.myName] 후작!"
+    수나 "어서 이쪽으로 오너라!"
     독백 "그녀의 손에 이끌린 끝에 내가 보게 된 것은……."
 
     scene palaceWorkRoom
     # 로잘린드(어린아이), 말리, 효주 스탠딩 일러스트 등장
     # 루시, 꼭지, 카라 스탠딩 일러스트 등장
 
-    show 말리 정면 한복:
-        pos (.85, .0) anchor (.5, .0)
-        zoom .35
-
     show 효주 정면 한복:
         pos (.5, .0) anchor (.5, .0)
+        zoom .35
+
+    show 말리 정면 한복:
+        pos (.675, .0) anchor (.5, .0)
         zoom .35
 
     show 로잘린드 유년기:
@@ -367,7 +373,7 @@ label inputNameDone:
     # 로잘린드 약간 왼쪽으로 밂, 수나 유년기 스탠딩 나타남
 
     show 로잘린드:
-        linear .5 xpos .4
+        linear .5 xpos .3
     pause .5
 
     독백 "내가 잠깐 당황한 사이 수나는 시녀들 가운데로 쪼르르 달려가 으스댔다."
@@ -391,7 +397,7 @@ label inputNameDone:
 
     # 효과음과 홀로그램
     show ctMyself:
-        pos (.15, .75) yanchor 1.
+        pos (.1, .75) anchor (.5, 1.)
         zoom .3
     with dissolve
 

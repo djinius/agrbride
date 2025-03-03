@@ -80,6 +80,11 @@ label rosalindEp03_0WetDream(forcePlay = False):
     주인공 "괜찮다니까?"
     로잘린드 정색 "가만히 계십시오!"
 
+    scene rosalind_examine:
+        pos (.5, .0) anchor (.5, .0)
+        zoom .75
+    with dissolve
+
     독백 "내 몸이 덜컥 멈추더니 침대 위에 눕혀졌다. 결박인가?"
     독백 "폐하처럼 압도적인 힘은 아니지만 팔다리에 바벨을 매달아 놓은 것처럼 움직일 수가 없었다."
     로잘린드 놀람2 "설마, 내장이 녹아서 빠져나온 것입니까? 정밀 검사를 해야겠습니다."
@@ -122,8 +127,20 @@ label rosalindEp03_0WetDream(forcePlay = False):
     로잘린드 "제가 당황해서 무례를 저질렀습니다. 부디 용서를……."
     독백 "내게 고개를 숙여 사죄하는 로잘린드. 그런데……."
     # 가슴골 클로즈업
+
+    scene rosalind_examine:
+        pos (.5, .0) anchor (.5, .0) zoom .75
+        linear 1.5 pos (.5, .25) anchor (.5, .5) zoom 1.
+    pause 1.5
+
     독백 "하필 눈에 들어온 장면이……. 내 분신이 또다시 슬그머니 고개를 든다."
     독백 "분위기 파악 못 하는 저 분신 놈 덕분에 창피해 죽을 것만 같다."
+
+    scene rosalind_examine:
+        pos (.5, .25) anchor (.5, .5) zoom 1.
+        linear .75 pos (.5, .0) anchor (.5, .0) zoom .75
+    pause .75
+
     로잘린드 하트 "아……."
     독백 "그걸 바라보던 로잘린드의 표정이 점점 몽롱해진다."
     로잘린드 "이것이 성인 남성의 향취……."
@@ -435,5 +452,7 @@ label rosalindFirstSex():
     독백 "대놓고 저리 말하니 앞으로 더 열심히 살아야겠다는 생각이 든다."
 
     scene black with dissolve
+
+    $ rosalindHappyTime = True
 
     return

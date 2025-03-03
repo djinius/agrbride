@@ -1,4 +1,5 @@
 define 효주 = Character('효주', color="#FFE600", image="효주", ctc="ctc35Blink", ctc_position="nestled-close", screen="sayHyoju")
+default hyojuHSceneEnabled = False
 
 screen sayHyoju(who, what):
     use sayCommon(who, what, hcolor="#8F7600")
@@ -21,8 +22,9 @@ layeredimage 효주 정면:
             "images/characters/hyoju/front/sexy.png"
         attribute 한복:
             "images/characters/hyoju/front/hanbok.png"
-        attribute 장옷:
-            "images/characters/hyoju/front/hanbok_coat.png"
+        attribute 일상복:
+            ConditionSwitch("hyojuHSceneEnabled", "images/characters/hyoju/front/comfort.png",
+                            "True", "images/characters/hyoju/front/sexy.png")
 
     group face:
         pos (971, 378)
@@ -122,8 +124,9 @@ layeredimage 효주 좌측면:
             "images/characters/hyoju/left/sexy.png"
         attribute 한복:
             "images/characters/hyoju/left/hanbok.png"
-        attribute 장옷:
-            "images/characters/hyoju/left/hanbok_coat.png"
+        attribute 일상복:
+            ConditionSwitch("hyojuHSceneEnabled", "images/characters/hyoju/left/comfort.png",
+                            "True", "images/characters/hyoju/left/sexy.png")
 
     group face:
         pos (578, 378)
@@ -223,8 +226,9 @@ layeredimage 효주 우측면:
             "images/characters/hyoju/right/sexy.png"
         attribute 한복:
             "images/characters/hyoju/right/hanbok.png"
-        attribute 장옷:
-            "images/characters/hyoju/right/hanbok_coat.png"
+        attribute 일상복:
+            ConditionSwitch("hyojuHSceneEnabled", "images/characters/hyoju/right/comfort.png",
+                            "True", "images/characters/hyoju/right/sexy.png")
 
     group face:
         pos (1081, 378)

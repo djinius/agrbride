@@ -1,4 +1,6 @@
 default persistent.rosalindName = "???"
+default rosalindHappyTime = False
+default rosalindHSceneEnabled = False
 
 define 로잘린드 = Character('persistent.rosalindName', dynamic=True, color="#B1DFD0", image="로잘린드", ctc="ctc35Blink", ctc_position="nestled-close", screen='sayRosalind')
 
@@ -28,6 +30,12 @@ layeredimage 로잘린드 정면:
             "images/characters/rosalind/front/hanbok.png"
         attribute 장옷:
             "images/characters/rosalind/front/hanbok_coat.png"
+        attribute 예복:
+            ConditionSwitch("rosalindHappyTime", "images/characters/rosalind/front/hanbok_coat.png",
+                            "True", "images/characters/rosalind/front/hanbok.png")
+        attribute 일상복:
+            ConditionSwitch("rosalindHSceneEnabled", "images/characters/rosalind/front/comfort.png",
+                            "True", "images/characters/rosalind/front/sexy.png")
 
     group face:
         pos (976, 359)
@@ -145,6 +153,12 @@ layeredimage 로잘린드 좌측면:
             "images/characters/rosalind/left/hanbok.png"
         attribute 장옷:
             "images/characters/rosalind/left/hanbok_coat.png"
+        attribute 예복:
+            ConditionSwitch("rosalindHappyTime", "images/characters/rosalind/left/hanbok_coat.png",
+                            "True", "images/characters/rosalind/left/hanbok.png")
+        attribute 일상복:
+            ConditionSwitch("rosalindHSceneEnabled", "images/characters/rosalind/left/comfort.png",
+                            "True", "images/characters/rosalind/left/sexy.png")
 
     group face:
         pos (650, 366)
@@ -264,6 +278,12 @@ layeredimage 로잘린드 우측면:
             "images/characters/rosalind/right/hanbok.png"
         attribute 장옷:
             "images/characters/rosalind/right/hanbok_coat.png"
+        attribute 예복:
+            ConditionSwitch("rosalindHappyTime", "images/characters/rosalind/right/hanbok_coat.png",
+                            "True", "images/characters/rosalind/right/hanbok.png")
+        attribute 일상복:
+            ConditionSwitch("rosalindHSceneEnabled", "images/characters/rosalind/right/comfort.png",
+                            "True", "images/characters/rosalind/right/sexy.png")
 
     group face:
         pos (950, 366)

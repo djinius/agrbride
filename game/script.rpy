@@ -1,5 +1,6 @@
 ﻿# 이 파일에 게임 스크립트를 입력합니다.
 
+default splashTesting = False
 default builditTesting = True
 default _in_gameplay = False
 
@@ -12,24 +13,24 @@ label start:
     call ch02Tutor
     call ch03Eclosion
 
-    call rosalindEp01HumanComputer
-    call lucyEp01LampPost
-    call coggiEp01Exterminator
-    call charaEp01Discourtesy
+    call rosalindEp01HumanComputer(True)
+    call lucyEp01LampPost(True)
+    call coggiEp01Exterminator(True)
+    call charaEp01Discourtesy(True)
     call maliEp01ThanksGiving(True)
 
-    call ch04Yutnori
-    call ch05Ramen
+    call ch04Yutnori(True)
+    call ch05Ramen(True)
 
-    call rosalindEp02Programming
+    call rosalindEp02Programming(True)
 
-    call rosalindEp03_0WetDream
-    call rosalindEp03_1Apologize
+    call rosalindEp03_0WetDream(True)
+    call rosalindEp03_1Apologize(True)
     call rosalindEp04Fear
     call rosalindEp05Princess
     call hyojuEpFirstSex
 
-    call endingBegin
+    call endingBegin(True)
     return
 
     $ initBuildings()

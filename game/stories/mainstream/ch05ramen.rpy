@@ -185,7 +185,6 @@ label ch05Ramen(forcePlay = False):
 
     scene black with dissolve
 
-
     # 텃밭 해금
 
     return

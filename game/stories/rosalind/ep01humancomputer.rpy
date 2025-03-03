@@ -44,6 +44,9 @@ label rosalindEp01HumanComputer(forcePlay = False):
 
     # 이벤트CG - 한복 -> 누드 -> 몬무스복으로 갈아입는 로잘린드.
     로잘린드 "완성했습니다. 잠시만 기다려 주십시오."
+    scene rosalind_change:
+        zoom .75
+    with dissolve
     주인공 "히익?"
     독백 "갑자기 옷을 훌러덩 벗은 로잘린드."
     독백 "순간 당황했다. 손으로 눈을 가렸다. 보기는 좋았다만……."

@@ -1,4 +1,5 @@
 define 말리 = Character('말리', color="#98FF98", image="말리", ctc="ctc35Blink", ctc_position="nestled-close", screen="sayMali")
+default maliHSceneEnabled = False
 
 screen sayMali(who, what):
     use sayCommon(who, what, hcolor="#188018")
@@ -25,6 +26,9 @@ layeredimage 말리 정면:
             "images/characters/mali/front/sexy.png"
         attribute 한복:
             "images/characters/mali/front/hanbok.png"
+        attribute 일상복:
+            ConditionSwitch("maliHSceneEnabled", "images/characters/mali/front/comfort.png",
+                            "True", "images/characters/mali/mali/sexy.png")
 
     group face:
         pos (1470, 442)
@@ -123,6 +127,9 @@ layeredimage 말리 좌측면:
             "images/characters/mali/left/comfort.png"
         attribute 일상복2:
             "images/characters/mali/left/sexy.png"
+        attribute 일상복:
+            ConditionSwitch("maliHSceneEnabled", "images/characters/mali/left/comfort.png",
+                            "True", "images/characters/mali/left/sexy.png")
 
     group face:
         pos (302, 443)
@@ -221,6 +228,9 @@ layeredimage 말리 우측면:
             "images/characters/mali/right/comfort.png"
         attribute 일상복2:
             "images/characters/mali/right/sexy.png"
+        attribute 일상복:
+            ConditionSwitch("maliHSceneEnabled", "images/characters/mali/right/comfort.png",
+                            "True", "images/characters/mali/right/sexy.png")
 
     group face:
         pos (788, 443)
