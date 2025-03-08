@@ -63,44 +63,68 @@ init python:
         return rv
 
 
-transform choiceVBoxOneButtonHop(p, t, of):
-    xpos p ypos .5 yanchor .5
+transform choiceVBoxOneButtonHop(p, t, of, ial = .0, hal = .0, sial = 1., shal = 1.):
+    xpos p ypos .5 yanchor .5 yoffset 4 alpha ial
 
     on idle:
-        alpha .0
-        xoffset 0
+        xoffset 0 alpha ial
 
     on hover:
-        alpha 1.
+        alpha hal
         easein t xoffset of
         easeout t xoffset 0
         repeat
 
-screen choiceVBoxOneButton(i):
+    on selected_idle:
+        xoffset 0 alpha sial
+
+    on selected_hover:
+        alpha shal
+        easein t xoffset of
+        easeout t xoffset 0
+        repeat
+
+define choiceSymbols = "①②③④⑤⑥⑦⑧⑨"
+define choiceShortcuts = [ "K_1", "K_2", "K_3", "K_4", "K_5", "K_6", "K_7", "K_8", "K_9" ]
+default choiceShortcutPressed = None
+
+screen choiceVBoxOneButton(i, n):
     style_prefix "choiceVBox"
     
+    key choiceShortcuts[n]:
+        action If(  choiceShortcutPressed==choiceShortcuts[n],
+                    i.action,
+                    SetVariable("choiceShortcutPressed", choiceShortcuts[n]) )
+
     button:
         action i.action
+        selected choiceShortcutPressed==choiceShortcuts[n]
+        hovered SetVariable("choiceShortcutPressed", None)
+        unhovered SetVariable("choiceShortcutPressed", None)
 
         has frame
 
         xysize (gui.choice_button_width, 32)
 
-        text "▶" at choiceVBoxOneButtonHop(.15, .5, 8)
+        text choiceSymbols[n] at choiceVBoxOneButtonHop(.15, .5, 8, 1., 1.)
         text i.caption xalign .5
-        text "◀" at choiceVBoxOneButtonHop(.85, .5, -8)
+        text "√" at choiceVBoxOneButtonHop(.85, .5, -8)
 
 screen choice(items):
+    on "show" action SetVariable("choiceShortcutPressed", None)
+
     style_prefix "choice"
 
     frame:
         vbox:
-            for i in items:
-                use choiceVBoxOneButton(i)
+            for (n, i) in enumerate(items):
+                use choiceVBoxOneButton(i, n)
 
     use splashQuickMenu()
 
 screen namechoice(items):
+    on "show" action SetVariable("choiceShortcutPressed", None)
+    
     style_prefix "choice"
 
     frame:
@@ -110,8 +134,8 @@ screen namechoice(items):
             text "{으로=#33F}[persistent.myName]{/으로} 결정하시겠습니까?"
             null height(10)
 
-            for i in items:
-                use choiceVBoxOneButton(i)
+            for (n, i) in enumerate(items):
+                use choiceVBoxOneButton(i, n)
 
     use splashQuickMenu()
 
@@ -121,7 +145,7 @@ style choice_button is button
 style choice_button_text is button_text
 
 style choice_text is text:
-    xalign .5
+    align (.5, .5)
     size 35
 
 style choice_frame is frame:
@@ -137,6 +161,7 @@ style choice_vbox:
 
 style choice_button is default:
     properties gui.button_properties("choice_button")
+    xysize (gui.choice_button_width, gui.choice_button_height)
 
 style choice_button_text is default:
     properties gui.text_properties("choice_button")
@@ -145,10 +170,14 @@ style choiceVBox_text is default:
     properties gui.text_properties("choice_button")
     idle_color "#000"
     hover_color "#FFF"
+    selected_idle_color "#00F"
+    selected_hover_color "#EEF"
 
 style choiceVBox_frame is frame:
     xysize (gui.choice_button_width, gui.choice_button_height)
     idle_background "gui/button/choice_idle_background.png"
     hover_background "gui/button/choice_hover_background.png"
+    selected_idle_background "gui/button/choice_selected_idle_background.png"
+    selected_hover_background "gui/button/choice_hover_background.png"
     padding (0, 0, 0, 0)
 
