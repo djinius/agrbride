@@ -4,145 +4,39 @@
 ##
 ## https://www.renpy.org/doc/html/screen_special.html#preferences
 
-image preferencesLeftClick48_idle       = "gui/help/leftclick48_idle.png"
-image preferencesLeftClick48_hover      = Animation("gui/help/leftclick48_idle.png", .75, "gui/help/leftclick48_hover.png", .75)
-image preferencesRightClick48_idle      = "gui/help/rightclick48_idle.png"
-image preferencesRightClick48_hover     = Animation("gui/help/rightclick48_idle.png", .75, "gui/help/rightclick48_hover.png", .75)
-image preferencesScrollUp48_idle        = "gui/help/scrollup48_idle.png"
-image preferencesScrollUp48_hover       = Animation("gui/help/scrollup48_idle.png", .75, "gui/help/scrollup48_hover.png", .75)
-image preferencesScrollDown48_idle      = "gui/help/scrolldown48_idle.png"
-image preferencesScrollDown48_hover     = Animation("gui/help/scrolldown48_idle.png", .75, "gui/help/scrolldown48_hover.png", .75)
-image preferencesScrollClick48_idle     = "gui/help/scrollclick48_idle.png"
-image preferencesScrollClick48_hover    = Animation("gui/help/scrollclick48_idle.png", .75, "gui/help/scrollclick48_hover.png", .75)
+## 마우스 기능 선택 #############################################################
+##
+## 좌클릭: 대사 진행 (기본값, 변경 불가)
+## 우클릭: 게임 메뉴 불러오기(기본값) / UI 숨기기
+## 스크롤 업: 대사록 불러오기(기본값) / 대사 되돌리기
+## 스크롤 다운: 대사록 불러오기 / 대사 진행(기본값)
+## 스크롤 클릭: UI 숨기기(기본값) / 대사록 불러오기
 
-image preferencesLeftClick96_idle       = "gui/help/leftclick96_idle.png"
-image preferencesLeftClick96_hover      = Animation("gui/help/leftclick96_idle.png", .75, "gui/help/leftclick96_hover.png", .75)
-image preferencesRightClick96_idle      = "gui/help/rightclick96_idle.png"
-image preferencesRightClick96_hover     = Animation("gui/help/rightclick96_idle.png", .75, "gui/help/rightclick96_hover.png", .75)
-image preferencesScrollUp96_idle        = "gui/help/scrollup96_idle.png"
-image preferencesScrollUp96_hover       = Animation("gui/help/scrollup96_idle.png", .75, "gui/help/scrollup96_hover.png", .75)
-image preferencesScrollDown96_idle      = "gui/help/scrolldown96_idle.png"
-image preferencesScrollDown96_hover     = Animation("gui/help/scrolldown96_idle.png", .75, "gui/help/scrolldown96_hover.png", .75)
-image preferencesScrollClick96_idle     = "gui/help/scrollclick96_idle.png"
-image preferencesScrollClick96_hover    = Animation("gui/help/scrollclick96_idle.png", .75, "gui/help/scrollclick96_hover.png", .75)
+screen preferencesScrollFunction(xa=.5, ya=.5, xo=0, yo=0):
+    imagemap:
+        align (xa, ya) offset (xo, yo)
+        xysize (988, 666)
 
-screen preferencesScrollFunction(iconsize=96):
-    hbox:
-        xalign .5
-        spacing 24
-        style_prefix "preferencesScroll"
-        
-        button:
-            xminimum int(iconsize * 4)
-            action SetField(persistent, "scrollFunction", 0)
+        auto "gui/help/%s.png"
 
-            has vbox
+        # Left click
+        hotspot (690, 507, 299, 68) action NullAction() selected True
 
-            hbox:
-                frame:
-                    xysize (iconsize, iconsize)
-                    idle_background "preferencesLeftClick" + str(iconsize) + "_idle"
-                    hover_background "preferencesLeftClick" + str(iconsize) + "_hover"
-                text "대사 진행" size (iconsize / 2)
-            hbox:
-                frame:
-                    xysize (iconsize, iconsize)
-                    idle_background "preferencesRightClick" + str(iconsize) + "_idle"
-                    hover_background "preferencesRightClick" + str(iconsize) + "_hover"
-                text "게임 메뉴" size (iconsize / 2)
-            hbox:
-                frame:
-                    xysize (iconsize, iconsize)
-                    idle_background "preferencesScrollUp" + str(iconsize) + "_idle"
-                    hover_background "preferencesScrollUp" + str(iconsize) + "_hover"
-                text "대사록 보기" size (iconsize / 2)
-            hbox:
-                frame:
-                    xysize (iconsize, iconsize)
-                    idle_background "preferencesScrollDown" + str(iconsize) + "_idle"
-                    hover_background "preferencesScrollDown" + str(iconsize) + "_hover"
-                text "대사록 보기" size (iconsize / 2)
-            hbox:
-                frame:
-                    xysize (iconsize, iconsize)
-                    idle_background "preferencesScrollClick" + str(iconsize) + "_idle"
-                    hover_background "preferencesScrollClick" + str(iconsize) + "_hover"
-                text "UI 숨기기" size (iconsize / 2)
+        # Right click
+        hotspot (1, 507, 299, 65) action SetField(persistent, "rclickFunction", 0)
+        hotspot (1, 572, 299, 65) action SetField(persistent, "rclickFunction", 1)
 
-        button:
-            xminimum int(iconsize * 4)
-            action SetField(persistent, "scrollFunction", 1)
+        # Scroll up
+        hotspot (57, 282, 299, 65) action SetField(persistent, "scrollUpFunction", 0)
+        hotspot (57, 347, 299, 65) action SetField(persistent, "scrollUpFunction", 1)
 
-            has vbox
+        # Scroll click
+        hotspot (181, 141, 299, 65) action SetField(persistent, "scrollClickFunction", 0)
+        hotspot (181, 206, 299, 65) action SetField(persistent, "scrollClickFunction", 1)
 
-            hbox:
-                frame:
-                    xysize (iconsize, iconsize)
-                    idle_background "preferencesLeftClick" + str(iconsize) + "_idle"
-                    hover_background "preferencesLeftClick" + str(iconsize) + "_hover"
-                text "대사 진행" size (iconsize / 2)
-            hbox:
-                frame:
-                    xysize (iconsize, iconsize)
-                    idle_background "preferencesRightClick" + str(iconsize) + "_idle"
-                    hover_background "preferencesRightClick" + str(iconsize) + "_hover"
-                text "게임 메뉴" size (iconsize / 2)
-            hbox:
-                frame:
-                    xysize (iconsize, iconsize)
-                    idle_background "preferencesScrollUp" + str(iconsize) + "_idle"
-                    hover_background "preferencesScrollUp" + str(iconsize) + "_hover"
-                text "대사록 보기" size (iconsize / 2)
-            hbox:
-                frame:
-                    xysize (iconsize, iconsize)
-                    idle_background "preferencesScrollDown" + str(iconsize) + "_idle"
-                    hover_background "preferencesScrollDown" + str(iconsize) + "_hover"
-                text "대사 진행" size (iconsize / 2)
-            hbox:
-                frame:
-                    xysize (iconsize, iconsize)
-                    idle_background "preferencesScrollClick" + str(iconsize) + "_idle"
-                    hover_background "preferencesScrollClick" + str(iconsize) + "_hover"
-                text "UI 숨기기" size (iconsize / 2)
-
-
-        button:
-            xminimum int(iconsize * 4)
-            action SetField(persistent, "scrollFunction", 2)
-
-            has vbox
-
-            hbox:
-                frame:
-                    xysize (iconsize, iconsize)
-                    idle_background "preferencesLeftClick" + str(iconsize) + "_idle"
-                    hover_background "preferencesLeftClick" + str(iconsize) + "_hover"
-                text "대사 진행" size (iconsize / 2)
-            hbox:
-                frame:
-                    xysize (iconsize, iconsize)
-                    idle_background "preferencesRightClick" + str(iconsize) + "_idle"
-                    hover_background "preferencesRightClick" + str(iconsize) + "_hover"
-                text "게임 메뉴" size (iconsize / 2)
-            hbox:
-                frame:
-                    xysize (iconsize, iconsize)
-                    idle_background "preferencesScrollUp" + str(iconsize) + "_idle"
-                    hover_background "preferencesScrollUp" + str(iconsize) + "_hover"
-                text "이전 대사" size (iconsize / 2)
-            hbox:
-                frame:
-                    xysize (iconsize, iconsize)
-                    idle_background "preferencesScrollDown" + str(iconsize) + "_idle"
-                    hover_background "preferencesScrollDown" + str(iconsize) + "_hover"
-                text "대사 진행" size (iconsize / 2)
-            hbox:
-                frame:
-                    xysize (iconsize, iconsize)
-                    idle_background "preferencesScrollClick" + str(iconsize) + "_idle"
-                    hover_background "preferencesScrollClick" + str(iconsize) + "_hover"
-                text "UI 숨기기" size (iconsize / 2)
+        # Scroll down
+        hotspot (377,  1, 299, 65) action SetField(persistent, "scrollDownFunction", 0)
+        hotspot (377, 66, 299, 65) action SetField(persistent, "scrollDownFunction", 1)
 
     transclude
 
@@ -179,9 +73,6 @@ screen preferences():
                         textbutton _("읽지 않은 지문") action Preference("skip", "toggle")
                         textbutton _("선택지 이후") action Preference("after choices", "toggle")
                         textbutton _("화면 전환 효과") action InvertSelected(Preference("transitions", "toggle"))
-
-                        label _("마우스 기능")
-                        use preferencesScrollFunction(iconsize=48)
 
                 ## "radio_pref" 나 "check_pref" 를 추가하여 그 외에도 환경설정
                 ## 항목을 추가할 수 있습니다.

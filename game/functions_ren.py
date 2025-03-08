@@ -13,7 +13,26 @@ def getAvailableDates():
     return min(max(0, p - gDates), 120)
 
 def isDateAvailable():
-    return getAvailableDates() > 0
+    return (getAvailableDates() > 0) or (persistent.myName == '네오')
+
+def isStoryAvailable():
+    global mainProgress
+
+    global rosalindProgress
+    global maliProgress
+    global lucyProgress
+    global coggiProgress
+    global charaProgress
+    global hyojuProgress
+
+    if isDateAvailable():
+        if mainProgress == 0:
+            return (rosalindProgress > 0) and (maliProgress > 0) and (lucyProgress > 0) and (coggiProgress > 0) and (charaProgress > 0) and (hyojuProgress > 0)
+        else:
+            return True
+    else:
+        return False
+
 
 # 받침유무판별기
 # URL : [렌파이] 한국어 조사 자동으로 바꾸기 ===> https://cafe.naver.com/vmo/102

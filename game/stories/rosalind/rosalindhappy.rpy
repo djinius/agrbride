@@ -39,6 +39,8 @@ label rosalindHappyEnding(forcePlay = False):
     주인공 "그야 당연히……."
 
     menu:
+        "사랑부터":
+            pass
         "달콤한 사랑부터":
             pass
         "뜨거운 사랑부터":

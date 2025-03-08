@@ -295,8 +295,15 @@ default persistent.isStreaming = True
 # CTC 디테일
 default persistent.ctcDetail = True
 
-# 스크롤휠 로그
-default persistent.scrollFunction = 1
+# 마우스 버튼 설정
+# 우클릭: 0 - 게임 메뉴, 1 - UI 숨기기
+# 스크롤 업: 0 - 되돌리기(롤백), 1 - 대사록
+# 스크롤 클릭: 0 - UI 숨기기, 1 - 게임 메뉴
+# 스크롤 다운: 0 - 대사 진행, 1 - 대사록
+default persistent.rclickFunction = 0
+default persistent.scrollUpFunction = 1
+default persistent.scrollClickFunction = 0
+default persistent.scrollDownFunction = 0
 
 # 한글 조사
 define config.custom_text_tags["은는"] = ppCommon

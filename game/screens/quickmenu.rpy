@@ -54,14 +54,27 @@ screen splashQuickMenu(hscene = False):
         key 'noshift_K_s' action ShowMenu("save")
         key 'noshift_K_l' action ShowMenu("load")
 
-    if persistent.scrollFunction == 0:
+    if persistent.scrollClickFunction == 0:
+        key "mousedown_2" action HideInterface()
+    else:
+        if _in_gameplay or _in_replay:
+            key "mousedown_2" action ShowMenu()
+
+    if persistent.rclickFunction == 0:
+        if _in_gameplay or _in_replay:
+            key "mousedown_3" action ShowMenu()
+    else:
+        key "mousedown_3" action HideInterface()
+
+    if persistent.scrollUpFunction == 0:
+        if _in_gameplay or _in_replay:
+            key "mousedown_4" action Rollback()
+    else:
         if _in_gameplay or _in_replay:
             key "mousedown_4" action ShowMenu("history")
+
+    if persistent.scrollDownFunction == 0:
+        key "mousedown_5" action QueueEvent('dismiss')
+    else:
+        if _in_gameplay or _in_replay:
             key "mousedown_5" action ShowMenu("history")
-    elif persistent.scrollFunction == 1:
-        if _in_gameplay or _in_replay:
-            key "mousedown_4" action ShowMenu("history")
-        key "mousedown_5" action QueueEvent('dismiss')
-    elif persistent.scrollFunction == 2:
-        key "mousedown_4" action Rollback()
-        key "mousedown_5" action QueueEvent('dismiss')

@@ -20,7 +20,9 @@ label splashscreen:
         $ persistent.myName = "나"
         $ persistent.rosalindName = "???"
     
-    scene palaceGarden with dissolve
+    scene palaceGarden:
+        align (.5, .5)
+    with dissolve
     # 배경 – 별천지 궁전. (화려한 동양풍의 건물 내부)
 
     독백 "……."
@@ -96,21 +98,19 @@ screen splashAskControl():
     add Solid("#000")
 
     add "streamingGuide":
-        pos (.25, .05) anchor (.5, .0)
+        pos (.15, .05) anchor (.5, .0)
         zoom .4
 
     vbox:
-        align (.75, .5)
+        pos (.3, .1) anchor (.0, .0)
+        text "대사록의 특정 대사를 누르면 해당 시점으로 되돌아갈 수 있습니다."
 
         text "마우스 기능을 선택하십시오."
-        text "대사록의 특정 대사를 누르면 해당 시점으로 되돌아갈 수 있습니다."
-        null height(32)
-
-        use preferencesScrollFunction(iconsize=48)
-
-        null height(32)
-        text "게임 메뉴의 환경설정에서 바꿀 수 있습니다."
+        text "게임 메뉴의 조작방법에서 바꿀 수 있습니다."
+        text "UI가 사라진 상태에서 마우스 왼쪽 버튼을 클릭하면 UI가 다시 나타납니다."
         textbutton "다음" xalign .5 action Return()
+
+    use preferencesScrollFunction(1., 1., -16, -9)
 
 screen splashAskStreaming():
     style_prefix "splash"
@@ -118,11 +118,11 @@ screen splashAskStreaming():
     add Solid("#000")
 
     add "streamingGuide":
-        pos (.25, .05) anchor (.5, .0)
+        pos (.15, .05) anchor (.5, .0)
         zoom .4
 
     vbox:
-        align (.75, .5)
+        pos (.3, .1) anchor (.0, .0)
 
         imagebutton:
             xalign .5
@@ -171,10 +171,10 @@ style splash_button:
     xalign .5
 
 style splash_text:
-    align (.5, 1.)
+    align (.0, 1.)
     color "#FFF"
-    xmaximum 768
-    text_align .5
+    xmaximum 512
+    text_align .0
 
 style splash_grid:
     xalign .5

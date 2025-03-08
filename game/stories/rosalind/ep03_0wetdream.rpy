@@ -181,6 +181,10 @@ label rosalindEp03_0WetDream(forcePlay = False):
     독백 "조금 후회된다. 괜히 폼 잡았나?"
     독백 "에이, 무슨 생각이냐. 우선 이불부터 내다 널자."
 
+    scene black with dissolve
+
+    $ rosalindDenied = True
+
     return
 
 label rosalindFirstSex():
