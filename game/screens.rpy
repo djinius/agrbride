@@ -609,6 +609,10 @@ screen keyboard_help():
         text _("대사를 진행하되 선택지는 선택하지 않음.")
 
     hbox:
+        label _("숫자키 1-9")
+        text _("선택지 고르기. 두 번 누르면 선택지 선택.")
+
+    hbox:
         label _("화살표 키")
         text _("UI 이동.")
 
@@ -621,16 +625,8 @@ screen keyboard_help():
         text _("누르고 있는 동안 대사를 스킵.")
 
     hbox:
-        label _("탭(Tab)")
+        label _("F, 탭(Tab)")
         text _("대사 스킵 토글.")
-
-    hbox:
-        label _("페이지 업(Page Up)")
-        text _("이전 대사로 롤백.")
-
-    hbox:
-        label _("페이지 다운(Page Down)")
-        text _("이후 대사로 롤포워드.")
 
     hbox:
         label "H"
@@ -638,15 +634,23 @@ screen keyboard_help():
 
     hbox:
         label "S"
-        text _("스크린샷 저장.")
+        text _("저장 화면.")
 
     hbox:
-        label "V"
-        text _("{a=https://www.renpy.org/l/voicing}대사 읽어주기 기능{/a} 토글.")
+        label "L"
+        text _("불러오기 화면.")
 
     hbox:
-        label "Shift+A"
-        text _("접근성 메뉴를 엽니다.")
+        label "Q"
+        text _("퀵세이브.")
+
+    hbox:
+        label "A"
+        text _("자동 진행.")
+
+    hbox:
+        label "K"
+        text _("다음 선택지, 혹은 장면 끝까지 건너뛰기.")
 
 
 screen mouse_help():
