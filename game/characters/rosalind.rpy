@@ -9,374 +9,114 @@ screen sayRosalind(who, what):
 
 # 정면
 # 얼굴 표정요소 좌표: (976, 359)
+# 눈썹: 1332,327
+# 눈: 1313, 378
+# 입: 1328, 518
+# 더듬이: 1097, 0
 
-layeredimage 로잘린드 정면:
+layeredimage 로잘린드:
     group wing:
         attribute 날개없음 default:
             Null()
         attribute 날개:
-            "images/characters/rosalind/front/wing.png"
+            "images/characters/rosalind/body/wing.png"
 
     group body:
-        attribute 몬무스 default:
-            "images/characters/rosalind/front/monmusu.png"
+        attribute 작업복 default:
+            "images/characters/rosalind/body/smock.png"
         attribute 일상복1:
-            "images/characters/rosalind/front/comfort.png"
-        attribute 일상복1_무더듬이:
-            "images/characters/rosalind/front/comfort_noantannae.png"
+            "images/characters/rosalind/body/comfort.png"
         attribute 일상복2:
-            "images/characters/rosalind/front/sexy.png"
+            "images/characters/rosalind/body/sexy.png"
         attribute 한복:
-            "images/characters/rosalind/front/hanbok.png"
+            "images/characters/rosalind/body/hanbok.png"
         attribute 장옷:
-            "images/characters/rosalind/front/hanbok_coat.png"
+            "images/characters/rosalind/body/hanbok_coat.png"
+        attribute 누드:
+            ConditionSwitch("persistent.isStreaming", "images/characters/rosalind/body/nude_censored.png",
+                            "True", "images/characters/rosalind/body/nude.png")
         attribute 예복:
-            ConditionSwitch("rosalindHappyTime", "images/characters/rosalind/front/hanbok_coat.png",
-                            "True", "images/characters/rosalind/front/hanbok.png")
+            ConditionSwitch("rosalindHappyTime", "images/characters/rosalind/body/hanbok_coat.png",
+                            "True", "images/characters/rosalind/body/hanbok.png")
         attribute 일상복:
-            ConditionSwitch("rosalindHSceneEnabled", "images/characters/rosalind/front/comfort.png",
-                            "True", "images/characters/rosalind/front/sexy.png")
+            ConditionSwitch("rosalindHSceneEnabled", "images/characters/rosalind/body/comfort.png",
+                            "True", "images/characters/rosalind/body/sexy.png")
 
-    group face:
-        pos (976, 359)
-        attribute 보통 default:
-            "images/characters/rosalind/front/faces/normal.png"
-        attribute 입벌림:
-            "images/characters/rosalind/front/faces/normal_open.png"
-
-        attribute 미소1:
-            "images/characters/rosalind/front/faces/smile_closed.png"
-        attribute 미소2:
-            "images/characters/rosalind/front/faces/smile_open.png"
-
-        attribute 웃음1:
-            "images/characters/rosalind/front/faces/laugh_allclosed.png"
-        attribute 웃음2:
-            "images/characters/rosalind/front/faces/laugh_closedeyes.png"
-        attribute 웃음3:
-            "images/characters/rosalind/front/faces/laugh_teeth.png"
-
-        attribute 윙크1:
-            "images/characters/rosalind/front/faces/wink_closed.png"
-        attribute 윙크2:
-            "images/characters/rosalind/front/faces/wink_open.png"
-
-        attribute 장난기1:
-            "images/characters/rosalind/front/faces/playful_closed.png"
-        attribute 장난기2:
-            "images/characters/rosalind/front/faces/playful_open.png"
-        attribute 장난기3:
-            "images/characters/rosalind/front/faces/playful_wink.png"
-
-        attribute 정색:
-            "images/characters/rosalind/front/faces/stern.png"
-        attribute 분노1:
-            "images/characters/rosalind/front/faces/angry_open.png"
-        attribute 분노2:
-            "images/characters/rosalind/front/faces/angry_teeth.png"
-
-        attribute 놀람1:
-            "images/characters/rosalind/front/faces/surprised_small.png"
-        attribute 놀람2:
-            "images/characters/rosalind/front/faces/surprised_large.png"
-
-        attribute 풀죽음1:
-            "images/characters/rosalind/front/faces/timid_closed.png"
-        attribute 풀죽음2:
-            "images/characters/rosalind/front/faces/timid_open.png"
-        attribute 풀죽음3:
-            "images/characters/rosalind/front/faces/timid_tongue.png"
-
-        attribute 황당1:
-            "images/characters/rosalind/front/faces/absurd_closed.png"
-        attribute 황당2:
-            "images/characters/rosalind/front/faces/absurd_open.png"
-        attribute 황당3:
-            "images/characters/rosalind/front/faces/absurd_tongue.png"
-
-        attribute 고통:
-            "images/characters/rosalind/front/faces/painful.png"
-
-        attribute 하트:
-            "images/characters/rosalind/front/faces/hearts.png"
-
-    group faceshadow:
-        pos (991, 265)
-        attribute 얼굴그림자없음 default:
+    group antenna:
+        pos (1097, 0)
+        attribute 더듬이_보통 default:
+            "images/characters/rosalind/antennae/dark.png"
+        attribute 더듬이_빛남:
+            "images/characters/rosalind/antennae/glowing.png"
+        attribute 더듬이_없음:
             Null()
-        attribute 얼굴그림자:
-            "images/characters/rosalind/front/extras/shadow.png"
 
-    group surprisedmark:
-        pos (826, 72)
-        attribute 놀람마크없음 default:
-            Null()
-        attribute 놀람마크:
-            "images/characters/rosalind/front/extras/surprisedmark.png"
+    group eyebrows:
+        pos (1332, 327)
+        attribute 눈썹_보통 default:
+            "images/characters/rosalind/eyebrows/normal.png"
+        attribute 눈썹_웃음:
+            "images/characters/rosalind/eyebrows/smile.png"
+        attribute 눈썹_놀람:
+            "images/characters/rosalind/eyebrows/surprised.png"
+        attribute 눈썹_풀죽음:
+            "images/characters/rosalind/eyebrows/timid.png"
+        attribute 눈썹_분노:
+            "images/characters/rosalind/eyebrows/angry.png"
 
-    group sweat:
-        pos (1219, 561)
-        attribute 땀없음 default:
-            Null()
-        attribute 땀:
-            "images/characters/rosalind/front/extras/sweat.png"
+    group eyes:
+        pos (1313, 378)
+        attribute 눈_보통 default:
+            "images/characters/rosalind/eyes/normal.png"
+        attribute 눈_황당:
+            "images/characters/rosalind/eyes/absurd.png"
+        attribute 눈_분노:
+            "images/characters/rosalind/eyes/angry.png"
+        attribute 눈_외면:
+            "images/characters/rosalind/eyes/away.png"
+        attribute 눈_감음:
+            "images/characters/rosalind/eyes/closed.png"
+        attribute 눈_하트:
+            "images/characters/rosalind/eyes/hearteyes.png"
+        attribute 눈_실눈:
+            "images/characters/rosalind/eyes/laugh_halfopen.png"
+        attribute 눈_웃음:
+            "images/characters/rosalind/eyes/smile_closed.png"
+        attribute 눈_놀람:
+            "images/characters/rosalind/eyes/surprised.png"
+        attribute 눈_윙크:
+            "images/characters/rosalind/eyes/wink.png"
 
-    group blush:
-        pos (971, 478)
-        attribute 홍조없음 default:
-            Null()
-        attribute 홍조:
-            "images/characters/rosalind/front/extras/blush.png"
+    group mouth:
+        pos (1328, 518)
+        attribute 입_보통 default:
+            "images/characters/rosalind/mouth/normal.png"
+        attribute 입_황당:
+            "images/characters/rosalind/mouth/absurd.png"
+        attribute 입_메롱:
+            "images/characters/rosalind/mouth/boo.png"
+        attribute 입_키스:
+            "images/characters/rosalind/mouth/kiss.png"
+        attribute 입_폭소:
+            "images/characters/rosalind/mouth/laugh.png"
+        attribute 입_크게벌림:
+            "images/characters/rosalind/mouth/open_large.png"
+        attribute 입_벌림:
+            "images/characters/rosalind/mouth/open_small.png"
+        attribute 입_우쭐:
+            "images/characters/rosalind/mouth/proud.png"
+        attribute 입_미소:
+            "images/characters/rosalind/mouth/smile_closed.png"
+        attribute 입_미소벌림:
+            "images/characters/rosalind/mouth/smile_halfopen.png"
+        attribute 입_미소치아:
+            "images/characters/rosalind/mouth/smile_teeth.png"
+        attribute 입_삐침:
+            "images/characters/rosalind/mouth/sulk.png"
+        attribute 입_혀내밂:
+            "images/characters/rosalind/mouth/tongue.png"
 
-image side 로잘린드 정면 = LayeredImageProxy("로잘린드 정면", Transform(crop=(700, 0, 1800, 1800), zoom=.4))
-
-# 좌측면
-# 얼굴 표정요소 좌표: (650, 366)
-
-layeredimage 로잘린드 좌측면:
-    group wing:
-        attribute 날개없음 default:
-            Null()
-        attribute 날개:
-            "images/characters/rosalind/left/wing.png"
-
-    group body:
-        attribute 몬무스 default:
-            "images/characters/rosalind/left/monmusu.png"
-        attribute 일상복1:
-            "images/characters/rosalind/left/comfort.png"
-        attribute 일상복1_무더듬이:
-            "images/characters/rosalind/left/comfort_noantannae.png"
-        attribute 일상복2:
-            "images/characters/rosalind/left/sexy.png"
-        attribute 한복:
-            "images/characters/rosalind/left/hanbok.png"
-        attribute 장옷:
-            "images/characters/rosalind/left/hanbok_coat.png"
-        attribute 예복:
-            ConditionSwitch("rosalindHappyTime", "images/characters/rosalind/left/hanbok_coat.png",
-                            "True", "images/characters/rosalind/left/hanbok.png")
-        attribute 일상복:
-            ConditionSwitch("rosalindHSceneEnabled", "images/characters/rosalind/left/comfort.png",
-                            "True", "images/characters/rosalind/left/sexy.png")
-
-    group face:
-        pos (650, 366)
-        attribute 보통 default:
-            "images/characters/rosalind/left/faces/normal.png"
-        attribute 입벌림:
-            "images/characters/rosalind/left/faces/normal_open.png"
-
-        attribute 미소1:
-            "images/characters/rosalind/left/faces/smile_closed.png"
-        attribute 미소2:
-            "images/characters/rosalind/left/faces/smile_open.png"
-
-        attribute 웃음1:
-            "images/characters/rosalind/left/faces/laugh_allclosed.png"
-        attribute 웃음2:
-            "images/characters/rosalind/left/faces/laugh_closedeyes.png"
-        attribute 웃음3:
-            "images/characters/rosalind/left/faces/laugh_teeth.png"
-
-        attribute 윙크1:
-            "images/characters/rosalind/left/faces/wink_closed.png"
-        attribute 윙크2:
-            "images/characters/rosalind/left/faces/wink_open.png"
-
-        attribute 장난기1:
-            "images/characters/rosalind/left/faces/playful_closed.png"
-        attribute 장난기2:
-            "images/characters/rosalind/left/faces/playful_open.png"
-        attribute 장난기3:
-            "images/characters/rosalind/left/faces/playful_wink.png"
-
-        attribute 정색:
-            "images/characters/rosalind/left/faces/stern.png"
-        attribute 분노1:
-            "images/characters/rosalind/left/faces/angry_open.png"
-        attribute 분노2:
-            "images/characters/rosalind/left/faces/angry_teeth.png"
-
-        attribute 놀람1:
-            "images/characters/rosalind/left/faces/surprised_small.png"
-        attribute 놀람2:
-            "images/characters/rosalind/left/faces/surprised_large.png"
-
-        attribute 풀죽음1:
-            "images/characters/rosalind/left/faces/timid_closed.png"
-        attribute 풀죽음2:
-            "images/characters/rosalind/left/faces/timid_open.png"
-        attribute 풀죽음3:
-            "images/characters/rosalind/left/faces/timid_tongue.png"
-
-        attribute 황당1:
-            "images/characters/rosalind/left/faces/absurd_closed.png"
-        attribute 황당2:
-            "images/characters/rosalind/left/faces/absurd_open.png"
-        attribute 황당3:
-            "images/characters/rosalind/left/faces/absurd_tongue.png"
-
-        attribute 고통:
-            "images/characters/rosalind/left/faces/painful.png"
-
-        attribute 하트:
-            "images/characters/rosalind/left/faces/hearts.png"
-
-    group faceshadow:
-        pos (590, 135)
-        attribute 그림자없음 default:
-            Null()
-        attribute 그림자:
-            "images/characters/rosalind/left/extras/shadow.png"
-
-    group surprisedmark:
-        pos (494, 83)
-        attribute 놀람마크없음 default:
-            Null()
-        attribute 놀람마크:
-            "images/characters/rosalind/left/extras/surprisedmark.png"
-
-    group sweat:
-        pos (887, 572)
-        attribute 땀없음 default:
-            Null()
-        attribute 땀:
-            "images/characters/rosalind/left/extras/sweat.png"
-
-    group blush:
-        pos (644, 487)
-        attribute 홍조없음 default:
-            Null()
-        attribute 홍조:
-            "images/characters/rosalind/left/extras/blush.png"
-
-
-image side 로잘린드 좌측면 = LayeredImageProxy("로잘린드 좌측면", Transform(crop=(300, 0, 1900, 1800), zoom=.4))
-
-# 우측면
-# 얼굴 표정요소 좌표: (950, 366)
-
-
-layeredimage 로잘린드 우측면:
-    group wing:
-        attribute 날개없음 default:
-            Null()
-        attribute 날개:
-            "images/characters/rosalind/right/wing.png"
-
-    group body:
-        attribute 몬무스 default:
-            "images/characters/rosalind/right/monmusu.png"
-        attribute 일상복1:
-            "images/characters/rosalind/right/comfort.png"
-        attribute 일상복1_무더듬이:
-            "images/characters/rosalind/right/comfort_noantannae.png"
-        attribute 일상복2:
-            "images/characters/rosalind/right/sexy.png"
-        attribute 한복:
-            "images/characters/rosalind/right/hanbok.png"
-        attribute 장옷:
-            "images/characters/rosalind/right/hanbok_coat.png"
-        attribute 예복:
-            ConditionSwitch("rosalindHappyTime", "images/characters/rosalind/right/hanbok_coat.png",
-                            "True", "images/characters/rosalind/right/hanbok.png")
-        attribute 일상복:
-            ConditionSwitch("rosalindHSceneEnabled", "images/characters/rosalind/right/comfort.png",
-                            "True", "images/characters/rosalind/right/sexy.png")
-
-    group face:
-        pos (950, 366)
-        attribute 보통 default:
-            "images/characters/rosalind/right/faces/normal.png"
-        attribute 입벌림:
-            "images/characters/rosalind/right/faces/normal_open.png"
-
-        attribute 미소1:
-            "images/characters/rosalind/right/faces/smile_closed.png"
-        attribute 미소2:
-            "images/characters/rosalind/right/faces/smile_open.png"
-
-        attribute 웃음1:
-            "images/characters/rosalind/right/faces/laugh_allclosed.png"
-        attribute 웃음2:
-            "images/characters/rosalind/right/faces/laugh_closedeyes.png"
-        attribute 웃음3:
-            "images/characters/rosalind/right/faces/laugh_teeth.png"
-
-        attribute 윙크1:
-            "images/characters/rosalind/right/faces/wink_closed.png"
-        attribute 윙크2:
-            "images/characters/rosalind/right/faces/wink_open.png"
-
-        attribute 장난기1:
-            "images/characters/rosalind/right/faces/playful_closed.png"
-        attribute 장난기2:
-            "images/characters/rosalind/right/faces/playful_open.png"
-        attribute 장난기3:
-            "images/characters/rosalind/right/faces/playful_wink.png"
-
-        attribute 정색:
-            "images/characters/rosalind/right/faces/stern.png"
-        attribute 분노1:
-            "images/characters/rosalind/right/faces/angry_open.png"
-        attribute 분노2:
-            "images/characters/rosalind/right/faces/angry_teeth.png"
-
-        attribute 놀람1:
-            "images/characters/rosalind/right/faces/surprised_small.png"
-        attribute 놀람2:
-            "images/characters/rosalind/right/faces/surprised_large.png"
-
-        attribute 풀죽음1:
-            "images/characters/rosalind/right/faces/timid_closed.png"
-        attribute 풀죽음2:
-            "images/characters/rosalind/right/faces/timid_open.png"
-        attribute 풀죽음3:
-            "images/characters/rosalind/right/faces/timid_tongue.png"
-
-        attribute 황당1:
-            "images/characters/rosalind/right/faces/absurd_closed.png"
-        attribute 황당2:
-            "images/characters/rosalind/right/faces/absurd_open.png"
-        attribute 황당3:
-            "images/characters/rosalind/right/faces/absurd_tongue.png"
-
-        attribute 고통:
-            "images/characters/rosalind/right/faces/painful.png"
-
-        attribute 하트:
-            "images/characters/rosalind/right/faces/hearts.png"
-
-    group faceshadow:
-        pos (837, 135)
-        attribute 그림자없음 default:
-            Null()
-        attribute 그림자:
-            "images/characters/rosalind/right/extras/shadow.png"
-
-    group surprisedmark:
-        pos (1274, 83)
-        attribute 놀람마크없음 default:
-            Null()
-        attribute 놀람마크:
-            "images/characters/rosalind/right/extras/surprisedmark.png"
-
-    group sweat:
-        pos (1029, 572)
-        attribute 땀없음 default:
-            Null()
-        attribute 땀:
-            "images/characters/rosalind/right/extras/sweat.png"
-
-    group blush:
-        pos (945, 487)
-        attribute 홍조없음 default:
-            Null()
-        attribute 홍조:
-            "images/characters/rosalind/right/extras/blush.png"
-
-image side 로잘린드 우측면 = LayeredImageProxy("로잘린드 우측면", Transform(crop=(600, 0, 1900, 1800), zoom=.4))
+image side 로잘린드 = LayeredImageProxy("로잘린드", Transform(crop=(700, 0, 1800, 1800), zoom=.4))
 
 layeredimage 로잘린드 유년기:
     group whole:
@@ -386,6 +126,8 @@ layeredimage 로잘린드 유년기:
             "images/characters/rosalind/youth/speak.png"
         attribute 미소:
             "images/characters/rosalind/youth/smile.png"
+        attribute 분노:
+            "images/characters/rosalind/youth/angry.png"
 
 image side 로잘린드 유년기 = LayeredImageProxy("로잘린드 유년기", Transform(crop=(150, 0, 1100, 1500), zoom=.4))
 

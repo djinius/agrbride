@@ -57,8 +57,8 @@ label hyojuHappyEnding(forcePlay = False):
     수새식 "나쁜 자식! 나중에 밥 사라. 난 먼저 간다."
     주인공 "어, 잘 가 식아."
 
-    scene hyoju_shower with dissolve
-    $ gHScene = True
+    scene hyojuSex with dissolve
+    # $ gHScene = True
     독백 "열심히 땀을 빼고 집에 와서 유산소 운동도 함께 했다."
     독백 "둘이 흠뻑 흘린 땀을 닦아냈다."
 
@@ -68,7 +68,7 @@ label hyojuHappyEnding(forcePlay = False):
     주인공 "우선 땀부터 다 닦아내자. 그 다음에 말해 줄게."
 
     $ gHScene = False
-    scene hyoju_study with dissolve
+    scene hyojuStudy with dissolve
     독백 "샤워를 끝내고 침대에 앉은 효주에게 『근육 트레이닝 방법론 기초』를 꺼내 주었다."
     효주 "웬 책이야? 나 공부 싫어하는 거 알잖아. 좋은 몸 두고 왜 머리를 써?"
     주인공 "속는 셈 치고 한 번만 읽어봐."

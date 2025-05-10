@@ -1,13 +1,18 @@
 ﻿# 이 파일에 게임 스크립트를 입력합니다.
 
-default splashTesting = True
-default builditTesting = False
+default splashTesting = False
+default builditTesting = True
 default _in_gameplay = False
 
 # 여기에서부터 게임이 시작합니다.
 label start:
     $ persistent.rosalindName = "로잘린드"
     $ _in_gameplay = True
+
+    call ch01Opening(True)
+    call rosalindEp03_0WetDream(True)
+    
+    return
 
     call ch01Opening
 
@@ -17,7 +22,9 @@ label start:
 
     menu:
         "영지 부임":
-            call ch03Eclosion
+            call ch03Eclosion(True)
+
+    return
 
     $ initBuildings()
 

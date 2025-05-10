@@ -9,6 +9,16 @@
 ##
 ## https://www.renpy.org/doc/html/screen_special.html#say
 
+image sayIcon = Animation("gui/say/say00.png", .5, 
+    "gui/say/say01.png", .5, 
+    "gui/say/say02.png", .5, 
+    "gui/say/say03.png", 1.5)
+
+image thinkIcon = Animation("gui/say/think00.png", .5, 
+    "gui/say/think01.png", .5, 
+    "gui/say/think02.png", .5, 
+    "gui/say/think03.png", 1.5)
+
 screen sayNormal(who, what, hcolor='#FFF', bg='gui/textbox.png'):
 
     ## 사이드 이미지가 있는 경우 글자 위에 표시합니다. 휴대폰 환경에서는 보이지
@@ -40,26 +50,36 @@ screen sayNormal(who, what, hcolor='#FFF', bg='gui/textbox.png'):
             else:
                 pass
 
-    use splashQuickMenu(hscene = False)
+    use splashQuickMenu()
 
-screen sayHScene(who, what, hcolor="#444"):
+screen sayHScene(who, what, hcolor="#444", icon=None):
+    default hideSplashMenu = True
     style_prefix "say"
 
     window:
         id "window"
         background None
 
+        has hbox
+        align (.5, 1.)
+
+        imagebutton:
+            xysize (50, 50)
+            action ToggleLocalVariable("hideSplashMenu")
+            if icon is None:
+                idle Solid("0000")
+            else:
+                idle icon
+
         text what id "what":
             color "#FFF"
             outlines [(3, hcolor, 1, 1)]
                 
-            yalign 1.
+    use splashQuickMenu(hscene = hideSplashMenu)
 
-        use splashQuickMenu(hscene = True)
-
-screen sayCommon(who, what, hcolor="#666", bg='gui/textbox.png'):
+screen sayCommon(who, what, hcolor="#666", bg='gui/textbox.png', icon=None):
     if gHScene:
-        use sayHScene(who, what, hcolor)
+        use sayHScene(who, what, hcolor, icon)
     else:
         use sayNormal(who, what, hcolor, bg)
 
