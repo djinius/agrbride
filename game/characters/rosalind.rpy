@@ -131,3 +131,4 @@ layeredimage 로잘린드 유년기:
 
 image side 로잘린드 유년기 = LayeredImageProxy("로잘린드 유년기", Transform(crop=(150, 0, 1100, 1500), zoom=.4))
 
+image side 로잘린드 투명 = Null()

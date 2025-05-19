@@ -1,6 +1,6 @@
 ﻿# 이 파일에 게임 스크립트를 입력합니다.
 
-default splashTesting = False
+default splashTesting = True
 default builditTesting = True
 default _in_gameplay = False
 
@@ -10,11 +10,11 @@ label start:
     $ _in_gameplay = True
 
     call ch01Opening(True)
-    call rosalindEp03_0WetDream(True)
+    # call rosalindEp03_0WetDream(True)
+    call rosalindEp03_1Apologize(True)
     
     return
 
-    call ch01Opening
 
     menu:
         "과외 시작":

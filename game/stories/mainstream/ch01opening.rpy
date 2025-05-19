@@ -16,7 +16,7 @@ label ch01Opening(forcePlay = False):
     scene palaceGarden:
         align (.5, .5)
 
-    show 효주 정면 한복:
+    show 효주 한복:
         pos (.70, .15) anchor (.5, .0)
         zoom .3
 
@@ -24,9 +24,9 @@ label ch01Opening(forcePlay = False):
         pos (.85, .15) anchor (.5, .0)
         zoom .3
 
-    show 로잘린드 정면 장옷:
+    show 로잘린드 장옷:
         pos (.5, 0) anchor (.5, .0)
-        zoom .75
+        zoom .5
 
     play sound audio.alarmclock loop
     pause 2.5
@@ -388,7 +388,7 @@ label inputNameDone:
     # 로잘린드(어린아이), 말리, 효주 스탠딩 일러스트 등장
     # 루시, 꼭지, 카라 스탠딩 일러스트 등장
 
-    show 효주 정면 한복:
+    show 효주 한복:
         pos (.5, .0) anchor (.5, .0)
         zoom .35
 
@@ -450,7 +450,7 @@ label inputNameDone:
 
     수나 "다음은 효주. 내 호위이자 시녀들 중에서 가장 힘이 장사이니라."
     수나 "그리고 불과 금속을 잘 다루지. 아주 훌륭한 장인이야."
-    효주 @입벌림 "반가워, 후작. 효주야."
+    효주 @입_벌림 "반가워, 후작. 효주야."
     수나 "말리를 소개하마. 우리가 먹을 열매를 생산해 주는 아주 고마운 존재이니라."
     수나 "그 뿐이 아니다. 수기를 감지하고 물을 자유자재로 다루지."
     말리 @입벌림 "나는 말루스푸밀라. 줄여서 말리라고 부르면 돼, 후작 자기."

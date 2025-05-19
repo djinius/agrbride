@@ -194,15 +194,15 @@ screen main_menu():
     # add gui.main_menu_background
     add "palaceGarden":
         align (.5, .5)
-    add "효주 정면 한복":
+    add "효주 한복":
         pos (.70, .15) anchor (.5, .0)
         zoom .3
     add "말리 정면 한복":
         pos (.85, .15) anchor (.5, .0)
         zoom .3
-    add "로잘린드 정면 장옷":
+    add "로잘린드 장옷 눈썹_웃음 눈_보통 입_미소":
         pos (.5, 0) anchor (.5, .0)
-        zoom .75
+        zoom .6
 
     ## 이 빈 프레임은 기본 메뉴를 어둡게 만듭니다.
     frame:
